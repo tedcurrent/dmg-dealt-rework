@@ -26,7 +26,28 @@ var LolApiCtrl = {
 				return callback(err, result);
 			});
 		}.bind(this));
+	},
+
+	getChampionWithId: function(id, callback) {
+		options = {
+			champData: 'blurb',
+			locale: 'en_US',
+			dataById: true
+		};
+		LolApi.Static.getChampionById(id, options, callback);
+	},
+
+	getAllChampions: function(callback) {
+		var options = {
+			champData: 'blurb',
+			locale: 'en_US',
+			dataById: true
+		};
+		LolApi.Static.getChampionList(options, callback);
 	}
 };
 
 module.exports = LolApiCtrl;
+
+// Speed testing
+// 1. get id + recent games --> 300-500ms

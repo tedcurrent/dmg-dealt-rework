@@ -3,6 +3,7 @@
 var express = require("express");
 var router = express.Router();
 var LolApiController = require("../controllers/lolApiController");
+var Util = require("../utils/util");
 
 router.get("/getGames/:name/:region", function(req, res, next) {
 	var params = {
@@ -13,6 +14,13 @@ router.get("/getGames/:name/:region", function(req, res, next) {
 		if (err) {
 			return next(err);
 		}
+		var games = Util.formatLolGames(result);
+		res.json(games);
+	});
+});
+
+router.get("/getAllChampions", function(req, res, next) {
+	LolApiController.getAllChampions(function(err, result) {
 		res.json(result);
 	});
 });
