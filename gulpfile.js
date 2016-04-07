@@ -8,6 +8,7 @@ var reactify = require("reactify");
 var source = require("vinyl-source-stream");
 var concat = require("gulp-concat");
 var lint = require("gulp-eslint");
+var champDataUtil = require("./server/utils/champDataUtil");
 
 var config = {
 	paths: {
@@ -15,6 +16,7 @@ var config = {
 		mainJs: "./src/main.js",
 		css: "./src/**/*.css",
 		images: "./src/images/*",
+		static: "./server/static",
 		dist: "./dist"
 	}
 };
@@ -56,6 +58,11 @@ gulp.task("lint", function() {
 	return gulp.src(config.paths.js)
 		.pipe(lint())
 		.pipe(lint.format());
+});
+
+// Write static data
+gulp.task("static", function() {
+	champDataUtil.writeChampsToPath(config.paths.static + "/championData.json");
 });
 
 // Watch files
