@@ -5,7 +5,7 @@ var AppConfig = require("../../appconfig");
 LolApi.init(AppConfig.LOL_API.API_KEY, AppConfig.LOL_API.REGION);
 
 var LolApiCtrl = {
-	getSummonerId: function(params, callback) {
+	getSummonerAndId: function(params, callback) {
 		LolApi.Summoner.getByName(params.name, params.region, function(err, result) {
 			if (err) {
 				return callback(err);
@@ -28,7 +28,7 @@ var LolApiCtrl = {
 	},
 
 	getRecentGamesWithSummoner: function(summonerInfo, callback) {
-		this.getSummonerId(summonerInfo, function(err, summoner) {
+		this.getSummonerAndId(summonerInfo, function(err, summoner) {
 			if (err) {
 				return callback(err);
 			}
