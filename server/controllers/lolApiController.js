@@ -24,11 +24,12 @@ var LolApiCtrl = {
 	},
 
 	getSummoner: function(summonerInfoRaw, callback) {
-		var name = summonerInfoRaw.name.toLowerCase().trim();
+		var name = summonerInfoRaw.name.replace(/\s+/g, "").toLowerCase();
 		var region = summonerInfoRaw.region.toLowerCase();
 
+
 		LolApi.Summoner.getByName(name, region, function(err, result) {
-			if (err) {
+			if (err || !result) {
 				return callback(err);
 			}
 
