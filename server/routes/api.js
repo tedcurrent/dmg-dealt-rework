@@ -6,7 +6,12 @@ var LolApiController = require("../controllers/lolApiController");
 var Util = require("../utils/util");
 
 router.get("/getGames/:name/:region", function(req, res, next) {
-	LolApiController.getRecentGamesWithSummoner(req, function(err, result) {
+	var summonerInfo = {
+			name: req.params.name.toLowerCase(),
+			region: req.params.region.toLowerCase()
+	};
+	
+	LolApiController.getRecentGamesWithSummoner(summonerInfo, function(err, result) {
 		if (err) {
 			return next(err);
 		}

@@ -27,12 +27,7 @@ var LolApiCtrl = {
 		});
 	},
 
-	getRecentGamesWithSummoner: function(req, callback) {
-		var summonerInfo = {
-			name: req.params.name.toLowerCase(),
-			region: req.params.region.toLowerCase()
-		};
-
+	getRecentGamesWithSummoner: function(summonerInfo, callback) {
 		this.getSummonerId(summonerInfo, function(err, summoner) {
 			if (err) {
 				return callback(err);
@@ -43,7 +38,7 @@ var LolApiCtrl = {
 					summoner: summoner,
 					games: result
 				}
-				
+
 				return callback(err, gameInfo);
 			});
 		}.bind(this));
