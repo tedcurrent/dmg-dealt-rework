@@ -36,7 +36,7 @@ var ScoreController = {
 						results.newHighScore = true;
 						callback(err, results);
 					});
-					
+
 				} else {
 					callback(err, results);
 				}
@@ -47,16 +47,3 @@ var ScoreController = {
 };
 
 module.exports = ScoreController;
-
-// FLOW:
-// summoner+latestscore obj comes in from frontend
-// get score with summoner id from db
-// 	if exists
-// 		if dmgDealt higher in new
-// 			update
-// 			set newscore true
-// 		else
-// 			return
-// 	else
-// 		save
-
