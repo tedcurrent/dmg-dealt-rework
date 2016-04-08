@@ -18,7 +18,7 @@ var highScoreModel = new Schema({
 
 	summonerId: {
 		type: String,
-		default: ""
+		required: true
 	},
 
 	summonerName: {
