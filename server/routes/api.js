@@ -3,6 +3,7 @@
 var express = require("express");
 var router = express.Router();
 var LolApiController = require("../controllers/lolApiController");
+var HighScoreController = require("../controllers/highScoreController");
 var Util = require("../utils/util");
 
 router.get("/getSummoner/:name/:region", function(req, res, next) {
@@ -33,9 +34,12 @@ router.get("/getGames/:summonerId", function(req, res, next) {
 });
 
 router.post("/saveHighScore", function(req, res, next) {
-	res.json({
-		hello: "I will eventually check for a new highscore",
-		req: req.body
+	HighScoreController.save(req, function(err, result) {
+		if (err) {
+			return next(err);
+		}
+
+		res.json(result);
 	});
 });
 

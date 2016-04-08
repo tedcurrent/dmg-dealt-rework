@@ -7,6 +7,8 @@
 var app = require("../app");
 var debug = require("debug")("dmg-dealt-rework:server");
 var http = require("http");
+var mongoose = require("mongoose");
+var AppConfig = require("../appconfig");
 
 /**
  * Get port from environment and store in Express.
@@ -28,6 +30,18 @@ var server = http.createServer(app);
 server.listen(port);
 server.on("error", onError);
 server.on("listening", onListening);
+
+/**
+ * MongoDB connection.
+ */
+var db;
+db = mongoose.connect(AppConfig.MONGODB_CONNECTION, function(err) {
+	if (err) {
+		throw new Error("Connection to MongoDB failed");
+	} else {
+		console.log("Connection successful to: " + AppConfig.MONGODB_CONNECTION);
+	}
+});
 
 /**
  * Normalize a port into a number, string, or false.

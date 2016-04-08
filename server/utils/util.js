@@ -8,6 +8,7 @@ var Utils = {
 	formatLolGames: function(games, callback) {
 		return _.map(games, function(game) {
 			return {
+				gameId: game.gameId,
 				gameMode: game.gameMode,
 				champion: champDataUtil.championIdToChampionName(game.championId),
 				gameDate: game.createDate,

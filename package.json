@@ -14,12 +14,14 @@
     "jade": "~1.11.0",
     "leagueapi": "^0.4.14",
     "lodash": "^4.8.2",
+    "mongoose": "^4.4.11",
     "morgan": "~1.6.1",
     "object-assign": "^4.0.1",
     "react": "^0.14.8",
     "react-dom": "^0.14.8",
     "react-router": "^2.0.1",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "shortid": "^2.2.6"
   },
   "devDependencies": {
     "browserify": "^13.0.0",
