@@ -3,24 +3,42 @@ var mongoose = require("mongoose");
 var highScoreModel = require("../models/highScoreModel");
 
 module.exports = {
-	save: function(req, callback) {
-		var highScore = new highScoreModel({
-			summonerId: req.body.summonerId,
-			summonerName: req.body.summonerName,
-			profileIconId: req.body.profileIconId,
-			region: req.body.region,
-			game: {
-				gameId: req.body.gameId,
-				gameMode: req.body.gameMode,
-				gameDate: req.body.gameDate,
-				champion: req.body.champion,
-				dmgDealt: req.body.dmgDealt
-			}
-		});
+	setModel: function(req, model) {
+		model.summonerId = req.body.summonerId;
+		model.date = Date.now();
+		model.summonerName = req.body.summonerName;
+		model.profileIconId = req.body.profileIconId;
+		model.region = req.body.region;
+		model.game = {
+			gameId: req.body.gameId,
+			gameMode: req.body.gameMode,
+			gameDate: req.body.gameDate,
+			champion: req.body.champion,
+			dmgDealt: req.body.dmgDealt
+		}
+		return model;
+	},
+
+	create: function(req, callback) {
+		var highScore = new highScoreModel();
+		highScore = this.setModel(req, highScore);
 		highScore.save(function(err, highScore) {
 			callback(err, highScore);
 		});
 	},
+
+	update: function(req, oldHighScore, callback) {
+		oldHighScore = this.setModel(req, oldHighScore);
+		oldHighScore.save(function(err, newHighScore) {
+			callback(err, newHighScore);
+		});
+	},
+
+	findBySummonerId: function(req, callback) {
+		highScoreModel.findOne({summonerId: req.body.summonerId}, function(err, oldHighScore) {
+			callback(err, oldHighScore);
+		});
+	}
 
 };
 

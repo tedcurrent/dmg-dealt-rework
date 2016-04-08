@@ -4,6 +4,7 @@ var express = require("express");
 var router = express.Router();
 var LolApiController = require("../controllers/lolApiController");
 var HighScoreController = require("../controllers/highScoreController");
+var ScoreController = require("../controllers/scoreController");
 var Util = require("../utils/util");
 
 router.get("/getSummoner/:name/:region", function(req, res, next) {
@@ -34,7 +35,7 @@ router.get("/getGames/:summonerId", function(req, res, next) {
 });
 
 router.post("/saveHighScore", function(req, res, next) {
-	HighScoreController.save(req, function(err, result) {
+	ScoreController.newHighScore(req, function(err, result) {
 		if (err) {
 			return next(err);
 		}
@@ -55,6 +56,7 @@ module.exports = router;
 // }
 
 // Flow:
-// Front calls: get Games
+// Front calls: get summoner
+// Front calls: get Games with the summoner
 // Front calls: check for new Highscore after get Games
 // This way front is responsible for the flow and server just does stuff
