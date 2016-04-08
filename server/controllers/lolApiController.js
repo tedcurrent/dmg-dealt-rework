@@ -6,23 +6,6 @@ var Util = require("../utils/util");
 LolApi.init(AppConfig.LOL_API.API_KEY, AppConfig.LOL_API.REGION);
 
 var LolApiCtrl = {
-	getRecentGamesWithSummoner: function(summonerInfo, callback) {
-		this.getSummoner(summonerInfo, function(err, summoner) {
-			if (err) {
-				return callback(err);
-			}
-			
-			this.getRecentGamesBySummonerId(summoner.id, function(err, result) {
-				var gameInfo = {
-					summoner: summoner,
-					games: Util.formatLolGames(result)
-				}
-
-				return callback(err, gameInfo);
-			});
-		}.bind(this));
-	},
-
 	getSummoner: function(summonerInfoRaw, callback) {
 		var name = summonerInfoRaw.name.replace(/\s+/g, "").toLowerCase();
 		var region = summonerInfoRaw.region.toLowerCase();
@@ -36,6 +19,7 @@ var LolApiCtrl = {
 			var summoner = {
 				id: result[name].id,
 				name: result[name].name,
+				profileIconId: result[name].profileIconId,
 				region: region
 			};
 
@@ -43,9 +27,11 @@ var LolApiCtrl = {
 		});
 	},
 
-	getRecentGamesBySummonerId: function(summonerId, callback) {
+	getRecentGamesWithSummonerId: function(summonerId, callback) {
 		LolApi.getRecentGames(summonerId, function(err, result) {
-			callback(err, result);
+			var games = Util.formatLolGames(result);
+
+			return callback(err, games);
 		});
 	},
 

@@ -5,13 +5,13 @@ var router = express.Router();
 var LolApiController = require("../controllers/lolApiController");
 var Util = require("../utils/util");
 
-router.get("/getGames/:name/:region", function(req, res, next) {
+router.get("/getSummoner/:name/:region", function(req, res, next) {
 	var summonerInfo = {
 			name: req.params.name,
 			region: req.params.region
 	};
 
-	LolApiController.getRecentGamesWithSummoner(summonerInfo, function(err, result) {
+	LolApiController.getSummoner(summonerInfo, function(err, result) {
 		if (err) {
 			return next(err);
 		}
@@ -20,7 +20,19 @@ router.get("/getGames/:name/:region", function(req, res, next) {
 	});
 });
 
-router.post("/checkNewHighScore", function(req, res, next) {
+router.get("/getGames/:summonerId", function(req, res, next) {
+	var summonerId = req.params.summonerId;
+
+	LolApiController.getRecentGamesWithSummonerId(summonerId, function(err, result) {
+		if (err) {
+			return next(err);
+		}
+
+		res.json(result);
+	});
+});
+
+router.post("/saveHighScore", function(req, res, next) {
 	res.json({
 		hello: "I will eventually check for a new highscore",
 		req: req.body
