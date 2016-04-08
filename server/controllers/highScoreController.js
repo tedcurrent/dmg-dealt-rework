@@ -41,8 +41,3 @@ module.exports = {
 	}
 
 };
-
-// Needs:
-// save - fresh highscore
-// update - if dmgDealt is higher, update
-// findWithSummonerId - get the existing set to compare dmgDealt

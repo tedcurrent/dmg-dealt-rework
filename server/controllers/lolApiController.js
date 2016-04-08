@@ -10,7 +10,6 @@ var LolApiCtrl = {
 		var name = summonerInfoRaw.name.replace(/\s+/g, "").toLowerCase();
 		var region = summonerInfoRaw.region.toLowerCase();
 
-
 		LolApi.Summoner.getByName(name, region, function(err, result) {
 			if (err || !result) {
 				return callback(err);
@@ -46,7 +45,3 @@ var LolApiCtrl = {
 };
 
 module.exports = LolApiCtrl;
-
-// Speed testing
-// 1. get id + recent games --> 300-500ms
-// 2. get id + recent games + champion formatting -> 380-580ms
