@@ -3,9 +3,10 @@ var LolApiController = require("./lolApiController");
 var HighScoreController = require("./highScoreController");
 
 var _results = {};
+var _saveParams = {};
 
-function _saveUpdate(params, callback) {
-	HighScoreController.saveUpdate(params, function(err, newHs) {
+function _saveUpdate(callback) {
+	HighScoreController.saveUpdate(_saveParams, function(err, newHs) {
 		if (err) {
 			return callback(err);
 		}
@@ -19,22 +20,27 @@ function _saveUpdate(params, callback) {
 var ScoreController = {
 	newHighScore: function(req, callback) {
 		_results = {};
+		_saveParams = {};
+
 		HighScoreController.findBySummonerId(req, function(err, oldHs) {
 			if (err) {
 				return callback(err);
 			}
 
-			_results = {
-				highScore: oldHs,
-				newHighScore: false
-			};
+			_saveParams.req = req;
+			_saveParams.highScore = oldHs;
 
 			if (!oldHs) {
-				_saveUpdate({req: req}, callback);
+				_saveUpdate(callback);
 			} else {
 				if (req.body.dmgDealt > oldHs.game.dmgDealt) {
-					_saveUpdate({req: req, highScore: oldHs}, callback);
+					_saveUpdate(callback);
 				} else {
+					_results = {
+						highScore: oldHs,
+						newHighScore: false
+					};
+
 					callback(err, _results);
 				}
 			}

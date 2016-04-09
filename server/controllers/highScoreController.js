@@ -46,6 +46,7 @@ module.exports = {
 				"highScore" : { 
 		            $first : {
 		            	"id": "$_id",
+		            	"date": "$date",
 			            "summonerdId": "$summonerId",
 			            "summonerName": "$summonerName",
 			            "region": "$region",
