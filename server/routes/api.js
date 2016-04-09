@@ -44,6 +44,13 @@ router.post("/saveHighScore", function(req, res, next) {
 	});
 });
 
+router.get("/getRegionalScores", function(req, res, next) {
+	// TODO: Use score controller to get the global score and do some logical formatting if needed
+	HighScoreController.getRegionalTopScores(req, function(err, result) {
+		res.json(result);
+	});
+});
+
 module.exports = router;
 
 

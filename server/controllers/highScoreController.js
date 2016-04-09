@@ -38,6 +38,53 @@ module.exports = {
 		highScoreModel.findOne({summonerId: req.body.summonerId}, function(err, oldHighScore) {
 			callback(err, oldHighScore);
 		});
+	},
+
+	getRegionalTopScores: function(req, callback) {
+		highScoreModel.aggregate()
+			.sort({"game.dmgDealt": -1})
+			.group({
+				"_id": "$region",
+				"highScore" : { 
+		            $first : {
+			            "summonerdId": "$summonerId",
+			            "summonerName": "$summonerName",
+			            "region": "$region",
+			            "profileIconId": "$profileIconId",
+			            "game" : "$game"
+		        	}
+		    	}
+		    })
+		    .exec(function(err, res) {
+		    	console.log("ehh");
+		    	callback(err, res);
+		    });
 	}
 
 };
+
+// Users.aggregate()
+//   .group({ _id: null, maxBalance: { $max: '$balance' } })
+//   .select('-id maxBalance')
+//   .exec(function (err, res) {
+//     if (err) return handleError(err);
+//     console.log(res); // [ { maxBalance: 98 } ]
+// });
+
+
+// db.highscores.aggregate([
+//     { $sort: { "game.dmgDealt": -1 } },
+//     {
+//     $group : {
+//         "_id" : "$region",
+//         "highScore" : { 
+//             $first : {
+// 	            "summonerdId": "$summonerId",
+// 	            "summonerName": "$summonerName",
+// 	            "region": "$region",
+// 	            "profileIconId": "$profileIconId",
+// 	            "game" : "$game"
+//             }
+//         } 
+//     }
+// }]);
