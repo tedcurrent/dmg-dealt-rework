@@ -30,19 +30,15 @@ var ScoreController = {
 			_saveParams.req = req;
 			_saveParams.highScore = oldHs;
 
-			if (!oldHs) {
+			if (!oldHs || req.body.dmgDealt > oldHs.game.dmgDealt) {
 				_saveUpdate(callback);
 			} else {
-				if (req.body.dmgDealt > oldHs.game.dmgDealt) {
-					_saveUpdate(callback);
-				} else {
-					_results = {
-						highScore: oldHs,
-						newHighScore: false
-					};
+				_results = {
+					highScore: oldHs,
+					newHighScore: false
+				};
 
-					callback(err, _results);
-				}
+				callback(err, _results);
 			}
 		});
 	},
