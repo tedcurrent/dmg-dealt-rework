@@ -4,20 +4,8 @@ var HighScoreController = require("./highScoreController");
 
 var _results = {};
 
-function _createNew(req, callback) {
-	HighScoreController.create(req, function(err, newHs) {
-		if (err) {
-			return callback(err);
-		}
-
-		_results.highScore = newHs;
-		_results.newHighScore = true;
-		callback(err, _results);
-	});
-};
-
-function _updateOld(req, oldHs, callback) {
-	HighScoreController.update(req, oldHs, function(err, newHs) {
+function _saveUpdate(params, callback) {
+	HighScoreController.saveUpdate(params, function(err, newHs) {
 		if (err) {
 			return callback(err);
 		}
@@ -42,16 +30,19 @@ var ScoreController = {
 			};
 
 			if (!oldHs) {
-				_createNew(req, callback);
+				_saveUpdate({req: req}, callback);
 			} else {
 				if (req.body.dmgDealt > oldHs.game.dmgDealt) {
-					_updateOld(req, oldHs, callback);
+					_saveUpdate({req: req, highScore: oldHs}, callback);
 				} else {
 					callback(err, _results);
 				}
 			}
-			
 		});
+	},
+
+	regionalScores: function(callback) {
+		// return highscores and resolve global score
 	}
 };
 

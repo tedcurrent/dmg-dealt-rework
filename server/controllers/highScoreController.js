@@ -19,17 +19,15 @@ module.exports = {
 		return model;
 	},
 
-	create: function(req, callback) {
-		var highScore = new highScoreModel();
-		highScore = this.setModel(req, highScore);
-		highScore.save(function(err, highScore) {
-			callback(err, highScore);
-		});
-	},
+	saveUpdate: function(params, callback) {
+		var highScore = params.highScore;
 
-	update: function(req, oldHighScore, callback) {
-		oldHighScore = this.setModel(req, oldHighScore);
-		oldHighScore.save(function(err, newHighScore) {
+		if (!highScore) {
+			highScore = new highScoreModel();
+		}
+
+		highScore = this.setModel(params.req, highScore);
+		highScore.save(function(err, newHighScore) {
 			callback(err, newHighScore);
 		});
 	},
@@ -47,6 +45,7 @@ module.exports = {
 				"_id": "$region",
 				"highScore" : { 
 		            $first : {
+		            	"id": "$_id",
 			            "summonerdId": "$summonerId",
 			            "summonerName": "$summonerName",
 			            "region": "$region",
@@ -56,7 +55,6 @@ module.exports = {
 		    	}
 		    })
 		    .exec(function(err, res) {
-		    	console.log("ehh");
 		    	callback(err, res);
 		    });
 	}

@@ -53,17 +53,9 @@ router.get("/getRegionalScores", function(req, res, next) {
 
 module.exports = router;
 
-
-// Eventual return
-// {
-// 	summoner: {},
-// 	highScore: {},
-// 	recentScores: {},
-// 	newHighScore: boolean
-// }
-
 // Flow:
 // Front calls: get summoner
 // Front calls: get Games with the summoner
-// Front calls: check for new Highscore after get Games
+// Front calls: save highscore after got games
+// Front reacts: get new highscores and update + popup if new highscore
 // This way front is responsible for the flow and server just does stuff
