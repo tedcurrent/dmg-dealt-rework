@@ -17,6 +17,12 @@ var Utils = {
 		});
 	},
 
+	buildProfileIconUrl: function(iconId) {
+		var patchVersion = "6.7.1";
+		var url = "http://ddragon.leagueoflegends.com/cdn/" + patchVersion + "/img/profileicon/" + iconId + ".png";
+		return url;
+	},
+
 	formatObjectToString: function(obj) {
 		return JSON.stringify(obj);
 	},

@@ -26,7 +26,7 @@ var highScoreModel = new Schema({
 		default: ""
 	},
 
-	profileIconId: {
+	profileIconUrl: {
 		type: String,
 		default: ""
 	},

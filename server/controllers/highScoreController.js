@@ -7,7 +7,7 @@ module.exports = {
 		model.summonerId = req.body.summonerId;
 		model.date = Date.now();
 		model.summonerName = req.body.summonerName;
-		model.profileIconId = req.body.profileIconId;
+		model.profileIconUrl = req.body.profileIconUrl;
 		model.region = req.body.region;
 		model.game = {
 			gameId: req.body.gameId,
@@ -47,10 +47,10 @@ module.exports = {
 		            $first : {
 		            	"id": "$_id",
 		            	"date": "$date",
-			            "summonerdId": "$summonerId",
+			            "summonerId": "$summonerId",
 			            "summonerName": "$summonerName",
 			            "region": "$region",
-			            "profileIconId": "$profileIconId",
+			            "profileIconUrl": "$profileIconUrl",
 			            "game" : "$game"
 		        	}
 		    	}

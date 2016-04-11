@@ -18,7 +18,7 @@ var LolApiCtrl = {
 			var summoner = {
 				id: result[name].id,
 				name: result[name].name,
-				profileIconId: result[name].profileIconId,
+				profileIconUrl: Util.buildProfileIconUrl(result[name].profileIconId),
 				region: region
 			};
 
