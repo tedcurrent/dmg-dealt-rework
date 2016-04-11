@@ -38,7 +38,7 @@ module.exports = {
 		});
 	},
 
-	getRegionalTopScores: function(req, callback) {
+	getRegionalTopScores: function(callback) {
 		highScoreModel.aggregate()
 			.sort({"game.dmgDealt": -1})
 			.group({
