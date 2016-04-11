@@ -52,7 +52,7 @@ var ScoreController = {
 
 	getRegionalScores: function(callback) {
 		_results = {};
-		// TODO: Use score controller to get the global score and do some logical formatting if needed
+
 		HighScoreController.getRegionalTopScores(function(err, result) {
 			_results = _.orderBy(result, ["highScore.game.dmgDealt"], ["desc"]);
 			_addGlobalScore();
