@@ -1,0 +1,11 @@
+#nprogress {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+
+	.bar {
+		height: 3px;
+		background: $highlight-color;
+	}
+}

@@ -16,22 +16,27 @@
     "lodash": "^4.8.2",
     "mongoose": "^4.4.11",
     "morgan": "~1.6.1",
+    "nprogress": "^0.2.0",
     "object-assign": "^4.0.1",
     "react": "^0.14.8",
     "react-dom": "^0.14.8",
     "react-router": "^2.0.1",
     "serve-favicon": "~2.3.0",
-    "shortid": "^2.2.6"
+    "shortid": "^2.2.6",
+    "superagent": "^1.8.3"
   },
   "devDependencies": {
     "browserify": "^13.0.0",
     "eslint-plugin-react": "^4.2.3",
     "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-clean-css": "^2.0.6",
     "gulp-concat": "^2.6.0",
     "gulp-env": "^0.4.0",
     "gulp-eslint": "^2.0.0",
     "gulp-livereload": "^3.8.1",
     "gulp-nodemon": "^2.0.6",
+    "gulp-sass": "^2.2.0",
     "reactify": "^1.1.1",
     "vinyl-source-stream": "^1.1.0"
   }

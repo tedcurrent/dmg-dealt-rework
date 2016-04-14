@@ -1,12 +1,25 @@
 "use scrict";
 
 var React = require("react");
+var ApiRequestActions = require("../actions/ApiRequestActions");
+var SummonerSearchStore = require("../stores/SummonerSearchStore");
 
 var Test = React.createClass({
+	test: function(e) {
+		e.preventDefault();
+		var query = {
+			summonerName: "taistelusamppa",
+			summonerRegion: "euw"
+		};
+		ApiRequestActions.getSummoner(query);
+	},
+
 	render: function() {
 		return (
 			<div className="test">
-				<p>I am hohoho {this.props.test}</p>
+				<form>
+					<input type="submit" value="Get summoner" onClick={this.test}/>
+				</form>
 			</div>
 		);
 	}

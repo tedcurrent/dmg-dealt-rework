@@ -6,15 +6,19 @@ var env = require("gulp-env");
 var browserify = require("browserify");
 var reactify = require("reactify");
 var source = require("vinyl-source-stream");
-var concat = require("gulp-concat");
 var lint = require("gulp-eslint");
+var concat = require("gulp-concat");
+var autoprefixer = require("gulp-autoprefixer");
+var cleanCSS = require("gulp-clean-css");
+var sass = require("gulp-sass");
 var champDataUtil = require("./server/utils/champDataUtil");
 
 var config = {
 	paths: {
 		js: "./src/**/*.js",
 		mainJs: "./src/main.js",
-		css: "./src/**/*.css",
+		sass: "./src/stylesheets/main.scss",
+		styles: ["./src/stylesheets/**/*.css", "./src/stylesheets/**/*.scss"],
 		images: "./src/images/*",
 		static: "./server/static",
 		dist: "./dist"
@@ -32,8 +36,11 @@ gulp.task("js", function() {
 });
 
 // Concat all css
-gulp.task("css", function() {
-	gulp.src(config.paths.css)
+gulp.task("styles", function() {
+	gulp.src(config.paths.sass)
+		.pipe(sass().on("error", sass.logError))
+		.pipe(autoprefixer())
+		.pipe(cleanCSS())
 		.pipe(concat("bundle.css"))
 		.pipe(gulp.dest(config.paths.dist + "/css"));
 });
@@ -68,7 +75,7 @@ gulp.task("static", function() {
 // Watch files
 gulp.task("watch", function() {
 	gulp.watch(config.paths.js, ["js", "lint"]);
-	gulp.watch(config.paths.css, ["css"]);
+	gulp.watch(config.paths.styles, ["styles"]);
 });
 
-gulp.task("default", ["css", "js", "lint", "dev", "watch"]);
+gulp.task("default", ["styles", "js", "lint", "dev", "watch"]);
