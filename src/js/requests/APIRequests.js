@@ -11,10 +11,10 @@ var APIRequests = {
 			.get("/api/getSummoner/" + query.summonerName + "/" + query.summonerRegion)
 			.end(function(err, result) {
 				if (err) {
-					// needs handling
+					ApiResponseActions.updateSummonerSearchResult(JSON.parse(err.response.text));
+				} else {
+					ApiResponseActions.updateSummonerSearchResult(JSON.parse(result.text));
 				}
-				var parsedResult = JSON.parse(result.text);
-				ApiResponseActions.updateSummonerSearchResult(parsedResult);
 				NProgress.done();
 			});
 	}

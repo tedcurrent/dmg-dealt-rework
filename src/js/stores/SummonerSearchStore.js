@@ -33,4 +33,3 @@ AppDispatcher.register(function(action) {
 });
 
 module.exports = SummonerSearchStore;
-
