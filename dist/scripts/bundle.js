@@ -26523,7 +26523,7 @@ var Test = React.createClass({displayName: "Test",
 		e.preventDefault();
 		var query = {
 			summonerName: "taist    elusamppa",
-			summonerRegion: "euasdw"
+			summonerRegion: "euw"
 		};
 		ApiRequestActions.getSummoner(query);
 	},
@@ -26656,11 +26656,10 @@ var ReactRouter = require("react-router");
 var Router = ReactRouter.Router;
 var BrowserHistory = ReactRouter.browserHistory;
 var routes = require("./js/routes/routes");
-var Test = require("./js/components/test");
 
 ReactDOM.render(
 	React.createElement(Router, {history: BrowserHistory, routes: routes}),
 	document.getElementById("app")
 );
 
-},{"./js/components/test":232,"./js/routes/routes":236,"react":220,"react-dom":30,"react-router":58}]},{},[238]);
+},{"./js/routes/routes":236,"react":220,"react-dom":30,"react-router":58}]},{},[238]);

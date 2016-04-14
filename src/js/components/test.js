@@ -9,7 +9,7 @@ var Test = React.createClass({
 		e.preventDefault();
 		var query = {
 			summonerName: "taist    elusamppa",
-			summonerRegion: "euasdw"
+			summonerRegion: "euw"
 		};
 		ApiRequestActions.getSummoner(query);
 	},
