@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "body-parser": "~1.13.2",
+    "classnames": "^2.2.3",
     "cookie-parser": "~1.3.5",
     "debug": "~2.2.0",
     "express": "~4.13.1",
@@ -20,12 +21,16 @@
     "object-assign": "^4.0.1",
     "react": "^0.14.8",
     "react-dom": "^0.14.8",
+    "react-input-autosize": "^0.6.10",
     "react-router": "^2.0.1",
+    "react-select": "^0.9.1",
     "serve-favicon": "~2.3.0",
     "shortid": "^2.2.6",
     "superagent": "^1.8.3"
   },
   "devDependencies": {
+    "babel-preset-react": "^6.5.0",
+    "babelify": "^7.2.0",
     "browserify": "^13.0.0",
     "eslint-plugin-react": "^4.2.3",
     "gulp": "^3.9.1",
@@ -37,7 +42,6 @@
     "gulp-livereload": "^3.8.1",
     "gulp-nodemon": "^2.0.6",
     "gulp-sass": "^2.2.0",
-    "reactify": "^1.1.1",
     "vinyl-source-stream": "^1.1.0"
   }
 }

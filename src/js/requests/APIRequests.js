@@ -11,7 +11,7 @@ var APIRequests = {
 			.get("/api/getSummoner/" + query.summonerName + "/" + query.summonerRegion)
 			.end(function(err, result) {
 				if (err) {
-					ApiResponseActions.updateSummonerSearchResult(JSON.parse(err.response.text));
+					ApiResponseActions.summonerSearchError(JSON.parse(err.response.text));
 				} else {
 					ApiResponseActions.updateSummonerSearchResult(JSON.parse(result.text));
 				}
