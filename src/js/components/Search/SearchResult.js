@@ -12,12 +12,12 @@ var SearchResult = React.createClass({
 	gotResults: function() {
 		var summoner = this.props.searchResult.summoner;
 
-		if (_.isEmpty(summoner)) {
-			return;
-		}
-
 		if (!summoner) {
 			return "No summoner found.";
+		}
+
+		if (_.isEmpty(summoner)) {
+			return;
 		}
 
 		return (

@@ -42632,14 +42632,13 @@ var Dropdown = React.createClass({
 	},
 
 	render: function () {
-		var self = this;
-		var options = self.props.options.map(function (option) {
+		var options = this.props.options.map(function (option) {
 			return React.createElement(
 				"option",
-				{ key: option[self.props.valueField], value: option[self.props.valueField] },
-				option[self.props.labelField]
+				{ key: option[this.props.valueField], value: option[this.props.valueField] },
+				option[this.props.labelField]
 			);
-		});
+		}.bind(this));
 		return React.createElement(
 			"select",
 			{ id: this.props.id,
@@ -42714,12 +42713,12 @@ var SearchResult = React.createClass({
 	gotResults: function () {
 		var summoner = this.props.searchResult.summoner;
 
-		if (_.isEmpty(summoner)) {
-			return;
-		}
-
 		if (!summoner) {
 			return "No summoner found.";
+		}
+
+		if (_.isEmpty(summoner)) {
+			return;
 		}
 
 		return React.createElement(
@@ -42773,22 +42772,22 @@ var SummonerSearchStore = require("../../stores/SummonerSearchStore");
 
 var regionOptions = [{
 	description: "EUW",
-	code: "euw"
+	short: "euw"
 }, {
 	description: "EUNE",
-	code: "eune"
+	short: "eune"
 }, {
 	description: "NA",
-	code: "na"
+	short: "na"
 }, {
 	description: "KR",
-	code: "kr"
+	short: "kr"
 }, {
 	description: "CN",
-	code: "cn"
+	short: "cn"
 }, {
 	description: "LAN",
-	code: "lan"
+	short: "lan"
 }];
 
 var Search = React.createClass({
@@ -42874,7 +42873,7 @@ var Search = React.createClass({
 					options: regionOptions,
 					value: this.state.regionSelected,
 					labelField: "description",
-					valueField: "code",
+					valueField: "short",
 					onChange: this.dropDownChange
 				})
 			),

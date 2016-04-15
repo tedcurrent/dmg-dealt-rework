@@ -12,27 +12,27 @@ var SummonerSearchStore = require("../../stores/SummonerSearchStore");
 var regionOptions = [
 	{
 		description: "EUW",
-		code: "euw"
+		short: "euw"
 	},
 	{
 		description: "EUNE",
-		code: "eune"
+		short: "eune"
 	},
 	{
 		description: "NA",
-		code: "na"
+		short: "na"
 	},
 	{
 		description: "KR",
-		code: "kr"
+		short: "kr"
 	},
 	{
 		description: "CN",
-		code: "cn"
+		short: "cn"
 	},
 	{
 		description: "LAN",
-		code: "lan"
+		short: "lan"
 	}
 ];
 
@@ -110,7 +110,7 @@ var Search = React.createClass({
 						options={regionOptions} 
 						value={this.state.regionSelected}
 						labelField="description"
-						valueField="code"
+						valueField="short"
 						onChange={this.dropDownChange}
 					/>
 				</SearchInputContainer>

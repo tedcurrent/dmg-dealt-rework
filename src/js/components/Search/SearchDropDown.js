@@ -8,14 +8,13 @@ var Dropdown = React.createClass({
 	},
 	
 	render: function() {
-		var self = this;
-		var options = self.props.options.map(function(option) {
+		var options = this.props.options.map(function(option) {
 			return (
-				<option key={option[self.props.valueField]} value={option[self.props.valueField]}>
-					{option[self.props.labelField]}
+				<option key={option[this.props.valueField]} value={option[this.props.valueField]}>
+					{option[this.props.labelField]}
 				</option>
 			);
-		});
+		}.bind(this));
 		return (
 			<select id={this.props.id} 
 				className="form-control" 
