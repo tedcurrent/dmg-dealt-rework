@@ -12,7 +12,7 @@ var LolApiCtrl = {
 
 		LolApi.Summoner.getByName(name, region, function(err, result) {
 			if (err || !result) {
-				return callback(err);
+				return callback(null, {});
 			}
 
 			var summoner = {

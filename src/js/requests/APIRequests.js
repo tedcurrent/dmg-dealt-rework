@@ -3,6 +3,7 @@
 var ApiResponseActions = require("../actions/ApiResponseActions");
 var request = require("superagent");
 var NProgress = require("nprogress");
+var _ = require("lodash");
 
 var APIRequests = {
 	getSummoner: function(query) {
@@ -17,7 +18,9 @@ var APIRequests = {
 				if (err) {
 					ApiResponseActions.summonerSearchError(JSON.parse(err.response.text));
 				} else {
-					ApiResponseActions.updateSummonerSearchResult(JSON.parse(result.text));
+					var parsedResults = JSON.parse(result.text);
+					parsedResults = !_.isEmpty(parsedResults) ? parsedResults : false;
+					ApiResponseActions.updateSummonerSearchResult(parsedResults);
 				}
 				NProgress.done();
 			});

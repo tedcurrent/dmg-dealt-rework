@@ -2,24 +2,32 @@
 
 var React = require("react");
 var Image = require("../Common/Image");
+var _ = require("lodash");
 
 var SearchResult = React.createClass({
-	noResults: function() {
-		return "No results";
+	errorResult: function() {
+		return "An error occurred. Please try again";
 	},
 
 	gotResults: function() {
-		if (!this.props.searchResult.summoner.id) {
+		var summoner = this.props.searchResult.summoner;
+
+		if (_.isEmpty(summoner)) {
 			return;
 		}
+
+		if (!summoner) {
+			return "No summoner found.";
+		}
+
 		return (
 			<div>
 				<div className="thumbnail-container">
-					<Image src={this.props.searchResult.summoner.profileIconUrl} alt={"summoner icon"} />
+					<Image src={summoner.profileIconUrl} alt={"summoner icon"} />
 				</div>
-				<span>{this.props.searchResult.summoner.name}</span>
-				<span>{this.props.searchResult.summoner.region}</span>
-				<span>{this.props.searchResult.summoner.level}</span>
+				<span>{summoner.name}</span>
+				<span>{summoner.region}</span>
+				<span>{summoner.level}</span>
 			</div>
 		);
 	},
@@ -27,7 +35,7 @@ var SearchResult = React.createClass({
 	render: function() {
 		return (
 			<div className="search-result">
-				{this.props.searchResult.errors ? this.noResults() : this.gotResults()}
+				{this.props.searchResult.errors ? this.errorResult() : this.gotResults()}
 			</div>
 		);
 	}
