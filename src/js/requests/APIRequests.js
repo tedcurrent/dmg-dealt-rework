@@ -6,6 +6,10 @@ var NProgress = require("nprogress");
 
 var APIRequests = {
 	getSummoner: function(query) {
+		if (query.summonerName === "") {
+			return;
+		}
+
 		NProgress.start();
 		request
 			.get("/api/getSummoner/" + query.summonerName + "/" + query.summonerRegion)

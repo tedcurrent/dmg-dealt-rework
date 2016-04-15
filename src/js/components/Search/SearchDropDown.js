@@ -24,7 +24,7 @@ var Dropdown = React.createClass({
 				{options}
 			</select>
 		);
-	},
+	}
 });
 
 module.exports = Dropdown;
