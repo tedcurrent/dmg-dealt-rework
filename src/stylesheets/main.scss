@@ -38,3 +38,12 @@ body {
   color: $bodyTextColor;
   background: $bodyBackground;
 }
+
+select {
+   background-color: $bodyBackground;
+   width: 60px;
+   padding: 5px;
+   font-size: 16px;
+   border: 1px solid gold;
+   height: 34px;
+}

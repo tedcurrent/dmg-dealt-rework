@@ -3,6 +3,10 @@
 var React = require("react");
 
 var Dropdown = React.createClass({
+	handleChange: function(e) {
+		this.props.onChange(e.target.value);
+	},
+	
 	render: function() {
 		var self = this;
 		var options = self.props.options.map(function(option) {
@@ -21,11 +25,6 @@ var Dropdown = React.createClass({
 			</select>
 		);
 	},
-
-	handleChange: function(e) {
-		this.props.onChange(e.target.value);
-	}
-
 });
 
 module.exports = Dropdown;

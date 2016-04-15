@@ -24559,6 +24559,10 @@ var React = require("react");
 var Dropdown = React.createClass({
 	displayName: "Dropdown",
 
+	handleChange: function (e) {
+		this.props.onChange(e.target.value);
+	},
+
 	render: function () {
 		var self = this;
 		var options = self.props.options.map(function (option) {
@@ -24576,12 +24580,7 @@ var Dropdown = React.createClass({
 				onChange: this.handleChange },
 			options
 		);
-	},
-
-	handleChange: function (e) {
-		this.props.onChange(e.target.value);
 	}
-
 });
 
 module.exports = Dropdown;
