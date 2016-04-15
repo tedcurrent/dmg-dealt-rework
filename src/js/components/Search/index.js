@@ -4,6 +4,7 @@ var React = require("react");
 var SearchInputContainer = require("./SearchInputContainer");
 var SearchInput = require("./SearchInput");
 var SearchDropDown = require("./SearchDropDown");
+var SearchResult = require("./SearchResult");
 var ApiRequestActions = require("../../actions/ApiRequestActions");
 var ApiResponseActions = require("../../actions/ApiResponseActions");
 var SummonerSearchStore = require("../../stores/SummonerSearchStore");
@@ -62,19 +63,27 @@ var Search = React.createClass({
 	},
 
 	dropDownChange: function(value) {
-		this.setState({regionSelected: value});
+		this.setState({regionSelected: value}, function() {
+			this.anyInputChange();
+		}.bind(this));
 	},
 
-	searchInputChange: function(value) {
-		this.setState({querySent: false, queryValue: value}, function() {
+	queryStringChange: function(value) {
+		this.setState({queryValue: value}, function() {
+			this.anyInputChange();
+		}.bind(this));
+	},
+
+	anyInputChange: function() {
+		this.setState({querySent: false}, function() {
 			clearTimeout(this._timeOut);
 			this._timeOut = setTimeout(function() {
 				this.querySubmit();
 				this.setState({querySent: true});
 			}.bind(this), 400);
 		});
-		
-		if (!value) {
+
+		if (!this.state.queryValue) {
 			this.resetResults();
 		}
 	},
@@ -99,7 +108,7 @@ var Search = React.createClass({
 					<SearchInput 
 						value={this.state.queryValue}
 						querySent={this.state.querySent}
-						onChange={this.searchInputChange}
+						onChange={this.queryStringChange}
 					/>
 					<SearchDropDown
 						options={regionOptions} 
@@ -109,7 +118,9 @@ var Search = React.createClass({
 						onChange={this.dropDownChange}
 					/>
 				</SearchInputContainer>
-
+				<SearchResult 
+					searchResult={this.state.searchResults}
+				/>
 			</div>
 		);
 	}

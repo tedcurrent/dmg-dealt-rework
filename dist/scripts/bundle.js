@@ -26487,7 +26487,7 @@ var ApiRequestActions = {
 
 module.exports = ApiRequestActions;
 
-},{"../constants/AppConstants":237,"../dispatcher/AppDispatcher":238,"../requests/APIRequests":239}],230:[function(require,module,exports){
+},{"../constants/AppConstants":238,"../dispatcher/AppDispatcher":239,"../requests/APIRequests":240}],230:[function(require,module,exports){
 "use strict";
 
 var AppDispatcher = require("../dispatcher/AppDispatcher");
@@ -26511,7 +26511,7 @@ var ApiResponseActions = {
 
 module.exports = ApiResponseActions;
 
-},{"../constants/AppConstants":237,"../dispatcher/AppDispatcher":238}],231:[function(require,module,exports){
+},{"../constants/AppConstants":238,"../dispatcher/AppDispatcher":239}],231:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -26555,7 +26555,7 @@ var Main = React.createClass({
 
 module.exports = Main;
 
-},{"../Search/index":236,"react":220}],233:[function(require,module,exports){
+},{"../Search/index":237,"react":220}],233:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -26637,9 +26637,55 @@ module.exports = SearchInputContainer;
 "use strict";
 
 var React = require("react");
+
+var SearchResult = React.createClass({
+	displayName: "SearchResult",
+
+	noResults: function () {
+		return "No results";
+	},
+
+	gotResults: function () {
+		return React.createElement(
+			"div",
+			null,
+			React.createElement(
+				"span",
+				null,
+				this.props.searchResult.summoner.profileIconUrl
+			),
+			React.createElement(
+				"span",
+				null,
+				this.props.searchResult.summoner.name
+			),
+			React.createElement(
+				"span",
+				null,
+				this.props.searchResult.summoner.region
+			)
+		);
+	},
+
+	render: function () {
+		return React.createElement(
+			"div",
+			{ className: "search-result" },
+			this.props.searchResult.errors > 0 ? this.noResults() : this.gotResults()
+		);
+	}
+});
+
+module.exports = SearchResult;
+
+},{"react":220}],237:[function(require,module,exports){
+"use strict";
+
+var React = require("react");
 var SearchInputContainer = require("./SearchInputContainer");
 var SearchInput = require("./SearchInput");
 var SearchDropDown = require("./SearchDropDown");
+var SearchResult = require("./SearchResult");
 var ApiRequestActions = require("../../actions/ApiRequestActions");
 var ApiResponseActions = require("../../actions/ApiResponseActions");
 var SummonerSearchStore = require("../../stores/SummonerSearchStore");
@@ -26693,11 +26739,19 @@ var Search = React.createClass({
 	},
 
 	dropDownChange: function (value) {
-		this.setState({ regionSelected: value });
+		this.setState({ regionSelected: value }, function () {
+			this.anyInputChange();
+		}.bind(this));
 	},
 
-	searchInputChange: function (value) {
-		this.setState({ querySent: false, queryValue: value }, function () {
+	queryStringChange: function (value) {
+		this.setState({ queryValue: value }, function () {
+			this.anyInputChange();
+		}.bind(this));
+	},
+
+	anyInputChange: function () {
+		this.setState({ querySent: false }, function () {
 			clearTimeout(this._timeOut);
 			this._timeOut = setTimeout(function () {
 				this.querySubmit();
@@ -26705,7 +26759,7 @@ var Search = React.createClass({
 			}.bind(this), 400);
 		});
 
-		if (!value) {
+		if (!this.state.queryValue) {
 			this.resetResults();
 		}
 	},
@@ -26737,7 +26791,7 @@ var Search = React.createClass({
 				React.createElement(SearchInput, {
 					value: this.state.queryValue,
 					querySent: this.state.querySent,
-					onChange: this.searchInputChange
+					onChange: this.queryStringChange
 				}),
 				React.createElement(SearchDropDown, {
 					options: regionOptions,
@@ -26746,21 +26800,24 @@ var Search = React.createClass({
 					valueField: "code",
 					onChange: this.dropDownChange
 				})
-			)
+			),
+			React.createElement(SearchResult, {
+				searchResult: this.state.searchResults
+			})
 		);
 	}
 });
 
 module.exports = Search;
 
-},{"../../actions/ApiRequestActions":229,"../../actions/ApiResponseActions":230,"../../stores/SummonerSearchStore":241,"./SearchDropDown":233,"./SearchInput":234,"./SearchInputContainer":235,"react":220}],237:[function(require,module,exports){
+},{"../../actions/ApiRequestActions":229,"../../actions/ApiResponseActions":230,"../../stores/SummonerSearchStore":242,"./SearchDropDown":233,"./SearchInput":234,"./SearchInputContainer":235,"./SearchResult":236,"react":220}],238:[function(require,module,exports){
 module.exports = {
 	API_REQUEST: "API_REQUEST",
 	SUMMONER_FOUND: "SUMMONER_FOUND",
 	SUMMONER_SEARCH_ERROR: "SUMMONER_SEARCH_ERROR"
 };
 
-},{}],238:[function(require,module,exports){
+},{}],239:[function(require,module,exports){
 /*
  * Copyright (c) 2014-2015, Facebook, Inc.
  * All rights reserved.
@@ -26778,7 +26835,7 @@ var Dispatcher = require("flux").Dispatcher;
 
 module.exports = new Dispatcher();
 
-},{"flux":7}],239:[function(require,module,exports){
+},{"flux":7}],240:[function(require,module,exports){
 "use strict";
 
 var ApiResponseActions = require("../actions/ApiResponseActions");
@@ -26805,7 +26862,7 @@ var APIRequests = {
 
 module.exports = APIRequests;
 
-},{"../actions/ApiResponseActions":230,"nprogress":26,"superagent":223}],240:[function(require,module,exports){
+},{"../actions/ApiResponseActions":230,"nprogress":26,"superagent":223}],241:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -26825,7 +26882,7 @@ var routes = React.createElement(
 
 module.exports = routes;
 
-},{"../404":228,"../app":231,"../components/Main/index":232,"react":220,"react-router":58}],241:[function(require,module,exports){
+},{"../404":228,"../app":231,"../components/Main/index":232,"react":220,"react-router":58}],242:[function(require,module,exports){
 "use strict";
 
 var AppDispatcher = require("../dispatcher/AppDispatcher");
@@ -26876,7 +26933,7 @@ AppDispatcher.register(function (action) {
 
 module.exports = SummonerSearchStore;
 
-},{"../constants/AppConstants":237,"../dispatcher/AppDispatcher":238,"events":5,"object-assign":27}],242:[function(require,module,exports){
+},{"../constants/AppConstants":238,"../dispatcher/AppDispatcher":239,"events":5,"object-assign":27}],243:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -26888,4 +26945,4 @@ var routes = require("./js/routes/routes");
 
 ReactDOM.render(React.createElement(Router, { history: BrowserHistory, routes: routes }), document.getElementById("app"));
 
-},{"./js/routes/routes":240,"react":220,"react-dom":30,"react-router":58}]},{},[242]);
+},{"./js/routes/routes":241,"react":220,"react-dom":30,"react-router":58}]},{},[243]);
