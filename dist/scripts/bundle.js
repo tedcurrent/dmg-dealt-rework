@@ -26487,7 +26487,7 @@ var ApiRequestActions = {
 
 module.exports = ApiRequestActions;
 
-},{"../constants/AppConstants":238,"../dispatcher/AppDispatcher":239,"../requests/APIRequests":240}],230:[function(require,module,exports){
+},{"../constants/AppConstants":239,"../dispatcher/AppDispatcher":240,"../requests/APIRequests":241}],230:[function(require,module,exports){
 "use strict";
 
 var AppDispatcher = require("../dispatcher/AppDispatcher");
@@ -26511,7 +26511,7 @@ var ApiResponseActions = {
 
 module.exports = ApiResponseActions;
 
-},{"../constants/AppConstants":238,"../dispatcher/AppDispatcher":239}],231:[function(require,module,exports){
+},{"../constants/AppConstants":239,"../dispatcher/AppDispatcher":240}],231:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -26531,6 +26531,43 @@ var App = React.createClass({
 module.exports = App;
 
 },{"react":220}],232:[function(require,module,exports){
+"use strict";
+
+var React = require("react");
+var ReactDOM = require("react-dom");
+
+var Image = React.createClass({
+	displayName: "Image",
+
+	getInitialState: function () {
+		return {
+			loaded: false
+		};
+	},
+
+	onImageLoad: function () {
+		if (this.isMounted()) {
+			this.setState({ loaded: true });
+		}
+	},
+
+	componentDidMount: function () {
+		var imgTag = ReactDOM.findDOMNode(this.refs.img);
+		var imgSrc = imgTag.getAttribute("src");
+		var img = new window.Image();
+		img.onload = this.onImageLoad;
+		img.src = imgSrc;
+	},
+
+	render: function () {
+		var imgClass = !this.state.loaded ? "image" : "image loaded";
+		return React.createElement("img", { ref: "img", src: this.props.src, alt: this.props.alt, className: imgClass });
+	}
+});
+
+module.exports = Image;
+
+},{"react":220,"react-dom":30}],233:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -26555,7 +26592,7 @@ var Main = React.createClass({
 
 module.exports = Main;
 
-},{"../Search/index":237,"react":220}],233:[function(require,module,exports){
+},{"../Search/index":238,"react":220}],234:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -26589,7 +26626,7 @@ var Dropdown = React.createClass({
 
 module.exports = Dropdown;
 
-},{"react":220}],234:[function(require,module,exports){
+},{"react":220}],235:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -26614,7 +26651,7 @@ var SearchInput = React.createClass({
 
 module.exports = SearchInput;
 
-},{"react":220}],235:[function(require,module,exports){
+},{"react":220}],236:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -26633,10 +26670,11 @@ var SearchInputContainer = React.createClass({
 
 module.exports = SearchInputContainer;
 
-},{"react":220}],236:[function(require,module,exports){
+},{"react":220}],237:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
+var Image = require("../Common/Image");
 
 var SearchResult = React.createClass({
 	displayName: "SearchResult",
@@ -26646,13 +26684,16 @@ var SearchResult = React.createClass({
 	},
 
 	gotResults: function () {
+		if (!this.props.searchResult.summoner.id) {
+			return;
+		}
 		return React.createElement(
 			"div",
 			null,
 			React.createElement(
-				"span",
-				null,
-				this.props.searchResult.summoner.profileIconUrl
+				"div",
+				{ className: "thumbnail-container" },
+				React.createElement(Image, { src: this.props.searchResult.summoner.profileIconUrl, alt: "summoner icon" })
 			),
 			React.createElement(
 				"span",
@@ -26663,6 +26704,11 @@ var SearchResult = React.createClass({
 				"span",
 				null,
 				this.props.searchResult.summoner.region
+			),
+			React.createElement(
+				"span",
+				null,
+				this.props.searchResult.summoner.level
 			)
 		);
 	},
@@ -26671,14 +26717,14 @@ var SearchResult = React.createClass({
 		return React.createElement(
 			"div",
 			{ className: "search-result" },
-			this.props.searchResult.errors > 0 ? this.noResults() : this.gotResults()
+			this.props.searchResult.errors ? this.noResults() : this.gotResults()
 		);
 	}
 });
 
 module.exports = SearchResult;
 
-},{"react":220}],237:[function(require,module,exports){
+},{"../Common/Image":232,"react":220}],238:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -26739,15 +26785,11 @@ var Search = React.createClass({
 	},
 
 	dropDownChange: function (value) {
-		this.setState({ regionSelected: value }, function () {
-			this.anyInputChange();
-		}.bind(this));
+		this.setState({ regionSelected: value }, this.anyInputChange);
 	},
 
 	queryStringChange: function (value) {
-		this.setState({ queryValue: value }, function () {
-			this.anyInputChange();
-		}.bind(this));
+		this.setState({ queryValue: value }, this.anyInputChange);
 	},
 
 	anyInputChange: function () {
@@ -26759,7 +26801,7 @@ var Search = React.createClass({
 			}.bind(this), 400);
 		});
 
-		if (!this.state.queryValue) {
+		if (!this.state.queryValue || !this.state.regionSelected) {
 			this.resetResults();
 		}
 	},
@@ -26810,14 +26852,14 @@ var Search = React.createClass({
 
 module.exports = Search;
 
-},{"../../actions/ApiRequestActions":229,"../../actions/ApiResponseActions":230,"../../stores/SummonerSearchStore":242,"./SearchDropDown":233,"./SearchInput":234,"./SearchInputContainer":235,"./SearchResult":236,"react":220}],238:[function(require,module,exports){
+},{"../../actions/ApiRequestActions":229,"../../actions/ApiResponseActions":230,"../../stores/SummonerSearchStore":243,"./SearchDropDown":234,"./SearchInput":235,"./SearchInputContainer":236,"./SearchResult":237,"react":220}],239:[function(require,module,exports){
 module.exports = {
 	API_REQUEST: "API_REQUEST",
 	SUMMONER_FOUND: "SUMMONER_FOUND",
 	SUMMONER_SEARCH_ERROR: "SUMMONER_SEARCH_ERROR"
 };
 
-},{}],239:[function(require,module,exports){
+},{}],240:[function(require,module,exports){
 /*
  * Copyright (c) 2014-2015, Facebook, Inc.
  * All rights reserved.
@@ -26835,7 +26877,7 @@ var Dispatcher = require("flux").Dispatcher;
 
 module.exports = new Dispatcher();
 
-},{"flux":7}],240:[function(require,module,exports){
+},{"flux":7}],241:[function(require,module,exports){
 "use strict";
 
 var ApiResponseActions = require("../actions/ApiResponseActions");
@@ -26844,7 +26886,7 @@ var NProgress = require("nprogress");
 
 var APIRequests = {
 	getSummoner: function (query) {
-		if (query.summonerName === "") {
+		if (query.summonerName === "" || query.summonerRegion === "") {
 			return;
 		}
 
@@ -26862,7 +26904,7 @@ var APIRequests = {
 
 module.exports = APIRequests;
 
-},{"../actions/ApiResponseActions":230,"nprogress":26,"superagent":223}],241:[function(require,module,exports){
+},{"../actions/ApiResponseActions":230,"nprogress":26,"superagent":223}],242:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -26882,7 +26924,7 @@ var routes = React.createElement(
 
 module.exports = routes;
 
-},{"../404":228,"../app":231,"../components/Main/index":232,"react":220,"react-router":58}],242:[function(require,module,exports){
+},{"../404":228,"../app":231,"../components/Main/index":233,"react":220,"react-router":58}],243:[function(require,module,exports){
 "use strict";
 
 var AppDispatcher = require("../dispatcher/AppDispatcher");
@@ -26933,7 +26975,7 @@ AppDispatcher.register(function (action) {
 
 module.exports = SummonerSearchStore;
 
-},{"../constants/AppConstants":238,"../dispatcher/AppDispatcher":239,"events":5,"object-assign":27}],243:[function(require,module,exports){
+},{"../constants/AppConstants":239,"../dispatcher/AppDispatcher":240,"events":5,"object-assign":27}],244:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -26945,4 +26987,4 @@ var routes = require("./js/routes/routes");
 
 ReactDOM.render(React.createElement(Router, { history: BrowserHistory, routes: routes }), document.getElementById("app"));
 
-},{"./js/routes/routes":241,"react":220,"react-dom":30,"react-router":58}]},{},[243]);
+},{"./js/routes/routes":242,"react":220,"react-dom":30,"react-router":58}]},{},[244]);

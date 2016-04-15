@@ -12,38 +12,60 @@ $highlight-color: gold;
 /* !GENERAL */
 
 @-ms-viewport {
-  width: device-width;
+	width: device-width;
 }
 
 * {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  -webkit-font-smoothing: antialiased;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	-webkit-font-smoothing: antialiased;
 }
 
 html {
-  font-family: 'Alegreya', sans-serif;
-  min-height: 100%;
-  position: relative;
-  padding-bottom: 20em;
-  height: 100%;
+	font-family: 'Alegreya', sans-serif;
+	min-height: 100%;
+	position: relative;
+	padding-bottom: 20em;
+	height: 100%;
 }
 
 body {
-  font-size: 1em;
-  line-height: 1.2em;
-  color: $bodyTextColor;
-  background: $bodyBackground;
+	font-size: 1em;
+	line-height: 1.2em;
+	color: $bodyTextColor;
+	background: $bodyBackground;
 }
 
 select {
-   background-color: $bodyBackground;
-   width: 60px;
-   padding: 5px;
-   font-size: 16px;
-   border: 1px solid gold;
-   height: 34px;
+	background-color: $bodyBackground;
+	width: 60px;
+	padding: 5px;
+	font-size: 16px;
+	border: 1px solid gold;
+	height: 34px;
+}
+
+.image {
+	opacity: 0;
+	transition: opacity 0.3s;
+
+	&.loaded {
+		opacity: 1;
+	}
+}
+
+.search-result {
+	.thumbnail-container {
+		width: 52px;
+		display: inline-block;
+		vertical-align: middle;
+		margin-right: 0.5em;
+
+		img {
+			width: 100%;
+		}
+	}
 }

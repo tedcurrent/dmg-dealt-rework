@@ -63,15 +63,11 @@ var Search = React.createClass({
 	},
 
 	dropDownChange: function(value) {
-		this.setState({regionSelected: value}, function() {
-			this.anyInputChange();
-		}.bind(this));
+		this.setState({regionSelected: value}, this.anyInputChange);
 	},
 
 	queryStringChange: function(value) {
-		this.setState({queryValue: value}, function() {
-			this.anyInputChange();
-		}.bind(this));
+		this.setState({queryValue: value}, this.anyInputChange);
 	},
 
 	anyInputChange: function() {
@@ -83,7 +79,7 @@ var Search = React.createClass({
 			}.bind(this), 400);
 		});
 
-		if (!this.state.queryValue) {
+		if (!this.state.queryValue || !this.state.regionSelected) {
 			this.resetResults();
 		}
 	},

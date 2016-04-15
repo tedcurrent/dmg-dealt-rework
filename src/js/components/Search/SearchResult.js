@@ -1,6 +1,7 @@
 "use strict";
 
 var React = require("react");
+var Image = require("../Common/Image");
 
 var SearchResult = React.createClass({
 	noResults: function() {
@@ -8,11 +9,17 @@ var SearchResult = React.createClass({
 	},
 
 	gotResults: function() {
+		if (!this.props.searchResult.summoner.id) {
+			return;
+		}
 		return (
 			<div>
-				<span>{this.props.searchResult.summoner.profileIconUrl}</span>
+				<div className="thumbnail-container">
+					<Image src={this.props.searchResult.summoner.profileIconUrl} alt={"summoner icon"} />
+				</div>
 				<span>{this.props.searchResult.summoner.name}</span>
 				<span>{this.props.searchResult.summoner.region}</span>
+				<span>{this.props.searchResult.summoner.level}</span>
 			</div>
 		);
 	},
@@ -20,7 +27,7 @@ var SearchResult = React.createClass({
 	render: function() {
 		return (
 			<div className="search-result">
-				{this.props.searchResult.errors > 0 ? this.noResults() : this.gotResults()}
+				{this.props.searchResult.errors ? this.noResults() : this.gotResults()}
 			</div>
 		);
 	}
