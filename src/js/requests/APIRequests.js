@@ -40,7 +40,7 @@ var APIRequests = {
 					NProgress.done();
 				} else {
 					var parsedGames = _.orderBy(JSON.parse(result.text), ["dmgDealt"], ["desc"]);
-					query.highScore = parsedGames[0];
+					query.topGame = parsedGames[0];
 					NProgress.set(0.5);
 					this.saveHighScore(query, function(err, hsResults) {
 						if (err) {

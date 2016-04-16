@@ -14,11 +14,11 @@ module.exports = {
 		};
 
 		model.game = {
-			gameId: req.body.highScore.gameId,
-			gameMode: req.body.highScore.gameMode,
-			gameDate: req.body.highScore.gameDate,
-			champion: req.body.highScore.champion,
-			dmgDealt: req.body.highScore.dmgDealt
+			gameId: req.body.topGame.gameId,
+			gameMode: req.body.topGame.gameMode,
+			gameDate: req.body.topGame.gameDate,
+			champion: req.body.topGame.champion,
+			dmgDealt: req.body.topGame.dmgDealt
 		};
 
 		return model;

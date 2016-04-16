@@ -6,8 +6,12 @@ var EventEmitter = require("events").EventEmitter;
 var assign = require("object-assign");
 
 var CHANGE_EVENT = "change";
+
 var _results = {
-	
+	summoner: {},
+	games: [],
+	highScore: {},
+	newHighScore: false
 };
 
 var PersonalScoresStore = assign({}, EventEmitter.prototype, {
@@ -32,7 +36,8 @@ var PersonalScoresStore = assign({}, EventEmitter.prototype, {
 AppDispatcher.register(function(action) {
 	switch(action.actionType) {
 		case AppConstants.GAMES_FOUND:
-			console.log(action.data);
+			_results = action.data;
+			console.log(_results);
 			PersonalScoresStore.emitChange();
 			break;
 		case AppConstants.GAMES_SEARCH_ERROR:

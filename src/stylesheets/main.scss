@@ -57,17 +57,26 @@ select {
 	}
 }
 
-.search-result {
-	background-color: tomato;
-	
-	.thumbnail-container {
-		width: 52px;
-		display: inline-block;
-		vertical-align: middle;
-		margin-right: 0.5em;
+#search {
+	transition: all 130ms ease-out;
+}
 
-		img {
-			width: 100%;
+.search-result-container {
+	transition: all 130ms ease-out;
+
+	.search-result {
+	background-color: tomato;
+
+		.thumbnail-container {
+			width: 52px;
+			height: 52px;
+			display: inline-block;
+			vertical-align: middle;
+			margin-right: 0.5em;
+
+			img {
+				width: 100%;
+			}
 		}
 	}
 }

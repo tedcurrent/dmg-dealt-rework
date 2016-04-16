@@ -43012,7 +43012,7 @@ var APIRequests = {
 				NProgress.done();
 			} else {
 				var parsedGames = _.orderBy(JSON.parse(result.text), ["dmgDealt"], ["desc"]);
-				query.highScore = parsedGames[0];
+				query.topGame = parsedGames[0];
 				NProgress.set(0.5);
 				this.saveHighScore(query, function (err, hsResults) {
 					if (err) {
@@ -43077,7 +43077,13 @@ var EventEmitter = require("events").EventEmitter;
 var assign = require("object-assign");
 
 var CHANGE_EVENT = "change";
-var _results = {};
+
+var _results = {
+	summoner: {},
+	games: [],
+	highScore: {},
+	newHighScore: false
+};
 
 var PersonalScoresStore = assign({}, EventEmitter.prototype, {
 	emitChange: function () {
@@ -43101,7 +43107,8 @@ var PersonalScoresStore = assign({}, EventEmitter.prototype, {
 AppDispatcher.register(function (action) {
 	switch (action.actionType) {
 		case AppConstants.GAMES_FOUND:
-			console.log(action.data);
+			_results = action.data;
+			console.log(_results);
 			PersonalScoresStore.emitChange();
 			break;
 		case AppConstants.GAMES_SEARCH_ERROR:
