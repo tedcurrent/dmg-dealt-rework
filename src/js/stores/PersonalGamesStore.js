@@ -46,6 +46,10 @@ AppDispatcher.register(function(action) {
 			PersonalScoresStore.emitChange();
 			break;
 		case AppConstants.GAMES_SEARCH_ERROR:
+			_results.summoner = {};
+			_results.games = [];
+			_results.highScore = {};
+			_results.newHighScore = false;
 			++_results.errors;
 			console.log(_results);
 			PersonalScoresStore.emitChange();
