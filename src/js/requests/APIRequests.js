@@ -16,7 +16,7 @@ var APIRequests = {
 			.get("/api/getSummoner/" + query.summonerName + "/" + query.summonerRegion)
 			.end(function(err, result) {
 				if (err) {
-					ApiResponseActions.summonerSearchError(JSON.parse(err.response.text));
+					ApiResponseActions.summonerSearchError(err);
 				} else {
 					var parsedResults = JSON.parse(result.text);
 					parsedResults = !_.isEmpty(parsedResults) ? parsedResults : false;
@@ -36,7 +36,7 @@ var APIRequests = {
 			.get("/api/getGames/" + query.id + "/" + query.region)
 			.end(function(err, result) {
 				if (err) {
-					ApiResponseActions.gameSearchError(JSON.parse(err.response.text));
+					ApiResponseActions.gameSearchError(err);
 					NProgress.done();
 				} else {
 					var parsedGames = _.orderBy(JSON.parse(result.text), ["dmgDealt"], ["desc"]);
