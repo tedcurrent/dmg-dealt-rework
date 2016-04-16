@@ -43006,7 +43006,7 @@ var APIRequests = {
 		}
 
 		NProgress.start();
-		request.get("/api/getGames/" + query.id).end(function (err, result) {
+		request.get("/api/getGames/" + query.id + "/" + query.region).end(function (err, result) {
 			if (err) {
 				ApiResponseActions.gameSearchError(JSON.parse(err.response.text));
 				NProgress.done();
@@ -43019,12 +43019,14 @@ var APIRequests = {
 						ApiResponseActions.gameSearchError(JSON.parse(err.response.text));
 					} else {
 						var hs = JSON.parse(hsResults.text);
+
 						var finalResults = {
 							summoner: hs.highScore.summoner,
 							games: parsedGames,
 							highScore: hs.highScore.game,
 							newHighScore: hs.newHighScore
 						};
+
 						ApiResponseActions.updatePersonalGames(finalResults);
 					}
 					NProgress.done();

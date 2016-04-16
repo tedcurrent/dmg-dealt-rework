@@ -22,10 +22,13 @@ router.get("/getSummoner/:name/:region", function(req, res, next) {
 	});
 });
 
-router.get("/getGames/:summonerId", function(req, res, next) {
-	var summonerId = req.params.summonerId;
+router.get("/getGames/:summonerId/:region", function(req, res, next) {
+	var summonerInfo = {
+			id: req.params.summonerId,
+			region: req.params.region
+	};
 
-	LolApiController.getRecentGamesWithSummonerId(summonerId, function(err, result) {
+	LolApiController.getRecentGamesWithSummonerInfo(summonerInfo, function(err, result) {
 		if (err) {
 			return next(err);
 		}

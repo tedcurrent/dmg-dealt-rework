@@ -27,8 +27,8 @@ var LolApiCtrl = {
 		});
 	},
 
-	getRecentGamesWithSummonerId: function(summonerId, callback) {
-		LolApi.getRecentGames(summonerId, function(err, result) {
+	getRecentGamesWithSummonerInfo: function(summonerInfo, callback) {
+		LolApi.getRecentGames(summonerInfo.id, summonerInfo.region, function(err, result) {
 			var games = Util.formatLolGames(result);
 
 			return callback(err, games);
