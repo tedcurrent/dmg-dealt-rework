@@ -41,21 +41,16 @@ var APIRequests = {
 				} else {
 					var parsedGames = _.orderBy(JSON.parse(result.text), ["dmgDealt"], ["desc"]);
 					query.topGame = parsedGames[0];
-					NProgress.set(0.5);
 					this.saveHighScore(query, function(err, hsResults) {
 						if (err) {
-							ApiResponseActions.gameSearchError(JSON.parse(err.response.text));
+							ApiResponseActions.gameSearchError(err);
 						} else {
-							var hs = JSON.parse(hsResults.text);
-
-							var finalResults = {
-								summoner: hs.highScore.summoner,
+							var finalResult = {
 								games: parsedGames,
-								highScore: hs.highScore.game,
-								newHighScore: hs.newHighScore
+								hs: JSON.parse(hsResults.text)
 							};
 
-							ApiResponseActions.updatePersonalGames(finalResults);
+							ApiResponseActions.updatePersonalGames(finalResult);
 						}
 						NProgress.done();
 					});

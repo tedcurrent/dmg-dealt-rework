@@ -43013,21 +43013,16 @@ var APIRequests = {
 			} else {
 				var parsedGames = _.orderBy(JSON.parse(result.text), ["dmgDealt"], ["desc"]);
 				query.topGame = parsedGames[0];
-				NProgress.set(0.5);
 				this.saveHighScore(query, function (err, hsResults) {
 					if (err) {
-						ApiResponseActions.gameSearchError(JSON.parse(err.response.text));
+						ApiResponseActions.gameSearchError(err);
 					} else {
-						var hs = JSON.parse(hsResults.text);
-
-						var finalResults = {
-							summoner: hs.highScore.summoner,
+						var finalResult = {
 							games: parsedGames,
-							highScore: hs.highScore.game,
-							newHighScore: hs.newHighScore
+							hs: JSON.parse(hsResults.text)
 						};
 
-						ApiResponseActions.updatePersonalGames(finalResults);
+						ApiResponseActions.updatePersonalGames(finalResult);
 					}
 					NProgress.done();
 				});
@@ -43082,7 +43077,8 @@ var _results = {
 	summoner: {},
 	games: [],
 	highScore: {},
-	newHighScore: false
+	newHighScore: false,
+	errors: 0
 };
 
 var PersonalScoresStore = assign({}, EventEmitter.prototype, {
@@ -43107,12 +43103,17 @@ var PersonalScoresStore = assign({}, EventEmitter.prototype, {
 AppDispatcher.register(function (action) {
 	switch (action.actionType) {
 		case AppConstants.GAMES_FOUND:
-			_results = action.data;
+			_results.summoner = action.data.hs.highScore.summoner;
+			_results.games = action.data.games;
+			_results.highScore = action.data.hs.highScore.game;
+			_results.newHighScore = action.data.hs.newHighScore;
+			_results.errors = 0;
 			console.log(_results);
 			PersonalScoresStore.emitChange();
 			break;
 		case AppConstants.GAMES_SEARCH_ERROR:
-			console.log(action.data);
+			++_results.errors;
+			console.log(_results);
 			PersonalScoresStore.emitChange();
 			break;
 		default:

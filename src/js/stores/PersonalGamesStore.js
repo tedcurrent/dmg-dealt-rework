@@ -11,7 +11,8 @@ var _results = {
 	summoner: {},
 	games: [],
 	highScore: {},
-	newHighScore: false
+	newHighScore: false,
+	errors: 0
 };
 
 var PersonalScoresStore = assign({}, EventEmitter.prototype, {
@@ -36,12 +37,17 @@ var PersonalScoresStore = assign({}, EventEmitter.prototype, {
 AppDispatcher.register(function(action) {
 	switch(action.actionType) {
 		case AppConstants.GAMES_FOUND:
-			_results = action.data;
+			_results.summoner = action.data.hs.highScore.summoner;
+			_results.games = action.data.games;
+			_results.highScore = action.data.hs.highScore.game;
+			_results.newHighScore = action.data.hs.newHighScore;
+			_results.errors = 0;
 			console.log(_results);
 			PersonalScoresStore.emitChange();
 			break;
 		case AppConstants.GAMES_SEARCH_ERROR:
-			console.log(action.data);
+			++_results.errors;
+			console.log(_results);
 			PersonalScoresStore.emitChange();
 			break;
 		default:
