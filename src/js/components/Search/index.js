@@ -96,6 +96,11 @@ var Search = React.createClass({
 		ApiResponseActions.updateSummonerSearchResult({});
 	},
 
+	resultClickHandler: function(summoner) {
+		var query = summoner;
+		ApiRequestActions.getPersonalGames(query);
+	},
+
 	render: function() {
 		return (
 			<div id="search">
@@ -116,6 +121,7 @@ var Search = React.createClass({
 				</SearchInputContainer>
 				<SearchResult 
 					searchResult={this.state.searchResults}
+					onClick={this.resultClickHandler}
 				/>
 			</div>
 		);

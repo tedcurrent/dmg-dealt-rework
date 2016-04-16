@@ -20,8 +20,10 @@ var SearchResult = React.createClass({
 			return;
 		}
 
+		var handleClick = this.clickHandler.bind(this, summoner);
+
 		return (
-			<div>
+			<div onClick={handleClick} className="search-result">
 				<div className="thumbnail-container">
 					<Image src={summoner.profileIconUrl} alt={"summoner icon"} />
 				</div>
@@ -32,9 +34,13 @@ var SearchResult = React.createClass({
 		);
 	},
 
+	clickHandler: function(summoner) {
+		this.props.onClick(summoner);
+	},
+
 	render: function() {
 		return (
-			<div className="search-result">
+			<div className="search-result-container">
 				{this.props.searchResult.errors ? this.errorResult() : this.gotResults()}
 			</div>
 		);

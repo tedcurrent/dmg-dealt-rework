@@ -16,6 +16,20 @@ var ApiResponseActions = {
 			actionType: AppConstants.SUMMONER_SEARCH_ERROR,
 			data: result
 		});
+	},
+
+	updatePersonalGames: function(result) {
+		AppDispatcher.dispatch({
+			actionType: AppConstants.GAMES_FOUND,
+			data: result
+		});
+	},
+
+	gameSearchError: function(result) {
+		AppDispatcher.dispatch({
+			actionType: AppConstants.GAMES_SEARCH_ERROR,
+			data: result
+		});
 	}
 };
 

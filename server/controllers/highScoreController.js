@@ -4,18 +4,23 @@ var highScoreModel = require("../models/highScoreModel");
 
 module.exports = {
 	setModel: function(req, model) {
-		model.summonerId = req.body.summonerId;
 		model.date = Date.now();
-		model.summonerName = req.body.summonerName;
-		model.profileIconUrl = req.body.profileIconUrl;
-		model.region = req.body.region;
+
+		model.summoner = {
+			summonerId: req.body.id,
+			summonerName: req.body.name,
+			profileIconUrl: req.body.profileIconUrl,
+			region: req.body.region,
+		};
+
 		model.game = {
-			gameId: req.body.gameId,
-			gameMode: req.body.gameMode,
-			gameDate: req.body.gameDate,
-			champion: req.body.champion,
-			dmgDealt: req.body.dmgDealt
-		}
+			gameId: req.body.highScore.gameId,
+			gameMode: req.body.highScore.gameMode,
+			gameDate: req.body.highScore.gameDate,
+			champion: req.body.highScore.champion,
+			dmgDealt: req.body.highScore.dmgDealt
+		};
+
 		return model;
 	},
 
@@ -33,7 +38,7 @@ module.exports = {
 	},
 
 	findBySummonerId: function(req, callback) {
-		highScoreModel.findOne({summonerId: req.body.summonerId}, function(err, oldHighScore) {
+		highScoreModel.findOne({"summoner.summonerId": req.body.id}, function(err, oldHighScore) {
 			callback(err, oldHighScore);
 		});
 	},
@@ -42,15 +47,12 @@ module.exports = {
 		highScoreModel.aggregate()
 			.sort({"game.dmgDealt": -1})
 			.group({
-				"_id": "$region",
+				"_id": "$summoner.region",
 				"highScore" : { 
 		            $first : {
 		            	"id": "$_id",
 		            	"date": "$date",
-			            "summonerId": "$summonerId",
-			            "summonerName": "$summonerName",
-			            "region": "$region",
-			            "profileIconUrl": "$profileIconUrl",
+			            "summoner": "$summoner",
 			            "game" : "$game"
 		        	}
 		    	}

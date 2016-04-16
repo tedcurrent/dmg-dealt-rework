@@ -42509,12 +42509,19 @@ var ApiRequestActions = {
 			actionType: AppConstants.API_REQUEST
 		});
 		APIRequests.getSummoner(query);
+	},
+
+	getPersonalGames: function (query) {
+		AppDispatcher.dispatch({
+			actionType: AppConstants.API_REQUEST
+		});
+		APIRequests.getPersonalGames(query);
 	}
 };
 
 module.exports = ApiRequestActions;
 
-},{"../constants/AppConstants":240,"../dispatcher/AppDispatcher":241,"../requests/APIRequests":242}],231:[function(require,module,exports){
+},{"../constants/AppConstants":241,"../dispatcher/AppDispatcher":242,"../requests/APIRequests":243}],231:[function(require,module,exports){
 "use strict";
 
 var AppDispatcher = require("../dispatcher/AppDispatcher");
@@ -42533,12 +42540,26 @@ var ApiResponseActions = {
 			actionType: AppConstants.SUMMONER_SEARCH_ERROR,
 			data: result
 		});
+	},
+
+	updatePersonalGames: function (result) {
+		AppDispatcher.dispatch({
+			actionType: AppConstants.GAMES_FOUND,
+			data: result
+		});
+	},
+
+	gameSearchError: function (result) {
+		AppDispatcher.dispatch({
+			actionType: AppConstants.GAMES_SEARCH_ERROR,
+			data: result
+		});
 	}
 };
 
 module.exports = ApiResponseActions;
 
-},{"../constants/AppConstants":240,"../dispatcher/AppDispatcher":241}],232:[function(require,module,exports){
+},{"../constants/AppConstants":241,"../dispatcher/AppDispatcher":242}],232:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -42599,6 +42620,7 @@ module.exports = Image;
 
 var React = require("react");
 var Search = require("../Search/index");
+var PersonalGames = require("../PersonalGames/index");
 
 var Main = React.createClass({
 	displayName: "Main",
@@ -42612,14 +42634,39 @@ var Main = React.createClass({
 				null,
 				"I am main"
 			),
-			React.createElement(Search, null)
+			React.createElement(Search, null),
+			React.createElement(PersonalGames, null)
 		);
 	}
 });
 
 module.exports = Main;
 
-},{"../Search/index":239,"react":221}],235:[function(require,module,exports){
+},{"../PersonalGames/index":235,"../Search/index":240,"react":221}],235:[function(require,module,exports){
+"use strict";
+
+var React = require("react");
+var PersonalGamesStore = require("../../stores/PersonalGamesStore");
+
+var PersonalGamesController = React.createClass({
+	displayName: "PersonalGamesController",
+
+	render: function () {
+		return React.createElement(
+			"div",
+			null,
+			React.createElement(
+				"h1",
+				null,
+				"Games here"
+			)
+		);
+	}
+});
+
+module.exports = PersonalGamesController;
+
+},{"../../stores/PersonalGamesStore":245,"react":221}],236:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -42639,6 +42686,7 @@ var Dropdown = React.createClass({
 				option[this.props.labelField]
 			);
 		}.bind(this));
+
 		return React.createElement(
 			"select",
 			{ id: this.props.id,
@@ -42652,7 +42700,7 @@ var Dropdown = React.createClass({
 
 module.exports = Dropdown;
 
-},{"react":221}],236:[function(require,module,exports){
+},{"react":221}],237:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -42677,7 +42725,7 @@ var SearchInput = React.createClass({
 
 module.exports = SearchInput;
 
-},{"react":221}],237:[function(require,module,exports){
+},{"react":221}],238:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -42696,7 +42744,7 @@ var SearchInputContainer = React.createClass({
 
 module.exports = SearchInputContainer;
 
-},{"react":221}],238:[function(require,module,exports){
+},{"react":221}],239:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -42721,9 +42769,11 @@ var SearchResult = React.createClass({
 			return;
 		}
 
+		var handleClick = this.clickHandler.bind(this, summoner);
+
 		return React.createElement(
 			"div",
-			null,
+			{ onClick: handleClick, className: "search-result" },
 			React.createElement(
 				"div",
 				{ className: "thumbnail-container" },
@@ -42747,10 +42797,14 @@ var SearchResult = React.createClass({
 		);
 	},
 
+	clickHandler: function (summoner) {
+		this.props.onClick(summoner);
+	},
+
 	render: function () {
 		return React.createElement(
 			"div",
-			{ className: "search-result" },
+			{ className: "search-result-container" },
 			this.props.searchResult.errors ? this.errorResult() : this.gotResults()
 		);
 	}
@@ -42758,7 +42812,7 @@ var SearchResult = React.createClass({
 
 module.exports = SearchResult;
 
-},{"../Common/Image":233,"lodash":26,"react":221}],239:[function(require,module,exports){
+},{"../Common/Image":233,"lodash":26,"react":221}],240:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -42852,6 +42906,11 @@ var Search = React.createClass({
 		ApiResponseActions.updateSummonerSearchResult({});
 	},
 
+	resultClickHandler: function (summoner) {
+		var query = summoner;
+		ApiRequestActions.getPersonalGames(query);
+	},
+
 	render: function () {
 		return React.createElement(
 			"div",
@@ -42878,7 +42937,8 @@ var Search = React.createClass({
 				})
 			),
 			React.createElement(SearchResult, {
-				searchResult: this.state.searchResults
+				searchResult: this.state.searchResults,
+				onClick: this.resultClickHandler
 			})
 		);
 	}
@@ -42886,14 +42946,16 @@ var Search = React.createClass({
 
 module.exports = Search;
 
-},{"../../actions/ApiRequestActions":230,"../../actions/ApiResponseActions":231,"../../stores/SummonerSearchStore":244,"./SearchDropDown":235,"./SearchInput":236,"./SearchInputContainer":237,"./SearchResult":238,"react":221}],240:[function(require,module,exports){
+},{"../../actions/ApiRequestActions":230,"../../actions/ApiResponseActions":231,"../../stores/SummonerSearchStore":246,"./SearchDropDown":236,"./SearchInput":237,"./SearchInputContainer":238,"./SearchResult":239,"react":221}],241:[function(require,module,exports){
 module.exports = {
 	API_REQUEST: "API_REQUEST",
 	SUMMONER_FOUND: "SUMMONER_FOUND",
-	SUMMONER_SEARCH_ERROR: "SUMMONER_SEARCH_ERROR"
+	SUMMONER_SEARCH_ERROR: "SUMMONER_SEARCH_ERROR",
+	GAMES_FOUND: "GAMES_FOUND",
+	GAMES_SEARCH_ERROR: "GAMES_SEARCH_ERROR"
 };
 
-},{}],241:[function(require,module,exports){
+},{}],242:[function(require,module,exports){
 /*
  * Copyright (c) 2014-2015, Facebook, Inc.
  * All rights reserved.
@@ -42911,7 +42973,7 @@ var Dispatcher = require("flux").Dispatcher;
 
 module.exports = new Dispatcher();
 
-},{"flux":7}],242:[function(require,module,exports){
+},{"flux":7}],243:[function(require,module,exports){
 "use strict";
 
 var ApiResponseActions = require("../actions/ApiResponseActions");
@@ -42936,12 +42998,55 @@ var APIRequests = {
 			}
 			NProgress.done();
 		});
+	},
+
+	getPersonalGames: function (query) {
+		if (_.isEmpty(query)) {
+			return;
+		}
+
+		NProgress.start();
+		request.get("/api/getGames/" + query.id).end(function (err, result) {
+			if (err) {
+				ApiResponseActions.gameSearchError(JSON.parse(err.response.text));
+				NProgress.done();
+			} else {
+				var parsedGames = _.orderBy(JSON.parse(result.text), ["dmgDealt"], ["desc"]);
+				query.highScore = parsedGames[0];
+				NProgress.set(0.5);
+				this.saveHighScore(query, function (err, hsResults) {
+					if (err) {
+						ApiResponseActions.gameSearchError(JSON.parse(err.response.text));
+					} else {
+						var hs = JSON.parse(hsResults.text);
+						var finalResults = {
+							summoner: hs.highScore.summoner,
+							games: parsedGames,
+							highScore: hs.highScore.game,
+							newHighScore: hs.newHighScore
+						};
+						ApiResponseActions.updatePersonalGames(finalResults);
+					}
+					NProgress.done();
+				});
+			}
+		}.bind(this));
+	},
+
+	saveHighScore: function (query, callback) {
+		request.post("/api/saveHighScore/").send(query).end(function (err, result) {
+			if (err) {
+				callback(err, result);
+			} else {
+				callback(null, result);
+			}
+		});
 	}
 };
 
 module.exports = APIRequests;
 
-},{"../actions/ApiResponseActions":231,"lodash":26,"nprogress":27,"superagent":224}],243:[function(require,module,exports){
+},{"../actions/ApiResponseActions":231,"lodash":26,"nprogress":27,"superagent":224}],244:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -42961,7 +43066,53 @@ var routes = React.createElement(
 
 module.exports = routes;
 
-},{"../404":229,"../app":232,"../components/Main/index":234,"react":221,"react-router":59}],244:[function(require,module,exports){
+},{"../404":229,"../app":232,"../components/Main/index":234,"react":221,"react-router":59}],245:[function(require,module,exports){
+"use strict";
+
+var AppDispatcher = require("../dispatcher/AppDispatcher");
+var AppConstants = require("../constants/AppConstants");
+var EventEmitter = require("events").EventEmitter;
+var assign = require("object-assign");
+
+var CHANGE_EVENT = "change";
+var _results = {};
+
+var PersonalScoresStore = assign({}, EventEmitter.prototype, {
+	emitChange: function () {
+		this.emit(CHANGE_EVENT);
+	},
+
+	addChangeListener: function (callback) {
+		this.on(CHANGE_EVENT, callback);
+	},
+
+	removeChangeListener: function (callback) {
+		this.removeListener(CHANGE_EVENT, callback);
+	},
+
+	getAll: function () {
+		return _results;
+	}
+
+});
+
+AppDispatcher.register(function (action) {
+	switch (action.actionType) {
+		case AppConstants.GAMES_FOUND:
+			console.log(action.data);
+			PersonalScoresStore.emitChange();
+			break;
+		case AppConstants.GAMES_SEARCH_ERROR:
+			console.log(action.data);
+			PersonalScoresStore.emitChange();
+			break;
+		default:
+	}
+});
+
+module.exports = PersonalScoresStore;
+
+},{"../constants/AppConstants":241,"../dispatcher/AppDispatcher":242,"events":5,"object-assign":28}],246:[function(require,module,exports){
 "use strict";
 
 var AppDispatcher = require("../dispatcher/AppDispatcher");
@@ -43012,7 +43163,7 @@ AppDispatcher.register(function (action) {
 
 module.exports = SummonerSearchStore;
 
-},{"../constants/AppConstants":240,"../dispatcher/AppDispatcher":241,"events":5,"object-assign":28}],245:[function(require,module,exports){
+},{"../constants/AppConstants":241,"../dispatcher/AppDispatcher":242,"events":5,"object-assign":28}],247:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -43024,4 +43175,4 @@ var routes = require("./js/routes/routes");
 
 ReactDOM.render(React.createElement(Router, { history: BrowserHistory, routes: routes }), document.getElementById("app"));
 
-},{"./js/routes/routes":243,"react":221,"react-dom":31,"react-router":59}]},{},[245]);
+},{"./js/routes/routes":244,"react":221,"react-dom":31,"react-router":59}]},{},[247]);

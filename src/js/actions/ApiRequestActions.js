@@ -10,6 +10,13 @@ var ApiRequestActions = {
 			actionType: AppConstants.API_REQUEST
 		});
 		APIRequests.getSummoner(query);
+	},
+
+	getPersonalGames: function(query) {
+		AppDispatcher.dispatch({
+			actionType: AppConstants.API_REQUEST
+		});
+		APIRequests.getPersonalGames(query);
 	}
 };
 

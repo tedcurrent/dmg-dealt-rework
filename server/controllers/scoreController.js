@@ -37,7 +37,7 @@ var ScoreController = {
 				return callback(err);
 			}
 
-			if (!oldHs || req.body.dmgDealt > oldHs.game.dmgDealt) {
+			if (!oldHs || req.body.highScore.dmgDealt > oldHs.game.dmgDealt) {
 				_saveUpdate(req, oldHs, callback);
 			} else {
 				_results = {

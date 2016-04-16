@@ -15,6 +15,7 @@ var Dropdown = React.createClass({
 				</option>
 			);
 		}.bind(this));
+		
 		return (
 			<select id={this.props.id} 
 				className="form-control" 

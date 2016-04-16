@@ -16,30 +16,32 @@ var highScoreModel = new Schema({
 		default: Date.now
 	},
 
-	summonerId: {
-		type: String,
-		required: true
-	},
+	summoner: {
+		summonerId: {
+			type: Number,
+			required: true
+		},
 
-	summonerName: {
-		type: String,
-		default: ""
-	},
+		summonerName: {
+			type: String,
+			default: ""
+		},
 
-	profileIconUrl: {
-		type: String,
-		default: ""
-	},
+		profileIconUrl: {
+			type: String,
+			default: ""
+		},
 
-	region: {
-		type: String,
-		default: ""
+		region: {
+			type: String,
+			default: ""
+		}
 	},
 
 	game: {
 		gameId: {
-			type: String,
-			default: ""
+			type: Number,
+			default: 0
 		},
 
 		gameMode: {
@@ -53,8 +55,8 @@ var highScoreModel = new Schema({
 		},
 
 		dmgDealt: {
-			type: String,
-			default: ""
+			type: Number,
+			default: 0
 		},
 
 		gameDate: {
