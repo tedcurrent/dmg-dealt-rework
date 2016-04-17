@@ -1,6 +1,7 @@
 "use strict";
 
 var React = require("react");
+var Game = require("./Game");
 
 var TopGame = React.createClass({
 	highScoreMessage: function() {
@@ -20,10 +21,7 @@ var TopGame = React.createClass({
 		return (
 			<div>
 				{this.highScoreMessage()}
-				<span>{topGame.dmgDealt}</span>
-				<span>{topGame.gameMode}</span>
-				<span>{topGame.champion}</span>
-				<span>{topGame.gameDate}</span>
+				<Game key={topGame.gameId} game={topGame}/>
 			</div>
 		);
 	},

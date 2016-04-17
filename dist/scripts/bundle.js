@@ -42521,7 +42521,7 @@ var ApiRequestActions = {
 
 module.exports = ApiRequestActions;
 
-},{"../constants/AppConstants":245,"../dispatcher/AppDispatcher":246,"../requests/APIRequests":247}],231:[function(require,module,exports){
+},{"../constants/AppConstants":246,"../dispatcher/AppDispatcher":247,"../requests/APIRequests":248}],231:[function(require,module,exports){
 "use strict";
 
 var AppDispatcher = require("../dispatcher/AppDispatcher");
@@ -42559,7 +42559,7 @@ var ApiResponseActions = {
 
 module.exports = ApiResponseActions;
 
-},{"../constants/AppConstants":245,"../dispatcher/AppDispatcher":246}],232:[function(require,module,exports){
+},{"../constants/AppConstants":246,"../dispatcher/AppDispatcher":247}],232:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -42642,30 +42642,74 @@ var Main = React.createClass({
 
 module.exports = Main;
 
-},{"../PersonalGames/index":238,"../Search/index":243,"react":221}],235:[function(require,module,exports){
+},{"../PersonalGames/index":239,"../Search/index":244,"react":221}],235:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
+
+var Game = React.createClass({
+	displayName: "Game",
+
+	// TODO: Make this into an util with the exact formatting to be displayed
+	fixDate: function (unformattedDate) {
+		var formattedDate = new Date(unformattedDate);
+		return formattedDate.toString();
+	},
+
+	render: function () {
+		var game = this.props.game;
+		return React.createElement(
+			"div",
+			{ className: "game-list" },
+			React.createElement(
+				"span",
+				null,
+				game.dmgDealt
+			),
+			React.createElement(
+				"span",
+				null,
+				game.gameMode
+			),
+			React.createElement(
+				"span",
+				null,
+				game.champion
+			),
+			React.createElement(
+				"span",
+				null,
+				this.fixDate(game.gameDate)
+			)
+		);
+	}
+});
+
+module.exports = Game;
+
+},{"react":221}],236:[function(require,module,exports){
+"use strict";
+
+var React = require("react");
+var Game = require("./Game");
 
 var GameList = React.createClass({
 	displayName: "GameList",
 
 	render: function () {
 		return React.createElement(
-			"div",
+			"ul",
 			{ className: "game-list" },
-			React.createElement(
-				"h1",
-				null,
-				"Game list here"
-			)
+			this.props.games.map(function (game) {
+				return React.createElement(Game, { key: game.gameId, game: game });
+			})
 		);
 	}
 });
 
 module.exports = GameList;
 
-},{"react":221}],236:[function(require,module,exports){
+},{"./Game":235,"react":221}],237:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -42699,10 +42743,11 @@ var SummonerInfo = React.createClass({
 
 module.exports = SummonerInfo;
 
-},{"../common/Image":244,"react":221}],237:[function(require,module,exports){
+},{"../common/Image":245,"react":221}],238:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
+var Game = require("./Game");
 
 var TopGame = React.createClass({
 	displayName: "TopGame",
@@ -42725,26 +42770,7 @@ var TopGame = React.createClass({
 			"div",
 			null,
 			this.highScoreMessage(),
-			React.createElement(
-				"span",
-				null,
-				topGame.dmgDealt
-			),
-			React.createElement(
-				"span",
-				null,
-				topGame.gameMode
-			),
-			React.createElement(
-				"span",
-				null,
-				topGame.champion
-			),
-			React.createElement(
-				"span",
-				null,
-				topGame.gameDate
-			)
+			React.createElement(Game, { key: topGame.gameId, game: topGame })
 		);
 	},
 
@@ -42759,7 +42785,7 @@ var TopGame = React.createClass({
 
 module.exports = TopGame;
 
-},{"react":221}],238:[function(require,module,exports){
+},{"./Game":235,"react":221}],239:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -42827,7 +42853,7 @@ var PersonalGamesController = React.createClass({
 
 module.exports = PersonalGamesController;
 
-},{"../../stores/PersonalGamesStore":249,"./GameList":235,"./SummonerInfo":236,"./TopGame":237,"lodash":26,"react":221}],239:[function(require,module,exports){
+},{"../../stores/PersonalGamesStore":250,"./GameList":236,"./SummonerInfo":237,"./TopGame":238,"lodash":26,"react":221}],240:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -42861,7 +42887,7 @@ var Dropdown = React.createClass({
 
 module.exports = Dropdown;
 
-},{"react":221}],240:[function(require,module,exports){
+},{"react":221}],241:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -42886,7 +42912,7 @@ var SearchInput = React.createClass({
 
 module.exports = SearchInput;
 
-},{"react":221}],241:[function(require,module,exports){
+},{"react":221}],242:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -42905,7 +42931,7 @@ var SearchInputContainer = React.createClass({
 
 module.exports = SearchInputContainer;
 
-},{"react":221}],242:[function(require,module,exports){
+},{"react":221}],243:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -42973,7 +42999,7 @@ var SearchResult = React.createClass({
 
 module.exports = SearchResult;
 
-},{"../Common/Image":233,"lodash":26,"react":221}],243:[function(require,module,exports){
+},{"../Common/Image":233,"lodash":26,"react":221}],244:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -43108,9 +43134,9 @@ var Search = React.createClass({
 
 module.exports = Search;
 
-},{"../../actions/ApiRequestActions":230,"../../actions/ApiResponseActions":231,"../../stores/SummonerSearchStore":250,"./SearchDropDown":239,"./SearchInput":240,"./SearchInputContainer":241,"./SearchResult":242,"react":221}],244:[function(require,module,exports){
+},{"../../actions/ApiRequestActions":230,"../../actions/ApiResponseActions":231,"../../stores/SummonerSearchStore":251,"./SearchDropDown":240,"./SearchInput":241,"./SearchInputContainer":242,"./SearchResult":243,"react":221}],245:[function(require,module,exports){
 arguments[4][233][0].apply(exports,arguments)
-},{"dup":233,"react":221,"react-dom":31}],245:[function(require,module,exports){
+},{"dup":233,"react":221,"react-dom":31}],246:[function(require,module,exports){
 module.exports = {
 	API_REQUEST: "API_REQUEST",
 	SUMMONER_FOUND: "SUMMONER_FOUND",
@@ -43119,7 +43145,7 @@ module.exports = {
 	GAMES_SEARCH_ERROR: "GAMES_SEARCH_ERROR"
 };
 
-},{}],246:[function(require,module,exports){
+},{}],247:[function(require,module,exports){
 /*
  * Copyright (c) 2014-2015, Facebook, Inc.
  * All rights reserved.
@@ -43137,7 +43163,7 @@ var Dispatcher = require("flux").Dispatcher;
 
 module.exports = new Dispatcher();
 
-},{"flux":7}],247:[function(require,module,exports){
+},{"flux":7}],248:[function(require,module,exports){
 "use strict";
 
 var ApiResponseActions = require("../actions/ApiResponseActions");
@@ -43207,7 +43233,7 @@ var APIRequests = {
 
 module.exports = APIRequests;
 
-},{"../actions/ApiResponseActions":231,"lodash":26,"nprogress":27,"superagent":224}],248:[function(require,module,exports){
+},{"../actions/ApiResponseActions":231,"lodash":26,"nprogress":27,"superagent":224}],249:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -43227,7 +43253,7 @@ var routes = React.createElement(
 
 module.exports = routes;
 
-},{"../404":229,"../app":232,"../components/Main/index":234,"react":221,"react-router":59}],249:[function(require,module,exports){
+},{"../404":229,"../app":232,"../components/Main/index":234,"react":221,"react-router":59}],250:[function(require,module,exports){
 "use strict";
 
 var AppDispatcher = require("../dispatcher/AppDispatcher");
@@ -43290,7 +43316,7 @@ AppDispatcher.register(function (action) {
 
 module.exports = PersonalScoresStore;
 
-},{"../constants/AppConstants":245,"../dispatcher/AppDispatcher":246,"events":5,"object-assign":28}],250:[function(require,module,exports){
+},{"../constants/AppConstants":246,"../dispatcher/AppDispatcher":247,"events":5,"object-assign":28}],251:[function(require,module,exports){
 "use strict";
 
 var AppDispatcher = require("../dispatcher/AppDispatcher");
@@ -43341,7 +43367,7 @@ AppDispatcher.register(function (action) {
 
 module.exports = SummonerSearchStore;
 
-},{"../constants/AppConstants":245,"../dispatcher/AppDispatcher":246,"events":5,"object-assign":28}],251:[function(require,module,exports){
+},{"../constants/AppConstants":246,"../dispatcher/AppDispatcher":247,"events":5,"object-assign":28}],252:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -43353,4 +43379,4 @@ var routes = require("./js/routes/routes");
 
 ReactDOM.render(React.createElement(Router, { history: BrowserHistory, routes: routes }), document.getElementById("app"));
 
-},{"./js/routes/routes":248,"react":221,"react-dom":31,"react-router":59}]},{},[251]);
+},{"./js/routes/routes":249,"react":221,"react-dom":31,"react-router":59}]},{},[252]);

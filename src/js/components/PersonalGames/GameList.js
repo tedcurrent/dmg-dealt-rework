@@ -1,13 +1,16 @@
 "use strict";
 
 var React = require("react");
+var Game = require("./Game");
 
 var GameList = React.createClass({
 	render: function() {
 		return (
-			<div className="game-list">
-				<h1>Game list here</h1>
-			</div>
+			<ul className="game-list">
+				{this.props.games.map(function (game) {
+					return <Game key={game.gameId} game={game}/>;
+				})}
+			</ul>
 		);
 	}
 });
