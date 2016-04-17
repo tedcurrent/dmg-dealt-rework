@@ -23,7 +23,10 @@ var SearchResult = React.createClass({
 		var handleClick = this.clickHandler.bind(this, summoner);
 
 		return (
-			<div onClick={handleClick} className="search-result">
+			<div onClick={handleClick} 
+				className="search-result" 
+				onMouseEnter={this.props.onHover} 
+				onMouseLeave={this.props.onHover}>
 				<div className="thumbnail-container">
 					<Image src={summoner.profileIconUrl} alt={"summoner icon"} />
 				</div>

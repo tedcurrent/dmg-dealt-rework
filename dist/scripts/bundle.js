@@ -42646,15 +42646,10 @@ module.exports = Main;
 "use strict";
 
 var React = require("react");
+var Util = require("../../util/utils");
 
 var Game = React.createClass({
 	displayName: "Game",
-
-	// TODO: Make this into an util with the exact formatting to be displayed
-	fixDate: function (unformattedDate) {
-		var formattedDate = new Date(unformattedDate);
-		return formattedDate.toString();
-	},
 
 	render: function () {
 		var game = this.props.game;
@@ -42679,7 +42674,7 @@ var Game = React.createClass({
 			React.createElement(
 				"span",
 				null,
-				this.fixDate(game.gameDate)
+				Util.fixDateToString(game.gameDate)
 			)
 		);
 	}
@@ -42687,7 +42682,7 @@ var Game = React.createClass({
 
 module.exports = Game;
 
-},{"react":221}],236:[function(require,module,exports){
+},{"../../util/utils":252,"react":221}],236:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -42879,7 +42874,9 @@ var Dropdown = React.createClass({
 			{ id: this.props.id,
 				className: "form-control",
 				value: this.props.value,
-				onChange: this.handleChange },
+				onChange: this.handleChange,
+				onMouseEnter: this.props.onHover,
+				onMouseLeave: this.props.onHover },
 			options
 		);
 	}
@@ -42905,7 +42902,8 @@ var SearchInput = React.createClass({
 			placeholder: "Summoner name",
 			autoFocus: true,
 			value: this.props.value,
-			onChange: this.handleChange
+			onChange: this.handleChange,
+			onBlur: this.props.onBlur
 		});
 	}
 });
@@ -42960,7 +42958,10 @@ var SearchResult = React.createClass({
 
 		return React.createElement(
 			"div",
-			{ onClick: handleClick, className: "search-result" },
+			{ onClick: handleClick,
+				className: "search-result",
+				onMouseEnter: this.props.onHover,
+				onMouseLeave: this.props.onHover },
 			React.createElement(
 				"div",
 				{ className: "thumbnail-container" },
@@ -43039,7 +43040,8 @@ var Search = React.createClass({
 			searchResults: SummonerSearchStore.getAll(),
 			regionSelected: "euw",
 			querySent: false,
-			queryValue: ""
+			queryValue: "",
+			canBlur: true
 		};
 	},
 
@@ -43091,6 +43093,7 @@ var Search = React.createClass({
 
 	resetResults: function () {
 		ApiResponseActions.updateSummonerSearchResult({});
+		this.setState({ canBlur: true });
 	},
 
 	resultClickHandler: function (summoner) {
@@ -43099,34 +43102,42 @@ var Search = React.createClass({
 		this.resetResults();
 	},
 
+	toggleAllowBlur: function () {
+		this.setState({ canBlur: !this.state.canBlur });
+	},
+
+	blurHandler: function () {
+		if (this.state.canBlur) {
+			this.resetResults();
+		}
+	},
+
 	render: function () {
 		return React.createElement(
 			"div",
 			{ id: "search" },
-			React.createElement(
-				"h1",
-				null,
-				"I am search"
-			),
 			React.createElement(
 				SearchInputContainer,
 				null,
 				React.createElement(SearchInput, {
 					value: this.state.queryValue,
 					querySent: this.state.querySent,
-					onChange: this.queryStringChange
+					onChange: this.queryStringChange,
+					onBlur: this.blurHandler
 				}),
 				React.createElement(SearchDropDown, {
 					options: regionOptions,
 					value: this.state.regionSelected,
 					labelField: "description",
 					valueField: "short",
-					onChange: this.dropDownChange
+					onChange: this.dropDownChange,
+					onHover: this.toggleAllowBlur
 				})
 			),
 			React.createElement(SearchResult, {
 				searchResult: this.state.searchResults,
-				onClick: this.resultClickHandler
+				onClick: this.resultClickHandler,
+				onHover: this.toggleAllowBlur
 			})
 		);
 	}
@@ -43370,6 +43381,37 @@ module.exports = SummonerSearchStore;
 },{"../constants/AppConstants":246,"../dispatcher/AppDispatcher":247,"events":5,"object-assign":28}],252:[function(require,module,exports){
 "use strict";
 
+Date.prototype.customFormat = function (formatString) {
+	var YYYY, YY, MMMM, MMM, MM, M, DDDD, DDD, DD, D, hhh, hh, h, mm, m, ss, s, ampm, AMPM, dMod, th;
+	var dateObject = this;
+	YY = ((YYYY = dateObject.getFullYear()) + "").slice(-2);
+	MM = (M = dateObject.getMonth() + 1) < 10 ? "0" + M : M;
+	MMM = (MMMM = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][M - 1]).substring(0, 3);
+	DD = (D = dateObject.getDate()) < 10 ? "0" + D : D;
+	DDD = (DDDD = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][dateObject.getDay()]).substring(0, 3);
+	th = D >= 10 && D <= 20 ? "th" : (dMod = D % 10) == 1 ? "st" : dMod == 2 ? "nd" : dMod == 3 ? "rd" : "th";
+	formatString = formatString.replace("#YYYY#", YYYY).replace("#YY#", YY).replace("#MMMM#", MMMM).replace("#MMM#", MMM).replace("#MM#", MM).replace("#M#", M).replace("#DDDD#", DDDD).replace("#DDD#", DDD).replace("#DD#", DD).replace("#D#", D).replace("#th#", th);
+
+	h = hhh = dateObject.getHours();
+	if (h == 0) h = 24;
+	if (h > 12) h -= 12;
+	hh = h < 10 ? "0" + h : h;
+	AMPM = (ampm = hhh < 12 ? "am" : "pm").toUpperCase();
+	mm = (m = dateObject.getMinutes()) < 10 ? "0" + m : m;
+	ss = (s = dateObject.getSeconds()) < 10 ? "0" + s : s;
+	return formatString.replace("#hhh#", hhh).replace("#hh#", hh).replace("#h#", h).replace("#mm#", mm).replace("#m#", m).replace("#ss#", ss).replace("#s#", s).replace("#ampm#", ampm).replace("#AMPM#", AMPM);
+};
+
+module.exports = {
+	fixDateToString: function (unformattedDate) {
+		var formattedDate = new Date(unformattedDate);
+		return formattedDate.customFormat("#DD# #MMMM#, #YYYY#").toString();
+	}
+};
+
+},{}],253:[function(require,module,exports){
+"use strict";
+
 var React = require("react");
 var ReactDOM = require("react-dom");
 var ReactRouter = require("react-router");
@@ -43379,4 +43421,4 @@ var routes = require("./js/routes/routes");
 
 ReactDOM.render(React.createElement(Router, { history: BrowserHistory, routes: routes }), document.getElementById("app"));
 
-},{"./js/routes/routes":249,"react":221,"react-dom":31,"react-router":59}]},{},[252]);
+},{"./js/routes/routes":249,"react":221,"react-dom":31,"react-router":59}]},{},[253]);

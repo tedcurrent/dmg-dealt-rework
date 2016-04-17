@@ -1,14 +1,9 @@
 "use strict";
 
 var React = require("react");
+var Util = require("../../util/utils");
 
 var Game = React.createClass({
-	// TODO: Make this into an util with the exact formatting to be displayed
-	fixDate: function(unformattedDate) {
-		var formattedDate = new Date(unformattedDate);
-		return formattedDate.toString();
-	},
-
 	render: function() {
 		var game = this.props.game;
 		return (
@@ -16,7 +11,7 @@ var Game = React.createClass({
 				<span>{game.dmgDealt}</span>
 				<span>{game.gameMode}</span>
 				<span>{game.champion}</span>
-				<span>{this.fixDate(game.gameDate)}</span>
+				<span>{Util.fixDateToString(game.gameDate)}</span>
 			</div>
 		);
 	}
