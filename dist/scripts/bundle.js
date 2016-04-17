@@ -42875,8 +42875,8 @@ var Dropdown = React.createClass({
 				className: "form-control",
 				value: this.props.value,
 				onChange: this.handleChange,
-				onMouseEnter: this.props.onHover,
-				onMouseLeave: this.props.onHover },
+				onMouseEnter: this.props.onEnter,
+				onMouseLeave: this.props.onLeave },
 			options
 		);
 	}
@@ -42960,8 +42960,8 @@ var SearchResult = React.createClass({
 			"div",
 			{ onClick: handleClick,
 				className: "search-result",
-				onMouseEnter: this.props.onHover,
-				onMouseLeave: this.props.onHover },
+				onMouseEnter: this.props.onEnter,
+				onMouseLeave: this.props.onLeave },
 			React.createElement(
 				"div",
 				{ className: "thumbnail-container" },
@@ -43093,7 +43093,7 @@ var Search = React.createClass({
 
 	resetResults: function () {
 		ApiResponseActions.updateSummonerSearchResult({});
-		this.setState({ canBlur: true });
+		this.allowBlur();
 	},
 
 	resultClickHandler: function (summoner) {
@@ -43102,8 +43102,16 @@ var Search = React.createClass({
 		this.resetResults();
 	},
 
-	toggleAllowBlur: function () {
-		this.setState({ canBlur: !this.state.canBlur });
+	allowBlur: function () {
+		this.setState({ canBlur: true }, function () {
+			console.log("Allow: " + this.state.canBlur);
+		});
+	},
+
+	disallowBlur: function () {
+		this.setState({ canBlur: false }, function () {
+			console.log("Disallow: " + this.state.canBlur);
+		});
 	},
 
 	blurHandler: function () {
@@ -43115,30 +43123,36 @@ var Search = React.createClass({
 	render: function () {
 		return React.createElement(
 			"div",
-			{ id: "search" },
+			null,
 			React.createElement(
-				SearchInputContainer,
-				null,
-				React.createElement(SearchInput, {
-					value: this.state.queryValue,
-					querySent: this.state.querySent,
-					onChange: this.queryStringChange,
-					onBlur: this.blurHandler
-				}),
-				React.createElement(SearchDropDown, {
-					options: regionOptions,
-					value: this.state.regionSelected,
-					labelField: "description",
-					valueField: "short",
-					onChange: this.dropDownChange,
-					onHover: this.toggleAllowBlur
+				"div",
+				{ id: "search" },
+				React.createElement(
+					SearchInputContainer,
+					null,
+					React.createElement(SearchInput, {
+						value: this.state.queryValue,
+						querySent: this.state.querySent,
+						onChange: this.queryStringChange,
+						onBlur: this.blurHandler
+					}),
+					React.createElement(SearchDropDown, {
+						options: regionOptions,
+						value: this.state.regionSelected,
+						labelField: "description",
+						valueField: "short",
+						onChange: this.dropDownChange,
+						onEnter: this.disallowBlur,
+						onLeave: this.allowBlur
+					})
+				),
+				React.createElement(SearchResult, {
+					searchResult: this.state.searchResults,
+					onClick: this.resultClickHandler,
+					onEnter: this.disallowBlur,
+					onLeave: this.allowBlur
 				})
-			),
-			React.createElement(SearchResult, {
-				searchResult: this.state.searchResults,
-				onClick: this.resultClickHandler,
-				onHover: this.toggleAllowBlur
-			})
+			)
 		);
 	}
 });

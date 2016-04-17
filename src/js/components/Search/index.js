@@ -95,7 +95,7 @@ var Search = React.createClass({
 
 	resetResults: function() {
 		ApiResponseActions.updateSummonerSearchResult({});
-		this.setState({canBlur: true});
+		this.allowBlur();
 	},
 
 	resultClickHandler: function(summoner) {
@@ -104,8 +104,16 @@ var Search = React.createClass({
 		this.resetResults();
 	},
 
-	toggleAllowBlur: function() {
-		this.setState({canBlur: !this.state.canBlur});
+	allowBlur: function() {
+		this.setState({canBlur: true}, function() {
+			console.log("Allow: " + this.state.canBlur);
+		});
+	},
+
+	disallowBlur: function() {
+		this.setState({canBlur: false}, function() {
+			console.log("Disallow: " + this.state.canBlur);
+		});
 	},
 
 	blurHandler: function() {
@@ -116,28 +124,32 @@ var Search = React.createClass({
 
 	render: function() {
 		return (
-			<div id="search">
-				<SearchInputContainer>
-					<SearchInput 
-						value={this.state.queryValue}
-						querySent={this.state.querySent}
-						onChange={this.queryStringChange}
-						onBlur={this.blurHandler}
+			<div>
+				<div id="search">
+					<SearchInputContainer>
+						<SearchInput 
+							value={this.state.queryValue}
+							querySent={this.state.querySent}
+							onChange={this.queryStringChange}
+							onBlur={this.blurHandler}
+						/>
+						<SearchDropDown
+							options={regionOptions} 
+							value={this.state.regionSelected}
+							labelField="description"
+							valueField="short"
+							onChange={this.dropDownChange}
+							onEnter={this.disallowBlur}
+							onLeave={this.allowBlur}
+						/>
+					</SearchInputContainer>
+					<SearchResult 
+						searchResult={this.state.searchResults}
+						onClick={this.resultClickHandler}
+						onEnter={this.disallowBlur}
+						onLeave={this.allowBlur}
 					/>
-					<SearchDropDown
-						options={regionOptions} 
-						value={this.state.regionSelected}
-						labelField="description"
-						valueField="short"
-						onChange={this.dropDownChange}
-						onHover={this.toggleAllowBlur}
-					/>
-				</SearchInputContainer>
-				<SearchResult 
-					searchResult={this.state.searchResults}
-					onClick={this.resultClickHandler}
-					onHover={this.toggleAllowBlur}
-				/>
+				</div>
 			</div>
 		);
 	}

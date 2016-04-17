@@ -21,8 +21,8 @@ var Dropdown = React.createClass({
 				className="form-control" 
 				value={this.props.value} 
 				onChange={this.handleChange}
-				onMouseEnter={this.props.onHover}
-				onMouseLeave={this.props.onHover}>
+				onMouseEnter={this.props.onEnter}
+				onMouseLeave={this.props.onLeave}>
 				{options}
 			</select>
 		);

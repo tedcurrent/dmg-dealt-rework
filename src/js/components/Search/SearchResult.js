@@ -25,8 +25,8 @@ var SearchResult = React.createClass({
 		return (
 			<div onClick={handleClick} 
 				className="search-result" 
-				onMouseEnter={this.props.onHover} 
-				onMouseLeave={this.props.onHover}>
+				onMouseEnter={this.props.onEnter} 
+				onMouseLeave={this.props.onLeave}>
 				<div className="thumbnail-container">
 					<Image src={summoner.profileIconUrl} alt={"summoner icon"} />
 				</div>
