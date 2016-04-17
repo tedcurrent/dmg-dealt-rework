@@ -99,6 +99,7 @@ var Search = React.createClass({
 	resultClickHandler: function(summoner) {
 		var query = summoner;
 		ApiRequestActions.getPersonalGames(query);
+		this.resetResults();
 	},
 
 	render: function() {

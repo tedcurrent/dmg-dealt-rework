@@ -42521,7 +42521,7 @@ var ApiRequestActions = {
 
 module.exports = ApiRequestActions;
 
-},{"../constants/AppConstants":241,"../dispatcher/AppDispatcher":242,"../requests/APIRequests":243}],231:[function(require,module,exports){
+},{"../constants/AppConstants":245,"../dispatcher/AppDispatcher":246,"../requests/APIRequests":247}],231:[function(require,module,exports){
 "use strict";
 
 var AppDispatcher = require("../dispatcher/AppDispatcher");
@@ -42559,7 +42559,7 @@ var ApiResponseActions = {
 
 module.exports = ApiResponseActions;
 
-},{"../constants/AppConstants":241,"../dispatcher/AppDispatcher":242}],232:[function(require,module,exports){
+},{"../constants/AppConstants":245,"../dispatcher/AppDispatcher":246}],232:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -42642,31 +42642,192 @@ var Main = React.createClass({
 
 module.exports = Main;
 
-},{"../PersonalGames/index":235,"../Search/index":240,"react":221}],235:[function(require,module,exports){
+},{"../PersonalGames/index":238,"../Search/index":243,"react":221}],235:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
-var PersonalGamesStore = require("../../stores/PersonalGamesStore");
 
-var PersonalGamesController = React.createClass({
-	displayName: "PersonalGamesController",
+var GameList = React.createClass({
+	displayName: "GameList",
 
 	render: function () {
 		return React.createElement(
 			"div",
-			null,
+			{ className: "game-list" },
 			React.createElement(
 				"h1",
 				null,
-				"Games here"
+				"Game list here"
 			)
+		);
+	}
+});
+
+module.exports = GameList;
+
+},{"react":221}],236:[function(require,module,exports){
+"use strict";
+
+var React = require("react");
+var Image = require("../common/Image");
+
+var SummonerInfo = React.createClass({
+	displayName: "SummonerInfo",
+
+	render: function () {
+		return React.createElement(
+			"div",
+			{ className: "summoner-info" },
+			React.createElement(
+				"div",
+				{ className: "thumbnail-container" },
+				React.createElement(Image, { src: this.props.summoner.profileIconUrl, alt: "summoner icon" })
+			),
+			React.createElement(
+				"span",
+				null,
+				this.props.summoner.summonerName
+			),
+			React.createElement(
+				"span",
+				null,
+				this.props.summoner.region
+			)
+		);
+	}
+});
+
+module.exports = SummonerInfo;
+
+},{"../common/Image":244,"react":221}],237:[function(require,module,exports){
+"use strict";
+
+var React = require("react");
+
+var TopGame = React.createClass({
+	displayName: "TopGame",
+
+	highScoreMessage: function () {
+		var newHs = this.props.newHs;
+		var topGameClass = newHs ? "top-game-new" : "top-game-old";
+		var message = newHs ? "New highscore!" : "All-time highscore";
+
+		return React.createElement(
+			"span",
+			{ className: topGameClass },
+			message
+		);
+	},
+
+	renderTopGame: function () {
+		var topGame = this.props.topGame;
+		return React.createElement(
+			"div",
+			null,
+			this.highScoreMessage(),
+			React.createElement(
+				"span",
+				null,
+				topGame.dmgDealt
+			),
+			React.createElement(
+				"span",
+				null,
+				topGame.gameMode
+			),
+			React.createElement(
+				"span",
+				null,
+				topGame.champion
+			),
+			React.createElement(
+				"span",
+				null,
+				topGame.gameDate
+			)
+		);
+	},
+
+	render: function () {
+		return React.createElement(
+			"div",
+			{ className: "top-game" },
+			this.renderTopGame()
+		);
+	}
+});
+
+module.exports = TopGame;
+
+},{"react":221}],238:[function(require,module,exports){
+"use strict";
+
+var React = require("react");
+var PersonalGamesStore = require("../../stores/PersonalGamesStore");
+var TopGame = require("./TopGame");
+var GameList = require("./GameList");
+var SummonerInfo = require("./SummonerInfo");
+var _ = require("lodash");
+
+var PersonalGamesController = React.createClass({
+	displayName: "PersonalGamesController",
+
+	getInitialState: function () {
+		return {
+			gameResults: PersonalGamesStore.getAll()
+		};
+	},
+
+	componentWillMount: function () {
+		PersonalGamesStore.addChangeListener(this._onChange);
+	},
+
+	componentWillUnmount: function () {
+		PersonalGamesStore.removeChangeListener(this._onChange);
+	},
+
+	_onChange: function () {
+		this.setState({
+			gameResults: PersonalGamesStore.getAll()
+		});
+	},
+
+	renderComponents: function () {
+		var results = this.state.gameResults;
+		if (results.errors === 0 && !_.isEmpty(results.summoner)) {
+			return React.createElement(
+				"div",
+				null,
+				React.createElement(SummonerInfo, { summoner: results.summoner }),
+				React.createElement(TopGame, { topGame: results.highScore, newHs: results.newHighScore }),
+				React.createElement(GameList, { games: results.games })
+			);
+		} else if (results.errors > 0) {
+			return React.createElement(
+				"span",
+				null,
+				"There was an error in game search. Please try again."
+			);
+		}
+	},
+
+	render: function () {
+		return React.createElement(
+			"div",
+			{ className: "personal-games" },
+			React.createElement(
+				"h1",
+				null,
+				"Games component"
+			),
+			this.renderComponents()
 		);
 	}
 });
 
 module.exports = PersonalGamesController;
 
-},{"../../stores/PersonalGamesStore":245,"react":221}],236:[function(require,module,exports){
+},{"../../stores/PersonalGamesStore":249,"./GameList":235,"./SummonerInfo":236,"./TopGame":237,"lodash":26,"react":221}],239:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -42700,7 +42861,7 @@ var Dropdown = React.createClass({
 
 module.exports = Dropdown;
 
-},{"react":221}],237:[function(require,module,exports){
+},{"react":221}],240:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -42725,7 +42886,7 @@ var SearchInput = React.createClass({
 
 module.exports = SearchInput;
 
-},{"react":221}],238:[function(require,module,exports){
+},{"react":221}],241:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -42744,7 +42905,7 @@ var SearchInputContainer = React.createClass({
 
 module.exports = SearchInputContainer;
 
-},{"react":221}],239:[function(require,module,exports){
+},{"react":221}],242:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -42812,7 +42973,7 @@ var SearchResult = React.createClass({
 
 module.exports = SearchResult;
 
-},{"../Common/Image":233,"lodash":26,"react":221}],240:[function(require,module,exports){
+},{"../Common/Image":233,"lodash":26,"react":221}],243:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -42909,6 +43070,7 @@ var Search = React.createClass({
 	resultClickHandler: function (summoner) {
 		var query = summoner;
 		ApiRequestActions.getPersonalGames(query);
+		this.resetResults();
 	},
 
 	render: function () {
@@ -42946,7 +43108,9 @@ var Search = React.createClass({
 
 module.exports = Search;
 
-},{"../../actions/ApiRequestActions":230,"../../actions/ApiResponseActions":231,"../../stores/SummonerSearchStore":246,"./SearchDropDown":236,"./SearchInput":237,"./SearchInputContainer":238,"./SearchResult":239,"react":221}],241:[function(require,module,exports){
+},{"../../actions/ApiRequestActions":230,"../../actions/ApiResponseActions":231,"../../stores/SummonerSearchStore":250,"./SearchDropDown":239,"./SearchInput":240,"./SearchInputContainer":241,"./SearchResult":242,"react":221}],244:[function(require,module,exports){
+arguments[4][233][0].apply(exports,arguments)
+},{"dup":233,"react":221,"react-dom":31}],245:[function(require,module,exports){
 module.exports = {
 	API_REQUEST: "API_REQUEST",
 	SUMMONER_FOUND: "SUMMONER_FOUND",
@@ -42955,7 +43119,7 @@ module.exports = {
 	GAMES_SEARCH_ERROR: "GAMES_SEARCH_ERROR"
 };
 
-},{}],242:[function(require,module,exports){
+},{}],246:[function(require,module,exports){
 /*
  * Copyright (c) 2014-2015, Facebook, Inc.
  * All rights reserved.
@@ -42973,7 +43137,7 @@ var Dispatcher = require("flux").Dispatcher;
 
 module.exports = new Dispatcher();
 
-},{"flux":7}],243:[function(require,module,exports){
+},{"flux":7}],247:[function(require,module,exports){
 "use strict";
 
 var ApiResponseActions = require("../actions/ApiResponseActions");
@@ -43043,7 +43207,7 @@ var APIRequests = {
 
 module.exports = APIRequests;
 
-},{"../actions/ApiResponseActions":231,"lodash":26,"nprogress":27,"superagent":224}],244:[function(require,module,exports){
+},{"../actions/ApiResponseActions":231,"lodash":26,"nprogress":27,"superagent":224}],248:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -43063,7 +43227,7 @@ var routes = React.createElement(
 
 module.exports = routes;
 
-},{"../404":229,"../app":232,"../components/Main/index":234,"react":221,"react-router":59}],245:[function(require,module,exports){
+},{"../404":229,"../app":232,"../components/Main/index":234,"react":221,"react-router":59}],249:[function(require,module,exports){
 "use strict";
 
 var AppDispatcher = require("../dispatcher/AppDispatcher");
@@ -43126,7 +43290,7 @@ AppDispatcher.register(function (action) {
 
 module.exports = PersonalScoresStore;
 
-},{"../constants/AppConstants":241,"../dispatcher/AppDispatcher":242,"events":5,"object-assign":28}],246:[function(require,module,exports){
+},{"../constants/AppConstants":245,"../dispatcher/AppDispatcher":246,"events":5,"object-assign":28}],250:[function(require,module,exports){
 "use strict";
 
 var AppDispatcher = require("../dispatcher/AppDispatcher");
@@ -43177,7 +43341,7 @@ AppDispatcher.register(function (action) {
 
 module.exports = SummonerSearchStore;
 
-},{"../constants/AppConstants":241,"../dispatcher/AppDispatcher":242,"events":5,"object-assign":28}],247:[function(require,module,exports){
+},{"../constants/AppConstants":245,"../dispatcher/AppDispatcher":246,"events":5,"object-assign":28}],251:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -43189,4 +43353,4 @@ var routes = require("./js/routes/routes");
 
 ReactDOM.render(React.createElement(Router, { history: BrowserHistory, routes: routes }), document.getElementById("app"));
 
-},{"./js/routes/routes":244,"react":221,"react-dom":31,"react-router":59}]},{},[247]);
+},{"./js/routes/routes":248,"react":221,"react-dom":31,"react-router":59}]},{},[251]);
