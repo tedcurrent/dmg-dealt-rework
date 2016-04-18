@@ -1,5 +1,7 @@
 "use strict";
 
+var AppConstants = require("../constants/AppConstants");
+
 Date.prototype.customFormat = function(formatString){
 	var YYYY,YY,MMMM,MMM,MM,M,DDDD,DDD,DD,D,hhh,hh,h,mm,m,ss,s,ampm,AMPM,dMod,th;
 	var dateObject = this;
@@ -21,9 +23,27 @@ Date.prototype.customFormat = function(formatString){
 	return formatString.replace("#hhh#", hhh).replace("#hh#", hh).replace("#h#", h).replace("#mm#", mm).replace("#m#", m).replace("#ss#", ss).replace("#s#", s).replace("#ampm#", ampm).replace("#AMPM#", AMPM);
 };
 
+String.prototype.capitalize = function(){
+	return this.replace( /(^|\s)([a-z])/g , function(m,p1,p2){ return p1+p2.toUpperCase(); } );
+};
+
 module.exports = {
 	fixDateToString: function(unformattedDate) {
 		var formattedDate = new Date(unformattedDate);
 		return formattedDate.customFormat("#DD# #MMMM#, #YYYY#").toString();
+	},
+
+	buildProfileIconUrl: function(iconId) {
+		return AppConstants.LOL_STATIC_BASE_URL + "/img/profileicon/" + iconId + ".png";
+	},
+
+	championNameForUrl: function(championName) {
+		return championName.toLowerCase().replace("'", "").replace(".", "").capitalize().replace(" ", "");
+	},
+
+	championSquareUrl: function(championName) {
+		var fullUrl = AppConstants.LOL_STATIC_BASE_URL + "/img/champion/";
+		var championNameUrlified = this.championNameForUrl(championName) + ".png";
+		return fullUrl + championNameUrlified;
 	}
 };

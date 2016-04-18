@@ -68,8 +68,8 @@ select {
 	background-color: tomato;
 
 		.thumbnail-container {
-			width: 52px;
-			height: 52px;
+			width: 45px;
+			height: 45px;
 			display: inline-block;
 			vertical-align: middle;
 			margin-right: 0.5em;
@@ -77,6 +77,20 @@ select {
 			img {
 				width: 100%;
 			}
+		}
+	}
+}
+
+.personal-games {
+	.thumbnail-container {
+		width: 72px;
+		height: 72px;
+		display: inline-block;
+		vertical-align: middle;
+		margin-right: 0.5em;
+
+		img {
+			width: 100%;
 		}
 	}
 }

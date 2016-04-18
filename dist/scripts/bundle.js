@@ -42647,15 +42647,22 @@ module.exports = Main;
 
 var React = require("react");
 var Util = require("../../util/utils");
+var Image = require("../Common/Image");
 
 var Game = React.createClass({
 	displayName: "Game",
 
 	render: function () {
 		var game = this.props.game;
+		var championSquareUrl = Util.championSquareUrl(game.champion);
 		return React.createElement(
 			"div",
-			{ className: "game-list" },
+			{ className: "game" },
+			React.createElement(
+				"div",
+				{ className: "thumbnail-container" },
+				React.createElement(Image, { src: championSquareUrl, alt: game.champion })
+			),
 			React.createElement(
 				"span",
 				null,
@@ -42682,7 +42689,7 @@ var Game = React.createClass({
 
 module.exports = Game;
 
-},{"../../util/utils":252,"react":221}],236:[function(require,module,exports){
+},{"../../util/utils":252,"../Common/Image":233,"react":221}],236:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -43157,7 +43164,8 @@ module.exports = {
 	SUMMONER_FOUND: "SUMMONER_FOUND",
 	SUMMONER_SEARCH_ERROR: "SUMMONER_SEARCH_ERROR",
 	GAMES_FOUND: "GAMES_FOUND",
-	GAMES_SEARCH_ERROR: "GAMES_SEARCH_ERROR"
+	GAMES_SEARCH_ERROR: "GAMES_SEARCH_ERROR",
+	LOL_STATIC_BASE_URL: "http://ddragon.leagueoflegends.com/cdn/6.7.1"
 };
 
 },{}],247:[function(require,module,exports){
@@ -43385,6 +43393,8 @@ module.exports = SummonerSearchStore;
 },{"../constants/AppConstants":246,"../dispatcher/AppDispatcher":247,"events":5,"object-assign":28}],252:[function(require,module,exports){
 "use strict";
 
+var AppConstants = require("../constants/AppConstants");
+
 Date.prototype.customFormat = function (formatString) {
 	var YYYY, YY, MMMM, MMM, MM, M, DDDD, DDD, DD, D, hhh, hh, h, mm, m, ss, s, ampm, AMPM, dMod, th;
 	var dateObject = this;
@@ -43406,14 +43416,34 @@ Date.prototype.customFormat = function (formatString) {
 	return formatString.replace("#hhh#", hhh).replace("#hh#", hh).replace("#h#", h).replace("#mm#", mm).replace("#m#", m).replace("#ss#", ss).replace("#s#", s).replace("#ampm#", ampm).replace("#AMPM#", AMPM);
 };
 
+String.prototype.capitalize = function () {
+	return this.replace(/(^|\s)([a-z])/g, function (m, p1, p2) {
+		return p1 + p2.toUpperCase();
+	});
+};
+
 module.exports = {
 	fixDateToString: function (unformattedDate) {
 		var formattedDate = new Date(unformattedDate);
 		return formattedDate.customFormat("#DD# #MMMM#, #YYYY#").toString();
+	},
+
+	buildProfileIconUrl: function (iconId) {
+		return AppConstants.LOL_STATIC_BASE_URL + "/img/profileicon/" + iconId + ".png";
+	},
+
+	championNameForUrl: function (championName) {
+		return championName.toLowerCase().replace("'", "").replace(".", "").capitalize().replace(" ", "");
+	},
+
+	championSquareUrl: function (championName) {
+		var fullUrl = AppConstants.LOL_STATIC_BASE_URL + "/img/champion/";
+		var championNameUrlified = this.championNameForUrl(championName) + ".png";
+		return fullUrl + championNameUrlified;
 	}
 };
 
-},{}],253:[function(require,module,exports){
+},{"../constants/AppConstants":246}],253:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
