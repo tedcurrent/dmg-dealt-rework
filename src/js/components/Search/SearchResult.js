@@ -5,6 +5,18 @@ var Image = require("../Common/Image");
 var _ = require("lodash");
 
 var SearchResult = React.createClass({
+	componentDidMount: function() {
+		document.addEventListener("click", this.bodyClickHandler);
+	},
+
+	componentWillUnmount: function() {
+		document.removeEventListener("click", this.bodyClickHandler);
+	},
+
+	bodyClickHandler: function(e) {
+		this.props.bodyClick(e);
+	},
+
 	errorResult: function() {
 		return "An error occurred. Please try again";
 	},
@@ -24,9 +36,7 @@ var SearchResult = React.createClass({
 
 		return (
 			<div onClick={handleClick} 
-				className="search-result" 
-				onMouseEnter={this.props.onEnter} 
-				onMouseLeave={this.props.onLeave}>
+				className="search-result">
 				<div className="thumbnail-container">
 					<Image src={summoner.profileIconUrl} alt={"summoner icon"} />
 				</div>

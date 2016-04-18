@@ -15,7 +15,6 @@ var SearchInput = React.createClass({
 				autoFocus={true}
 				value={this.props.value}
 				onChange={this.handleChange}
-				onBlur={this.props.onBlur}
 			/>
 		);
 	}

@@ -42874,9 +42874,7 @@ var Dropdown = React.createClass({
 			{ id: this.props.id,
 				className: "form-control",
 				value: this.props.value,
-				onChange: this.handleChange,
-				onMouseEnter: this.props.onEnter,
-				onMouseLeave: this.props.onLeave },
+				onChange: this.handleChange },
 			options
 		);
 	}
@@ -42902,8 +42900,7 @@ var SearchInput = React.createClass({
 			placeholder: "Summoner name",
 			autoFocus: true,
 			value: this.props.value,
-			onChange: this.handleChange,
-			onBlur: this.props.onBlur
+			onChange: this.handleChange
 		});
 	}
 });
@@ -42939,6 +42936,18 @@ var _ = require("lodash");
 var SearchResult = React.createClass({
 	displayName: "SearchResult",
 
+	componentDidMount: function () {
+		document.addEventListener("click", this.bodyClickHandler);
+	},
+
+	componentWillUnmount: function () {
+		document.removeEventListener("click", this.bodyClickHandler);
+	},
+
+	bodyClickHandler: function (e) {
+		this.props.bodyClick(e);
+	},
+
 	errorResult: function () {
 		return "An error occurred. Please try again";
 	},
@@ -42959,9 +42968,7 @@ var SearchResult = React.createClass({
 		return React.createElement(
 			"div",
 			{ onClick: handleClick,
-				className: "search-result",
-				onMouseEnter: this.props.onEnter,
-				onMouseLeave: this.props.onLeave },
+				className: "search-result" },
 			React.createElement(
 				"div",
 				{ className: "thumbnail-container" },
@@ -43004,6 +43011,7 @@ module.exports = SearchResult;
 "use strict";
 
 var React = require("react");
+var ReactDOM = require("react-dom");
 var SearchInputContainer = require("./SearchInputContainer");
 var SearchInput = require("./SearchInput");
 var SearchDropDown = require("./SearchDropDown");
@@ -43040,8 +43048,7 @@ var Search = React.createClass({
 			searchResults: SummonerSearchStore.getAll(),
 			regionSelected: "euw",
 			querySent: false,
-			queryValue: "",
-			canBlur: true
+			queryValue: ""
 		};
 	},
 
@@ -43093,7 +43100,6 @@ var Search = React.createClass({
 
 	resetResults: function () {
 		ApiResponseActions.updateSummonerSearchResult({});
-		this.allowBlur();
 	},
 
 	resultClickHandler: function (summoner) {
@@ -43102,20 +43108,8 @@ var Search = React.createClass({
 		this.resetResults();
 	},
 
-	allowBlur: function () {
-		this.setState({ canBlur: true }, function () {
-			console.log("Allow: " + this.state.canBlur);
-		});
-	},
-
-	disallowBlur: function () {
-		this.setState({ canBlur: false }, function () {
-			console.log("Disallow: " + this.state.canBlur);
-		});
-	},
-
-	blurHandler: function () {
-		if (this.state.canBlur) {
+	bodyClickHandler: function (e) {
+		if (!ReactDOM.findDOMNode(this).contains(e.target)) {
 			this.resetResults();
 		}
 	},
@@ -43133,24 +43127,20 @@ var Search = React.createClass({
 					React.createElement(SearchInput, {
 						value: this.state.queryValue,
 						querySent: this.state.querySent,
-						onChange: this.queryStringChange,
-						onBlur: this.blurHandler
+						onChange: this.queryStringChange
 					}),
 					React.createElement(SearchDropDown, {
 						options: regionOptions,
 						value: this.state.regionSelected,
 						labelField: "description",
 						valueField: "short",
-						onChange: this.dropDownChange,
-						onEnter: this.disallowBlur,
-						onLeave: this.allowBlur
+						onChange: this.dropDownChange
 					})
 				),
 				React.createElement(SearchResult, {
 					searchResult: this.state.searchResults,
 					onClick: this.resultClickHandler,
-					onEnter: this.disallowBlur,
-					onLeave: this.allowBlur
+					bodyClick: this.bodyClickHandler
 				})
 			)
 		);
@@ -43159,7 +43149,7 @@ var Search = React.createClass({
 
 module.exports = Search;
 
-},{"../../actions/ApiRequestActions":230,"../../actions/ApiResponseActions":231,"../../stores/SummonerSearchStore":251,"./SearchDropDown":240,"./SearchInput":241,"./SearchInputContainer":242,"./SearchResult":243,"react":221}],245:[function(require,module,exports){
+},{"../../actions/ApiRequestActions":230,"../../actions/ApiResponseActions":231,"../../stores/SummonerSearchStore":251,"./SearchDropDown":240,"./SearchInput":241,"./SearchInputContainer":242,"./SearchResult":243,"react":221,"react-dom":31}],245:[function(require,module,exports){
 arguments[4][233][0].apply(exports,arguments)
 },{"dup":233,"react":221,"react-dom":31}],246:[function(require,module,exports){
 module.exports = {

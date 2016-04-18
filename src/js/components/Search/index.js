@@ -1,6 +1,7 @@
 "use strict";
 
 var React = require("react");
+var ReactDOM = require("react-dom");
 var SearchInputContainer = require("./SearchInputContainer");
 var SearchInput = require("./SearchInput");
 var SearchDropDown = require("./SearchDropDown");
@@ -42,8 +43,7 @@ var Search = React.createClass({
 			searchResults: SummonerSearchStore.getAll(),
 			regionSelected: "euw",
 			querySent: false,
-			queryValue: "",
-			canBlur: true
+			queryValue: ""
 		};
 	},
 
@@ -95,7 +95,6 @@ var Search = React.createClass({
 
 	resetResults: function() {
 		ApiResponseActions.updateSummonerSearchResult({});
-		this.allowBlur();
 	},
 
 	resultClickHandler: function(summoner) {
@@ -104,20 +103,8 @@ var Search = React.createClass({
 		this.resetResults();
 	},
 
-	allowBlur: function() {
-		this.setState({canBlur: true}, function() {
-			console.log("Allow: " + this.state.canBlur);
-		});
-	},
-
-	disallowBlur: function() {
-		this.setState({canBlur: false}, function() {
-			console.log("Disallow: " + this.state.canBlur);
-		});
-	},
-
-	blurHandler: function() {
-		if (this.state.canBlur) {
+	bodyClickHandler: function(e) {
+		if (!ReactDOM.findDOMNode(this).contains(e.target)) {
 			this.resetResults();
 		}
 	},
@@ -131,7 +118,6 @@ var Search = React.createClass({
 							value={this.state.queryValue}
 							querySent={this.state.querySent}
 							onChange={this.queryStringChange}
-							onBlur={this.blurHandler}
 						/>
 						<SearchDropDown
 							options={regionOptions} 
@@ -139,15 +125,12 @@ var Search = React.createClass({
 							labelField="description"
 							valueField="short"
 							onChange={this.dropDownChange}
-							onEnter={this.disallowBlur}
-							onLeave={this.allowBlur}
 						/>
 					</SearchInputContainer>
 					<SearchResult 
 						searchResult={this.state.searchResults}
 						onClick={this.resultClickHandler}
-						onEnter={this.disallowBlur}
-						onLeave={this.allowBlur}
+						bodyClick={this.bodyClickHandler}
 					/>
 				</div>
 			</div>
