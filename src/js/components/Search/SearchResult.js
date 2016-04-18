@@ -2,6 +2,7 @@
 
 var React = require("react");
 var Image = require("../Common/Image");
+var Util = require("../../util/utils");
 var _ = require("lodash");
 
 var SearchResult = React.createClass({
@@ -34,11 +35,13 @@ var SearchResult = React.createClass({
 
 		var handleClick = this.clickHandler.bind(this, summoner);
 
+		var profileIconUrl = Util.buildProfileIconUrl(summoner.profileIconId);
+
 		return (
 			<div onClick={handleClick} 
 				className="search-result">
 				<div className="thumbnail-container">
-					<Image src={summoner.profileIconUrl} alt={"summoner icon"} />
+					<Image src={profileIconUrl} alt={"summoner icon"} />
 				</div>
 				<span>{summoner.name}</span>
 				<span>{summoner.region}</span>

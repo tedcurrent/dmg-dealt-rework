@@ -42716,18 +42716,20 @@ module.exports = GameList;
 
 var React = require("react");
 var Image = require("../common/Image");
+var Util = require("../../util/utils");
 
 var SummonerInfo = React.createClass({
 	displayName: "SummonerInfo",
 
 	render: function () {
+		var profileIconUrl = Util.buildProfileIconUrl(this.props.summoner.profileIconId);
 		return React.createElement(
 			"div",
 			{ className: "summoner-info" },
 			React.createElement(
 				"div",
 				{ className: "thumbnail-container" },
-				React.createElement(Image, { src: this.props.summoner.profileIconUrl, alt: "summoner icon" })
+				React.createElement(Image, { src: profileIconUrl, alt: "summoner icon" })
 			),
 			React.createElement(
 				"span",
@@ -42745,7 +42747,7 @@ var SummonerInfo = React.createClass({
 
 module.exports = SummonerInfo;
 
-},{"../common/Image":245,"react":221}],238:[function(require,module,exports){
+},{"../../util/utils":252,"../common/Image":245,"react":221}],238:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -42938,6 +42940,7 @@ module.exports = SearchInputContainer;
 
 var React = require("react");
 var Image = require("../Common/Image");
+var Util = require("../../util/utils");
 var _ = require("lodash");
 
 var SearchResult = React.createClass({
@@ -42972,6 +42975,8 @@ var SearchResult = React.createClass({
 
 		var handleClick = this.clickHandler.bind(this, summoner);
 
+		var profileIconUrl = Util.buildProfileIconUrl(summoner.profileIconId);
+
 		return React.createElement(
 			"div",
 			{ onClick: handleClick,
@@ -42979,7 +42984,7 @@ var SearchResult = React.createClass({
 			React.createElement(
 				"div",
 				{ className: "thumbnail-container" },
-				React.createElement(Image, { src: summoner.profileIconUrl, alt: "summoner icon" })
+				React.createElement(Image, { src: profileIconUrl, alt: "summoner icon" })
 			),
 			React.createElement(
 				"span",
@@ -43014,7 +43019,7 @@ var SearchResult = React.createClass({
 
 module.exports = SearchResult;
 
-},{"../Common/Image":233,"lodash":26,"react":221}],244:[function(require,module,exports){
+},{"../../util/utils":252,"../Common/Image":233,"lodash":26,"react":221}],244:[function(require,module,exports){
 "use strict";
 
 var React = require("react");

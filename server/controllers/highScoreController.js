@@ -9,7 +9,7 @@ module.exports = {
 		model.summoner = {
 			summonerId: req.body.id,
 			summonerName: req.body.name,
-			profileIconUrl: req.body.profileIconUrl,
+			profileIconId: req.body.profileIconId,
 			region: req.body.region,
 		};
 
