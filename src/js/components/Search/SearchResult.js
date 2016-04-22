@@ -19,14 +19,14 @@ var SearchResult = React.createClass({
 	},
 
 	errorResult: function() {
-		return "An error occurred. Please try again";
+		return <div className="search-result">An error occurred. Please try again"</div>;
 	},
 
 	gotResults: function() {
 		var summoner = this.props.searchResult.summoner;
 
 		if (!summoner) {
-			return "No summoner found.";
+			return <div className="search-result">No summoner found.</div>;
 		}
 
 		if (_.isEmpty(summoner)) {
@@ -43,9 +43,13 @@ var SearchResult = React.createClass({
 				<div className="thumbnail-container">
 					<Image src={profileIconUrl} alt={"summoner icon"} />
 				</div>
-				<span>{summoner.name}</span>
-				<span>{summoner.region}</span>
-				<span>{summoner.level}</span>
+				<span className="name">{summoner.name}</span>
+				<span className="level">
+					{"level "}
+					<span className="emphasis">
+						{summoner.level}
+					</span>
+				</span>
 			</div>
 		);
 	},

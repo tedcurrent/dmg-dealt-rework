@@ -111,28 +111,26 @@ var Search = React.createClass({
 
 	render: function() {
 		return (
-			<div>
-				<div id="search">
-					<SearchInputContainer>
-						<SearchInput 
-							value={this.state.queryValue}
-							querySent={this.state.querySent}
-							onChange={this.queryStringChange}
-						/>
-						<SearchDropDown
-							options={regionOptions} 
-							value={this.state.regionSelected}
-							labelField="description"
-							valueField="short"
-							onChange={this.dropDownChange}
-						/>
-					</SearchInputContainer>
-					<SearchResult 
-						searchResult={this.state.searchResults}
-						onClick={this.resultClickHandler}
-						bodyClick={this.bodyClickHandler}
+			<div className="search">
+				<SearchInputContainer>
+					<SearchInput 
+						value={this.state.queryValue}
+						querySent={this.state.querySent}
+						onChange={this.queryStringChange}
 					/>
-				</div>
+					<SearchDropDown
+						options={regionOptions} 
+						value={this.state.regionSelected}
+						labelField="description"
+						valueField="short"
+						onChange={this.dropDownChange}
+					/>
+				</SearchInputContainer>
+				<SearchResult 
+					searchResult={this.state.searchResults}
+					onClick={this.resultClickHandler}
+					bodyClick={this.bodyClickHandler}
+				/>
 			</div>
 		);
 	}

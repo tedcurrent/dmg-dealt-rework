@@ -11,6 +11,7 @@ var SearchInput = React.createClass({
 		return (
 			<input
 				id="search-input"
+				type="text"
 				placeholder="Summoner name"
 				autoFocus={true}
 				value={this.props.value}
