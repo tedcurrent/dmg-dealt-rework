@@ -42563,6 +42563,8 @@ module.exports = ApiResponseActions;
 "use strict";
 
 var React = require("react");
+var Header = require("./components/Header/");
+var Main = require("./components/Main/");
 
 var App = React.createClass({
 	displayName: "App",
@@ -42571,14 +42573,19 @@ var App = React.createClass({
 		return React.createElement(
 			"div",
 			null,
-			this.props.children
+			React.createElement(Header, null),
+			React.createElement(
+				Main,
+				null,
+				this.props.children
+			)
 		);
 	}
 });
 
 module.exports = App;
 
-},{"react":221}],233:[function(require,module,exports){
+},{"./components/Header/":234,"./components/Main/":235,"react":221}],233:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -42662,25 +42669,28 @@ module.exports = Header;
 "use strict";
 
 var React = require("react");
-var Header = require("../Header/index");
-var Splash = require("../Splash/index");
+
+// Jos ei damageita --> this props children (splash)
+// else --> damage
+// NOTE: Tänne tulee sit ihan kaikki
+// elikkä 404 renderöidää kans main sisällä
+// regions renderöidää kans main sisällä
 
 var Main = React.createClass({
 	displayName: "Main",
 
 	render: function () {
 		return React.createElement(
-			"div",
-			{ id: "main" },
-			React.createElement(Header, null),
-			React.createElement(Splash, null)
+			"main",
+			null,
+			this.props.children
 		);
 	}
 });
 
 module.exports = Main;
 
-},{"../Header/index":234,"../Splash/index":242,"react":221}],236:[function(require,module,exports){
+},{"react":221}],236:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -43156,21 +43166,21 @@ var ReactRouter = require("react-router");
 var IndexRoute = ReactRouter.IndexRoute;
 var Route = ReactRouter.Route;
 var App = require("../app");
-var Main = require("../components/Main/index");
-var Regions = require("../components/RegionalGames/index");
+var Splash = require("../components/Splash/");
+var Regions = require("../components/RegionalGames/");
 var NotFound = require("../404");
 
 var routes = React.createElement(
 	Route,
 	{ path: "/", component: App },
-	React.createElement(IndexRoute, { component: Main }),
+	React.createElement(IndexRoute, { component: Splash }),
 	React.createElement(Route, { path: "/regions", component: Regions }),
 	React.createElement(Route, { path: "*", component: NotFound })
 );
 
 module.exports = routes;
 
-},{"../404":229,"../app":232,"../components/Main/index":235,"../components/RegionalGames/index":236,"react":221,"react-router":59}],247:[function(require,module,exports){
+},{"../404":229,"../app":232,"../components/RegionalGames/":236,"../components/Splash/":242,"react":221,"react-router":59}],247:[function(require,module,exports){
 "use strict";
 
 var AppDispatcher = require("../dispatcher/AppDispatcher");

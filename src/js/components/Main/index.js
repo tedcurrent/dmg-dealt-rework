@@ -1,16 +1,19 @@
 "use strict";
 
 var React = require("react");
-var Header = require("../Header/index");
-var Splash = require("../Splash/index");
+
+// Jos ei damageita --> this props children (splash)
+// else --> damage
+// NOTE: Tänne tulee sit ihan kaikki
+// elikkä 404 renderöidää kans main sisällä
+// regions renderöidää kans main sisällä
 
 var Main = React.createClass({
 	render: function() {
 		return (
-			<div id="main">
-				<Header />
-				<Splash />
-			</div>
+			<main>
+				{this.props.children}
+			</main>
 		);
 	}
 });

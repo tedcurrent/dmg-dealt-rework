@@ -5,13 +5,13 @@ var ReactRouter = require("react-router");
 var IndexRoute = ReactRouter.IndexRoute;
 var Route = ReactRouter.Route;
 var App = require("../app");
-var Main = require("../components/Main/index");
-var Regions = require("../components/RegionalGames/index");
+var Splash = require("../components/Splash/");
+var Regions = require("../components/RegionalGames/");
 var NotFound = require("../404");
 
 var routes = (
 	<Route path="/" component={App}>
-		<IndexRoute component={Main} />
+		<IndexRoute component={Splash} />
 		<Route path="/regions" component={Regions} />
 		<Route path="*" component={NotFound} />
 	</Route>
