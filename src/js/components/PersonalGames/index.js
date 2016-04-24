@@ -4,11 +4,49 @@ var React = require("react");
 var TopGame = require("./TopGame");
 var GameList = require("./GameList");
 var SummonerInfo = require("./SummonerInfo");
+var PersonalGamesStore = require("../../stores/PersonalGamesStore");
+var ApiRequestActions = require("../../actions/ApiRequestActions");
+var Splash = require("../Splash/");
 var _ = require("lodash");
 
+var _refreshGames = function(props) {
+	var query = {
+		id: props.params.id,
+		region: props.params.region
+	};
+
+	ApiRequestActions.getPersonalGames(query);
+};
+
 var PersonalGamesController = React.createClass({
+	getInitialState: function() {
+		return {
+			gameResults: PersonalGamesStore.getAll()
+		};
+	},
+
+	componentWillMount: function() {
+		_refreshGames(this.props);
+
+		PersonalGamesStore.addChangeListener(this._onChange);
+	},
+
+	componentWillUnmount: function() {
+		PersonalGamesStore.removeChangeListener(this._onChange);
+	},
+
+	_onChange: function() {
+		this.setState({
+			gameResults: PersonalGamesStore.getAll()
+		});
+	},
+
+	componentWillReceiveProps: function(nextProps) {
+		_refreshGames(nextProps);
+	},
+
 	renderComponents: function() {
-		var results = this.props.gameResults;
+		var results = this.state.gameResults;
 		if (results.errors === 0 && !_.isEmpty(results.summoner)) {
 			return (
 				<div>
@@ -19,7 +57,7 @@ var PersonalGamesController = React.createClass({
 			);
 		} else if (results.errors > 0) {
 			return (
-				<span>There was an error in game search. Please try again.</span>
+				<h2 className="error">There was an error in game search. Please try again.</h2>
 			);
 		}
 	},

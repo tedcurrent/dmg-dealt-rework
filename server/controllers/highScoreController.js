@@ -7,10 +7,10 @@ module.exports = {
 		model.date = Date.now();
 
 		model.summoner = {
-			summonerId: req.body.id,
-			summonerName: req.body.name,
-			profileIconId: req.body.profileIconId,
-			region: req.body.region,
+			summonerId: req.body.summoner.id,
+			summonerName: req.body.summoner.name,
+			profileIconId: req.body.summoner.profileIconId,
+			region: req.body.summoner.region,
 		};
 
 		model.game = {

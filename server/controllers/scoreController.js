@@ -6,19 +6,27 @@ var _ = require("lodash");
 var _results = {};
 
 function _saveUpdate(req, oldHs, callback) {
-	var saveParams = {
-		req: req,
-		highScore: oldHs
-	};
-
-	HighScoreController.saveUpdate(saveParams, function(err, newHs) {
+	LolApiController.getSummonerWithId(req.body.id, req.body.region, function(err, summoner) {
 		if (err) {
 			return callback(err);
 		}
 
-		_results.highScore = newHs;
-		_results.newHighScore = true;
-		callback(err, _results);
+		req.body.summoner = summoner;
+
+		var saveParams = {
+			req: req,
+			highScore: oldHs
+		};
+
+		HighScoreController.saveUpdate(saveParams, function(err, newHs) {
+			if (err) {
+				return callback(err);
+			}
+
+			_results.highScore = newHs;
+			_results.newHighScore = true;
+			callback(err, _results);
+		});
 	});
 };
 

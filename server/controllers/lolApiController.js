@@ -27,6 +27,24 @@ var LolApiCtrl = {
 		});
 	},
 
+	getSummonerWithId: function(id, region, callback) {
+		LolApi.Summoner.getByID(id, region, function(err, result) {
+			if (err || !result) {
+				return callback(null, {});
+			}
+
+			var summoner = {
+				id: result[id].id,
+				name: result[id].name,
+				profileIconId: result[id].profileIconId,
+				region: region,
+				level: result[id].summonerLevel
+			};
+
+			callback(err, summoner);
+		});
+	},
+
 	getRecentGamesWithSummonerInfo: function(summonerInfo, callback) {
 		LolApi.getRecentGames(summonerInfo.id, summonerInfo.region, function(err, result) {
 			var games = Util.formatLolGames(result);

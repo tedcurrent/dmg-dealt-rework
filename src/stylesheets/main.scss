@@ -255,6 +255,8 @@ header {
 // !GAMES
 
 .games-container {
+	display: flex;
+	flex-direction: column;
 	margin: 0 auto;
 	margin-top: 5.5em;
 	max-width: 960px;
@@ -309,7 +311,7 @@ header {
 		&:hover {
 
 			.overlay {
-				opacity: 0.9;
+				opacity: 0.8;
 			}
 		}
 
@@ -355,6 +357,16 @@ header {
 
 		}
 	}
+
+	.no-games {
+		color: $secondary-color;
+		margin: auto;
+	}
+
+	.error {
+		color: $dmg-color;
+		margin: auto;
+	}
 }
 
 @media only screen and (max-width: 650px) {
@@ -396,7 +408,7 @@ header {
 		.game {
 
 			.overlay {
-				opacity: 0.9;
+				opacity: 0.8;
 			}
 		}
 	}

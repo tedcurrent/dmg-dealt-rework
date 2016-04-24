@@ -22,6 +22,16 @@ router.get("/getSummoner/:name/:region", function(req, res, next) {
 	});
 });
 
+router.get("/getSummonerWithId/:id/:region", function(req, res, next) {
+	LolApiController.getSummonerWithId(req.params.id, req.params.region, function(err, result) {
+		if (err) {
+			return next(err);
+		}
+
+		res.json(result);
+	});
+});
+
 router.get("/getGames/:summonerId/:region", function(req, res, next) {
 	var summonerInfo = {
 			id: req.params.summonerId,
@@ -58,10 +68,3 @@ router.get("/getRegionalScores", function(req, res, next) {
 });
 
 module.exports = router;
-
-// Flow:
-// Front calls: get summoner
-// Front calls: get Games with the summoner
-// Front calls: save highscore after got games
-// Front reacts: get new highscores and update + popup if new highscore
-// This way front is responsible for the flow and server just does stuff

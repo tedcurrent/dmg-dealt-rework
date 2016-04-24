@@ -3,6 +3,7 @@
 var React = require("react");
 var Image = require("../Common/Image");
 var Util = require("../../util/utils");
+var Link = require("react-router").Link;
 var _ = require("lodash");
 
 var SearchResult = React.createClass({
@@ -38,19 +39,21 @@ var SearchResult = React.createClass({
 		var profileIconUrl = Util.buildProfileIconUrl(summoner.profileIconId);
 
 		return (
-			<div onClick={handleClick} 
-				className="search-result">
-				<div className="thumbnail-container">
-					<Image src={profileIconUrl} alt={"summoner icon"} />
-				</div>
-				<span className="name">{summoner.name}</span>
-				<span className="level">
-					{"level "}
-					<span className="emphasis">
-						{summoner.level}
+			<Link to={"/" + summoner.id + "/" + summoner.region}>
+				<div onClick={handleClick} 
+					className="search-result">
+					<div className="thumbnail-container">
+						<Image src={profileIconUrl} alt={"summoner icon"} />
+					</div>
+					<span className="name">{summoner.name}</span>
+					<span className="level">
+						{"level "}
+						<span className="emphasis">
+							{summoner.level}
+						</span>
 					</span>
-				</span>
-			</div>
+				</div>
+			</Link>
 		);
 	},
 

@@ -42,7 +42,6 @@ AppDispatcher.register(function(action) {
 			_results.highScore = action.data.hs.highScore.game;
 			_results.newHighScore = action.data.hs.newHighScore;
 			_results.errors = 0;
-			console.log(_results);
 			PersonalScoresStore.emitChange();
 			break;
 		case AppConstants.GAMES_SEARCH_ERROR:
@@ -51,8 +50,14 @@ AppDispatcher.register(function(action) {
 			_results.highScore = {};
 			_results.newHighScore = false;
 			++_results.errors;
-			console.log(_results);
 			PersonalScoresStore.emitChange();
+			break;
+		case AppConstants.GAMES_CLEAN_UP:
+			_results.summoner = {};
+			_results.games = [];
+			_results.highScore = {};
+			_results.newHighScore = false;
+			_results.errors = 0;
 			break;
 		default:
 	}

@@ -17,6 +17,12 @@ var ApiRequestActions = {
 			actionType: AppConstants.API_REQUEST
 		});
 		APIRequests.getPersonalGames(query);
+	},
+
+	cleanUpGames: function() {
+		AppDispatcher.dispatch({
+			actionType: AppConstants.GAMES_CLEAN_UP
+		});
 	}
 };
 

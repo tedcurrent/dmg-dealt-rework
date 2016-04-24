@@ -42516,6 +42516,12 @@ var ApiRequestActions = {
 			actionType: AppConstants.API_REQUEST
 		});
 		APIRequests.getPersonalGames(query);
+	},
+
+	cleanUpGames: function () {
+		AppDispatcher.dispatch({
+			actionType: AppConstants.GAMES_CLEAN_UP
+		});
 	}
 };
 
@@ -42565,30 +42571,9 @@ module.exports = ApiResponseActions;
 var React = require("react");
 var Header = require("./components/Header/");
 var Main = require("./components/Main/");
-var PersonalGamesStore = require("./stores/PersonalGamesStore");
 
 var App = React.createClass({
 	displayName: "App",
-
-	getInitialState: function () {
-		return {
-			gameResults: PersonalGamesStore.getAll()
-		};
-	},
-
-	componentWillMount: function () {
-		PersonalGamesStore.addChangeListener(this._onChange);
-	},
-
-	componentWillUnmount: function () {
-		PersonalGamesStore.removeChangeListener(this._onChange);
-	},
-
-	_onChange: function () {
-		this.setState({
-			gameResults: PersonalGamesStore.getAll()
-		});
-	},
 
 	render: function () {
 		return React.createElement(
@@ -42597,9 +42582,7 @@ var App = React.createClass({
 			React.createElement(Header, null),
 			React.createElement(
 				Main,
-				{
-					gameResults: this.state.gameResults
-				},
+				null,
 				this.props.children
 			)
 		);
@@ -42608,7 +42591,7 @@ var App = React.createClass({
 
 module.exports = App;
 
-},{"./components/Header/":234,"./components/Main/":235,"./stores/PersonalGamesStore":253,"react":221}],233:[function(require,module,exports){
+},{"./components/Header/":234,"./components/Main/":235,"react":221}],233:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -42651,9 +42634,14 @@ module.exports = Image;
 var React = require("react");
 var Search = require("../Search/index");
 var Link = require("react-router").Link;
+var ApiRequestActions = require("../../actions/ApiRequestActions");
 
 var Header = React.createClass({
 	displayName: "Header",
+
+	clickHandler: function () {
+		ApiRequestActions.cleanUpGames();
+	},
 
 	render: function () {
 		return React.createElement(
@@ -42677,8 +42665,12 @@ var Header = React.createClass({
 					null,
 					React.createElement(
 						Link,
-						{ to: "/regions" },
-						React.createElement("i", { className: "fa fa-globe", "aria-hidden": "true" })
+						{ to: "/regions", onClick: this.clickHandler },
+						React.createElement(
+							"i",
+							{ className: "fa fa-globe", "aria-hidden": "true" },
+							" Regional"
+						)
 					)
 				)
 			)
@@ -42688,41 +42680,26 @@ var Header = React.createClass({
 
 module.exports = Header;
 
-},{"../Search/index":247,"react":221,"react-router":59}],235:[function(require,module,exports){
+},{"../../actions/ApiRequestActions":230,"../Search/index":247,"react":221,"react-router":59}],235:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
-var PersonalGames = require("../PersonalGames/");
 
 var Main = React.createClass({
 	displayName: "Main",
-
-	handleRender: function () {
-		var gameResults = this.props.gameResults;
-
-		if (gameResults.games.length) {
-			return React.createElement(PersonalGames, { gameResults: gameResults });
-		} else {
-			return React.createElement(
-				"div",
-				null,
-				this.props.children
-			);
-		}
-	},
 
 	render: function () {
 		return React.createElement(
 			"main",
 			null,
-			this.handleRender()
+			this.props.children
 		);
 	}
 });
 
 module.exports = Main;
 
-},{"../PersonalGames/":241,"react":221}],236:[function(require,module,exports){
+},{"react":221}],236:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -42892,13 +42869,51 @@ var React = require("react");
 var TopGame = require("./TopGame");
 var GameList = require("./GameList");
 var SummonerInfo = require("./SummonerInfo");
+var PersonalGamesStore = require("../../stores/PersonalGamesStore");
+var ApiRequestActions = require("../../actions/ApiRequestActions");
+var Splash = require("../Splash/");
 var _ = require("lodash");
+
+var _refreshGames = function (props) {
+	var query = {
+		id: props.params.id,
+		region: props.params.region
+	};
+
+	ApiRequestActions.getPersonalGames(query);
+};
 
 var PersonalGamesController = React.createClass({
 	displayName: "PersonalGamesController",
 
+	getInitialState: function () {
+		return {
+			gameResults: PersonalGamesStore.getAll()
+		};
+	},
+
+	componentWillMount: function () {
+		_refreshGames(this.props);
+
+		PersonalGamesStore.addChangeListener(this._onChange);
+	},
+
+	componentWillUnmount: function () {
+		PersonalGamesStore.removeChangeListener(this._onChange);
+	},
+
+	_onChange: function () {
+		this.setState({
+			gameResults: PersonalGamesStore.getAll()
+		});
+	},
+
+	componentWillReceiveProps: function (nextProps) {
+		_refreshGames(nextProps);
+	},
+
 	renderComponents: function () {
-		var results = this.props.gameResults;
+		var results = this.state.gameResults;
 		if (results.errors === 0 && !_.isEmpty(results.summoner)) {
 			return React.createElement(
 				"div",
@@ -42913,8 +42928,8 @@ var PersonalGamesController = React.createClass({
 			);
 		} else if (results.errors > 0) {
 			return React.createElement(
-				"span",
-				null,
+				"h2",
+				{ className: "error" },
 				"There was an error in game search. Please try again."
 			);
 		}
@@ -42931,7 +42946,7 @@ var PersonalGamesController = React.createClass({
 
 module.exports = PersonalGamesController;
 
-},{"./GameList":237,"./SummonerInfo":239,"./TopGame":240,"lodash":26,"react":221}],242:[function(require,module,exports){
+},{"../../actions/ApiRequestActions":230,"../../stores/PersonalGamesStore":253,"../Splash/":248,"./GameList":237,"./SummonerInfo":239,"./TopGame":240,"lodash":26,"react":221}],242:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -43038,6 +43053,7 @@ module.exports = SearchInputContainer;
 var React = require("react");
 var Image = require("../Common/Image");
 var Util = require("../../util/utils");
+var Link = require("react-router").Link;
 var _ = require("lodash");
 
 var SearchResult = React.createClass({
@@ -43083,27 +43099,31 @@ var SearchResult = React.createClass({
 		var profileIconUrl = Util.buildProfileIconUrl(summoner.profileIconId);
 
 		return React.createElement(
-			"div",
-			{ onClick: handleClick,
-				className: "search-result" },
+			Link,
+			{ to: "/" + summoner.id + "/" + summoner.region },
 			React.createElement(
 				"div",
-				{ className: "thumbnail-container" },
-				React.createElement(Image, { src: profileIconUrl, alt: "summoner icon" })
-			),
-			React.createElement(
-				"span",
-				{ className: "name" },
-				summoner.name
-			),
-			React.createElement(
-				"span",
-				{ className: "level" },
-				"level ",
+				{ onClick: handleClick,
+					className: "search-result" },
+				React.createElement(
+					"div",
+					{ className: "thumbnail-container" },
+					React.createElement(Image, { src: profileIconUrl, alt: "summoner icon" })
+				),
 				React.createElement(
 					"span",
-					{ className: "emphasis" },
-					summoner.level
+					{ className: "name" },
+					summoner.name
+				),
+				React.createElement(
+					"span",
+					{ className: "level" },
+					"level ",
+					React.createElement(
+						"span",
+						{ className: "emphasis" },
+						summoner.level
+					)
 				)
 			)
 		);
@@ -43124,7 +43144,7 @@ var SearchResult = React.createClass({
 
 module.exports = SearchResult;
 
-},{"../../util/utils":255,"../Common/Image":233,"lodash":26,"react":221}],247:[function(require,module,exports){
+},{"../../util/utils":255,"../Common/Image":233,"lodash":26,"react":221,"react-router":59}],247:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -43220,8 +43240,6 @@ var Search = React.createClass({
 	},
 
 	resultClickHandler: function (summoner) {
-		var query = summoner;
-		ApiRequestActions.getPersonalGames(query);
 		this.resetResults();
 	},
 
@@ -43308,6 +43326,7 @@ module.exports = {
 	SUMMONER_SEARCH_ERROR: "SUMMONER_SEARCH_ERROR",
 	GAMES_FOUND: "GAMES_FOUND",
 	GAMES_SEARCH_ERROR: "GAMES_SEARCH_ERROR",
+	GAMES_CLEAN_UP: "GAMES_CLEAN_UP",
 	LOL_STATIC_BASE_URL: "http://ddragon.leagueoflegends.com/cdn",
 	LOL_API_VERSION: "6.7.1"
 };
@@ -43409,6 +43428,7 @@ var IndexRoute = ReactRouter.IndexRoute;
 var Route = ReactRouter.Route;
 var App = require("../app");
 var Splash = require("../components/Splash/");
+var Personal = require("../components/PersonalGames/");
 var Regions = require("../components/RegionalGames/");
 var NotFound = require("../404");
 
@@ -43416,13 +43436,14 @@ var routes = React.createElement(
 	Route,
 	{ path: "/", component: App },
 	React.createElement(IndexRoute, { component: Splash }),
+	React.createElement(Route, { path: "/:id/:region", component: Personal }),
 	React.createElement(Route, { path: "/regions", component: Regions }),
 	React.createElement(Route, { path: "*", component: NotFound })
 );
 
 module.exports = routes;
 
-},{"../404":229,"../app":232,"../components/RegionalGames/":242,"../components/Splash/":248,"react":221,"react-router":59}],253:[function(require,module,exports){
+},{"../404":229,"../app":232,"../components/PersonalGames/":241,"../components/RegionalGames/":242,"../components/Splash/":248,"react":221,"react-router":59}],253:[function(require,module,exports){
 "use strict";
 
 var AppDispatcher = require("../dispatcher/AppDispatcher");
@@ -43467,7 +43488,6 @@ AppDispatcher.register(function (action) {
 			_results.highScore = action.data.hs.highScore.game;
 			_results.newHighScore = action.data.hs.newHighScore;
 			_results.errors = 0;
-			console.log(_results);
 			PersonalScoresStore.emitChange();
 			break;
 		case AppConstants.GAMES_SEARCH_ERROR:
@@ -43476,8 +43496,14 @@ AppDispatcher.register(function (action) {
 			_results.highScore = {};
 			_results.newHighScore = false;
 			++_results.errors;
-			console.log(_results);
 			PersonalScoresStore.emitChange();
+			break;
+		case AppConstants.GAMES_CLEAN_UP:
+			_results.summoner = {};
+			_results.games = [];
+			_results.highScore = {};
+			_results.newHighScore = false;
+			_results.errors = 0;
 			break;
 		default:
 	}
