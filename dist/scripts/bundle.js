@@ -43076,31 +43076,27 @@ var SearchResult = React.createClass({
 		var profileIconUrl = Util.buildProfileIconUrl(summoner.profileIconId);
 
 		return React.createElement(
-			Link,
-			{ to: "/" + summoner.id + "/" + summoner.region },
+			"div",
+			{ onClick: handleClick,
+				className: "search-result" },
 			React.createElement(
 				"div",
-				{ onClick: handleClick,
-					className: "search-result" },
-				React.createElement(
-					"div",
-					{ className: "thumbnail-container" },
-					React.createElement(Image, { src: profileIconUrl, alt: "summoner icon" })
-				),
+				{ className: "thumbnail-container" },
+				React.createElement(Image, { src: profileIconUrl, alt: "summoner icon" })
+			),
+			React.createElement(
+				"span",
+				{ className: "name" },
+				summoner.name
+			),
+			React.createElement(
+				"span",
+				{ className: "level" },
+				"level ",
 				React.createElement(
 					"span",
-					{ className: "name" },
-					summoner.name
-				),
-				React.createElement(
-					"span",
-					{ className: "level" },
-					"level ",
-					React.createElement(
-						"span",
-						{ className: "emphasis" },
-						summoner.level
-					)
+					{ className: "emphasis" },
+					summoner.level
 				)
 			)
 		);
@@ -43126,6 +43122,7 @@ module.exports = SearchResult;
 
 var React = require("react");
 var ReactDOM = require("react-dom");
+var Router = require("react-router").Router;
 var SearchInputContainer = require("./SearchInputContainer");
 var SearchInput = require("./SearchInput");
 var SearchDropDown = require("./SearchDropDown");
@@ -43156,6 +43153,10 @@ var regionOptions = [{
 
 var Search = React.createClass({
 	displayName: "Search",
+
+	contextTypes: {
+		router: React.PropTypes.object.isRequired
+	},
 
 	getInitialState: function () {
 		return {
@@ -43216,7 +43217,8 @@ var Search = React.createClass({
 		ApiResponseActions.updateSummonerSearchResult({});
 	},
 
-	resultClickHandler: function (summoner) {
+	resultSubmitHandler: function (summoner) {
+		this.context.router.push("/" + summoner.id + "/" + summoner.region);
 		this.resetResults();
 	},
 
@@ -43248,7 +43250,7 @@ var Search = React.createClass({
 			),
 			React.createElement(SearchResult, {
 				searchResult: this.state.searchResults,
-				onClick: this.resultClickHandler,
+				onClick: this.resultSubmitHandler,
 				bodyClick: this.bodyClickHandler
 			})
 		);
@@ -43257,7 +43259,7 @@ var Search = React.createClass({
 
 module.exports = Search;
 
-},{"../../actions/ApiRequestActions":230,"../../actions/ApiResponseActions":231,"../../stores/SummonerSearchStore":253,"./SearchDropDown":242,"./SearchInput":243,"./SearchInputContainer":244,"./SearchResult":245,"react":221,"react-dom":31}],247:[function(require,module,exports){
+},{"../../actions/ApiRequestActions":230,"../../actions/ApiResponseActions":231,"../../stores/SummonerSearchStore":253,"./SearchDropDown":242,"./SearchInput":243,"./SearchInputContainer":244,"./SearchResult":245,"react":221,"react-dom":31,"react-router":59}],247:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -43585,6 +43587,8 @@ module.exports = {
 		switch (championName) {
 			case "Kog'Maw":
 				return "KogMaw";
+			case "Rek'Sai":
+				return "RekSai";
 			case "Jarvan IV":
 				return "JarvanIV";
 			default:

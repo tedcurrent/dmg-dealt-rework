@@ -2,6 +2,7 @@
 
 var React = require("react");
 var ReactDOM = require("react-dom");
+var Router = require("react-router").Router;
 var SearchInputContainer = require("./SearchInputContainer");
 var SearchInput = require("./SearchInput");
 var SearchDropDown = require("./SearchDropDown");
@@ -38,6 +39,10 @@ var regionOptions = [
 ];
 
 var Search = React.createClass({
+	contextTypes: {
+		router: React.PropTypes.object.isRequired
+	},
+
 	getInitialState: function() {
 		return {
 			searchResults: SummonerSearchStore.getAll(),
@@ -97,7 +102,8 @@ var Search = React.createClass({
 		ApiResponseActions.updateSummonerSearchResult({});
 	},
 
-	resultClickHandler: function(summoner) {
+	resultSubmitHandler: function(summoner) {
+		this.context.router.push("/" + summoner.id + "/" + summoner.region);
 		this.resetResults();
 	},
 
@@ -126,7 +132,7 @@ var Search = React.createClass({
 				</SearchInputContainer>
 				<SearchResult 
 					searchResult={this.state.searchResults}
-					onClick={this.resultClickHandler}
+					onClick={this.resultSubmitHandler}
 					bodyClick={this.bodyClickHandler}
 				/>
 			</div>

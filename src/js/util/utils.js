@@ -41,6 +41,8 @@ module.exports = {
 		switch (championName) {
 			case "Kog'Maw":
 				return "KogMaw";
+			case "Rek'Sai":
+				return "RekSai";
 			case "Jarvan IV":
 				return "JarvanIV";
 			default:
