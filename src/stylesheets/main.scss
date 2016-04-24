@@ -5,14 +5,17 @@
  */
 
 $default-color: #111;
-$secondary-color: #fefefe;
+$secondary-color: #f2f0de;
 $emphasis-color: gold;
 $emphasis-color-dark: #ceac00;
 $content-color: #1A1E24;
 $content-color-light: #272c35;
 $content-color-super-light: #3e4654;
 $content-color-trans: rgba(26, 30, 36, 0.7); 
-$dmg-color: #c43a3a;
+$dmg-color: #e06464;
+$overlay-color-dark: rgb(26, 30, 36);
+$new-top-color: #3dce38;
+$old-top-color: #ceac00;
 $header-padding: 10px;
 
 /* 
@@ -226,7 +229,7 @@ header {
 	}
 }
 
-// !MAIN
+// !SPLASH
 
 .splash {
 	display: flex;
@@ -245,6 +248,111 @@ header {
 
 		h1 {
 			text-transform: uppercase;
+		}
+	}
+}
+
+// !GAMES
+
+.games-container {
+	margin: 0 auto;
+	margin-top: 5.5em;
+	max-width: 960px;
+	padding: 0 1em;
+	font-size: 1.2em;
+
+	h3 {
+		color: $secondary-color;
+		text-align: center;
+	}
+
+	.game {
+		position: relative;
+		padding: 1.5em;
+		color: $secondary-color;
+		margin: 1em 0;
+		background-size: cover;
+		background-position: 50% 50%;
+		border-radius: 3px;
+
+		.overlay {
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 1;
+			background-color: $overlay-color-dark;
+			opacity: 0.5;
+			width: 100%;
+			height: 100%;
+			transition: all 0.3s;
+		}
+
+		.game-container {
+			display: flex;
+			justify-content: space-between;
+			position: relative;
+			z-index: 10;
+
+			.game-details {
+				display: flex;
+				flex-direction: column;
+			}
+
+			.game-dmg {
+				display: flex;
+				align-items: center;
+				font-size: 3em;
+				color: $dmg-color;
+			}
+		}
+
+		&:hover {
+
+			.overlay {
+				opacity: 0.9;
+			}
+		}
+
+		&.top-game {
+
+			.summoner-info {
+				display: flex;
+				justify-content: space-between;
+				position: relative;
+				z-index: 10;
+			}
+
+			.game-container {
+
+				.game-dmg {
+					font-weight: bold;
+				}
+			}
+
+			&.new {
+				border: 2px solid $new-top-color;
+
+				.overlay {
+					background-color: $new-top-color;
+				}
+
+				.game-dmg {
+					color: $new-top-color;
+				}
+			}
+
+			&.old {
+				border: 2px solid $old-top-color;
+
+				.overlay {
+					background-color: $old-top-color;
+				}
+
+				.game-dmg {
+					color: $old-top-color;
+				}
+			}
+
 		}
 	}
 }
@@ -279,6 +387,17 @@ header {
 
 		.text-container {
 			width: 90%;
+		}
+	}
+
+	.games-container {
+		font-size: 1em;
+
+		.game {
+
+			.overlay {
+				opacity: 0.9;
+			}
 		}
 	}
 }

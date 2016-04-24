@@ -34,7 +34,7 @@ module.exports = {
 	},
 
 	buildProfileIconUrl: function(iconId) {
-		return AppConstants.LOL_STATIC_BASE_URL + "/img/profileicon/" + iconId + ".png";
+		return AppConstants.LOL_STATIC_BASE_URL + "/" + AppConstants.LOL_API_VERSION + "/img/profileicon/" + iconId + ".png";
 	},
 
 	championNameForUrl: function(championName) {
@@ -42,8 +42,15 @@ module.exports = {
 	},
 
 	championSquareUrl: function(championName) {
-		var fullUrl = AppConstants.LOL_STATIC_BASE_URL + "/img/champion/";
+		var fullUrl = AppConstants.LOL_STATIC_BASE_URL + "/" + AppConstants.LOL_API_VERSION + "/img/champion/";
 		var championNameUrlified = this.championNameForUrl(championName) + ".png";
 		return fullUrl + championNameUrlified;
+	},
+
+	championSplashUrl: function(championName) {
+		var fullUrl = AppConstants.LOL_STATIC_BASE_URL + "/img/champion/splash/";
+		var championNameUrlified = this.championNameForUrl(championName);
+		var skinSelection = "_0.jpg";
+		return fullUrl + championNameUrlified + skinSelection;
 	}
 };

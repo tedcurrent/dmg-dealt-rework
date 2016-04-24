@@ -1,18 +1,27 @@
 "use strict";
 
 var React = require("react");
-
-// Jos ei damageita --> this props children (splash)
-// else --> damage
-// NOTE: Tänne tulee sit ihan kaikki
-// elikkä 404 renderöidää kans main sisällä
-// regions renderöidää kans main sisällä
+var PersonalGames = require("../PersonalGames/");
 
 var Main = React.createClass({
+	handleRender: function() {
+		var gameResults = this.props.gameResults;
+		
+		if (gameResults.games.length) {
+			return (
+				<PersonalGames gameResults={gameResults} />
+			);
+		} else {
+			return (
+				<div>{this.props.children}</div>
+			);
+		}
+	},
+
 	render: function() {
 		return (
 			<main>
-				{this.props.children}
+				{this.handleRender()}
 			</main>
 		);
 	}

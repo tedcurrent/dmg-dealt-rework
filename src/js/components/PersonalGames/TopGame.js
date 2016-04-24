@@ -2,34 +2,21 @@
 
 var React = require("react");
 var Game = require("./Game");
+var SummonerInfo = require("./SummonerInfo");
+var Overlay = require("./Overlay");
 
 var TopGame = React.createClass({
-	highScoreMessage: function() {
-		var newHs = this.props.newHs;
-		var topGameClass = newHs ? "top-game-new" : "top-game-old";
-		var message = newHs? "New highscore!" : "All-time highscore";
-
-		return (
-			<span className={topGameClass}>
-				{message}
-			</span>
-		);
-	},
-
-	renderTopGame: function() {
-		var topGame = this.props.topGame;
-		return (
-			<div>
-				{this.highScoreMessage()}
-				<Game key={topGame.gameId} game={topGame}/>
-			</div>
-		);
-	},
-
 	render: function() {
+		var newHs = this.props.newHs;
+		var topGameClass = "game top-game";
+		topGameClass = newHs ? topGameClass + " new" : topGameClass + " old";
+		var topGame = this.props.topGame;
+		
 		return (
-			<div className="top-game">
-				{this.renderTopGame()}
+			<div className={topGameClass}>
+				<Overlay champion={topGame.champion} />
+				<SummonerInfo newHs={newHs} summoner={this.props.summoner} />
+				<Game key={topGame.gameId} game={topGame} />
 			</div>
 		);
 	}
