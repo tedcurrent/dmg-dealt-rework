@@ -43052,7 +43052,7 @@ var SearchResult = React.createClass({
 		return React.createElement(
 			"div",
 			{ className: "search-result" },
-			"An error occurred. Please try again\""
+			"An error occurred. Please try again"
 		);
 	},
 

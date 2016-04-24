@@ -20,7 +20,7 @@ var SearchResult = React.createClass({
 	},
 
 	errorResult: function() {
-		return <div className="search-result">An error occurred. Please try again"</div>;
+		return <div className="search-result">An error occurred. Please try again</div>;
 	},
 
 	gotResults: function() {
