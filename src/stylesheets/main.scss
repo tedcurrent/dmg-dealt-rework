@@ -322,12 +322,14 @@ header {
 				justify-content: space-between;
 				position: relative;
 				z-index: 10;
+				font-size: 1.6em;
 			}
 
 			.game-container {
 
 				.game-dmg {
 					font-weight: bold;
+					font-size: 3.4em;
 				}
 			}
 
@@ -385,13 +387,23 @@ header {
 	}
 
 	header {
+		padding: 0.5em;
 
 		.logo {
-			width: 100px;
+			width: 110px;
 		}
 
 		ul {
-			width: 100px;
+			width: 110px;
+
+			li {
+
+				a {
+					span {
+						display: none;
+					}
+				}
+			}
 		}
 	}
 

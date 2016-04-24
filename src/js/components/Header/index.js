@@ -6,10 +6,6 @@ var Link = require("react-router").Link;
 var ApiRequestActions = require("../../actions/ApiRequestActions");
 
 var Header = React.createClass({
-	clickHandler: function() {
-		ApiRequestActions.cleanUpGames();
-	},
-
 	render: function() {
 		return (
 			<header>
@@ -20,8 +16,9 @@ var Header = React.createClass({
 
 				<ul>
 					<li>
-						<Link to="/regions" onClick={this.clickHandler}>
-							<i className="fa fa-globe" aria-hidden="true"> Regional</i>
+						<Link to="/regions">
+							<i className="fa fa-globe" aria-hidden="true"></i>
+							<span> Regions</span>
 						</Link>
 					</li>
 				</ul>

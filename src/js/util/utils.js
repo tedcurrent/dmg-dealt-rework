@@ -38,7 +38,14 @@ module.exports = {
 	},
 
 	championNameForUrl: function(championName) {
-		return championName.toLowerCase().replace("'", "").replace(".", "").capitalize().replace(" ", "");
+		switch (championName) {
+			case "Kog'Maw":
+				return "KogMaw";
+			case "Jarvan IV":
+				return "JarvanIV";
+			default:
+				return championName.toLowerCase().replace("'", "").replace(".", "").capitalize().replace(" ", "");
+		}
 	},
 
 	championSquareUrl: function(championName) {

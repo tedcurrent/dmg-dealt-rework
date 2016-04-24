@@ -4,9 +4,8 @@ var React = require("react");
 var TopGame = require("./TopGame");
 var GameList = require("./GameList");
 var SummonerInfo = require("./SummonerInfo");
-var PersonalGamesStore = require("../../stores/PersonalGamesStore");
 var ApiRequestActions = require("../../actions/ApiRequestActions");
-var Splash = require("../Splash/");
+var PersonalGamesStore = require("../../stores/PersonalGamesStore");
 var _ = require("lodash");
 
 var _refreshGames = function(props) {
@@ -47,6 +46,7 @@ var PersonalGamesController = React.createClass({
 
 	renderComponents: function() {
 		var results = this.state.gameResults;
+
 		if (results.errors === 0 && !_.isEmpty(results.summoner)) {
 			return (
 				<div>
@@ -55,9 +55,9 @@ var PersonalGamesController = React.createClass({
 					<GameList games={results.games}/>
 				</div>
 			);
-		} else if (results.errors > 0) {
+		} else if (results.errors) {
 			return (
-				<h2 className="error">There was an error in game search. Please try again.</h2>
+				<h3 className="error">There was an error in game search. Please try again.</h3>
 			);
 		}
 	},
