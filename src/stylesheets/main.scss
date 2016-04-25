@@ -141,6 +141,8 @@ header {
 
 		li {
 			margin-left: 1em;
+			display: flex;
+			align-items: center;
 		}
 
 		a {
@@ -185,7 +187,7 @@ header {
 				border: 0;
 	     		outline: 1px solid $content-color-light;
 	     		appearance: none;
-	     		margin-right: 5px;
+	     		padding: 0 5px;
 
 	     		&:focus {
 	     			outline: 1px solid $content-color-light;
@@ -462,10 +464,3 @@ footer {
 		font-size: 1em;
 	}
 }
-
-
-
-
-
-
-
