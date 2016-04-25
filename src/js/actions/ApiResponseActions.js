@@ -30,6 +30,20 @@ var ApiResponseActions = {
 			actionType: AppConstants.GAMES_SEARCH_ERROR,
 			data: result
 		});
+	},
+
+	updateRegionals: function(result) {
+		AppDispatcher.dispatch({
+			actionType: AppConstants.REGIONALS_FOUND,
+			data: result
+		});
+	},
+
+	regionalSearchError: function(result) {
+		AppDispatcher.dispatch({
+			actionType: AppConstants.REGIONALS_ERROR,
+			data: result
+		});
 	}
 };
 

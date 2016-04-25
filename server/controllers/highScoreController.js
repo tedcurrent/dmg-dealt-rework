@@ -38,7 +38,7 @@ module.exports = {
 	},
 
 	findBySummonerId: function(req, callback) {
-		highScoreModel.findOne({"summoner.summonerId": req.body.id}, function(err, oldHighScore) {
+		highScoreModel.findOne({"summoner.summonerId": req.body.id, "summoner.region": req.body.region}, function(err, oldHighScore) {
 			callback(err, oldHighScore);
 		});
 	},

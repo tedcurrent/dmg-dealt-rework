@@ -19,6 +19,13 @@ var ApiRequestActions = {
 		APIRequests.getPersonalGames(query);
 	},
 
+	getRegionalGames: function() {
+		AppDispatcher.dispatch({
+			actionType: AppConstants.API_REQUEST
+		});
+		APIRequests.getRegionalGames();
+	},
+
 	cleanUpGames: function() {
 		AppDispatcher.dispatch({
 			actionType: AppConstants.GAMES_CLEAN_UP

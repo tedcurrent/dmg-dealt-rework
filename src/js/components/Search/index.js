@@ -102,8 +102,8 @@ var Search = React.createClass({
 		ApiResponseActions.updateSummonerSearchResult({});
 	},
 
-	resultSubmitHandler: function(summoner) {
-		this.context.router.push("/" + summoner.id + "/" + summoner.region);
+	resultSubmitHandler: function() {
+		this.context.router.push("/" + this.state.searchResults.summoner.id + "/" + this.state.searchResults.summoner.region);
 		this.resetResults();
 	},
 
@@ -121,6 +121,7 @@ var Search = React.createClass({
 						value={this.state.queryValue}
 						querySent={this.state.querySent}
 						onChange={this.queryStringChange}
+						onEnter={this.resultSubmitHandler}
 					/>
 					<SearchDropDown
 						options={regionOptions} 

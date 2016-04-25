@@ -7,6 +7,15 @@ var SearchInput = React.createClass({
 		this.props.onChange(e.target.value);
 	},
 
+	handleKeyDown: function(e) {
+		switch (e.key) {
+			case "Enter":
+				this.handleChange(e);
+				break;
+			default:
+		}
+	},
+
 	render: function() {
 		return (
 			<input
@@ -16,6 +25,7 @@ var SearchInput = React.createClass({
 				autoFocus={true}
 				value={this.props.value}
 				onChange={this.handleChange}
+				onKeyDown={this.handleKeyDown}
 			/>
 		);
 	}

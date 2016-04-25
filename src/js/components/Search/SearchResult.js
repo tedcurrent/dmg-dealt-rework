@@ -56,7 +56,7 @@ var SearchResult = React.createClass({
 	},
 
 	clickHandler: function(summoner) {
-		this.props.onClick(summoner);
+		this.props.onClick();
 	},
 
 	render: function() {

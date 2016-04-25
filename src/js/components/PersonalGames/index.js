@@ -4,6 +4,7 @@ var React = require("react");
 var TopGame = require("./TopGame");
 var GameList = require("./GameList");
 var SummonerInfo = require("./SummonerInfo");
+var ErrorPage = require("../Error");
 var ApiRequestActions = require("../../actions/ApiRequestActions");
 var PersonalGamesStore = require("../../stores/PersonalGamesStore");
 var _ = require("lodash");
@@ -49,7 +50,7 @@ var PersonalGamesController = React.createClass({
 
 		if (results.errors === 0 && !_.isEmpty(results.summoner)) {
 			return (
-				<div>
+				<div className="games-container">
 					<TopGame summoner={results.summoner} topGame={results.highScore} newHs={results.newHighScore}/>
 					<h3>Last 10 Days of DMG</h3>
 					<GameList games={results.games}/>
@@ -57,14 +58,17 @@ var PersonalGamesController = React.createClass({
 			);
 		} else if (results.errors) {
 			return (
-				<h3 className="error">There was an error in game search. Please try again.</h3>
+				<ErrorPage
+					errorNumber={404}
+					errorMessage={"No games found with the name and region combination. Please try something else."}
+				/>
 			);
 		}
 	},
 
 	render: function() {
 		return (
-			<div className="games-container">
+			<div>
 				{this.renderComponents()}
 			</div>
 		);

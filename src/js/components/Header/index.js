@@ -18,7 +18,7 @@ var Header = React.createClass({
 					<li>
 						<Link to="/regions">
 							<i className="fa fa-globe" aria-hidden="true"></i>
-							<span> Regions</span>
+							<span> TOP</span>
 						</Link>
 					</li>
 				</ul>

@@ -69,6 +69,19 @@ var APIRequests = {
 					callback(null, result);
 				}
 			});
+	},
+
+	getRegionalGames: function(callback) {
+		request
+			.get("/api/getRegionalScores")
+			.end(function(err, result) {
+				if (err) {
+					ApiResponseActions.regionalSearchError(err);
+				} else {
+					var parsedGames = JSON.parse(result.text);
+					ApiResponseActions.updateRegionals(parsedGames);
+				}
+			});
 	}
 };
 
