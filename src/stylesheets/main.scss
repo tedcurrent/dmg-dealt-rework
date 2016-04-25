@@ -190,6 +190,10 @@ header {
 	     		&:focus {
 	     			outline: 1px solid $content-color-light;
 	     		}
+
+	     		&:hover {
+	     			cursor: pointer;
+	     		}
 			}
 
 			.drop-arrow {
