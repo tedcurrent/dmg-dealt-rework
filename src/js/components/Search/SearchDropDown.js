@@ -17,11 +17,14 @@ var Dropdown = React.createClass({
 		}.bind(this));
 		
 		return (
-			<select id={this.props.id}
-				value={this.props.value} 
-				onChange={this.handleChange}>
-				{options}
-			</select>
+			<div className="drop-down">
+				<select id={this.props.id}
+					value={this.props.value} 
+					onChange={this.handleChange}>
+					{options}
+				</select>
+				<span className="drop-arrow">&#9660;</span>
+			</div>
 		);
 	}
 });

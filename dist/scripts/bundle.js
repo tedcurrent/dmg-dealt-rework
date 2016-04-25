@@ -43478,11 +43478,20 @@ var Dropdown = React.createClass({
 		}.bind(this));
 
 		return React.createElement(
-			"select",
-			{ id: this.props.id,
-				value: this.props.value,
-				onChange: this.handleChange },
-			options
+			"div",
+			{ className: "drop-down" },
+			React.createElement(
+				"select",
+				{ id: this.props.id,
+					value: this.props.value,
+					onChange: this.handleChange },
+				options
+			),
+			React.createElement(
+				"span",
+				{ className: "drop-arrow" },
+				"▼"
+			)
 		);
 	}
 });

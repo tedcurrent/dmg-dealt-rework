@@ -173,19 +173,27 @@ header {
 			}
 		}
 
-		select {
+		.drop-down {
 			position: absolute;
 			top: $header-padding;
 			right: $header-padding;
 			color: $emphasis-color-dark;
-			background: $content-color-light;
-			border-radius: 0;
-			border: 0;
-     		outline: 1px solid $content-color-light;
 
-     		&:focus {
-     			outline: 1px solid $content-color-light;
-     		}
+			select {
+				background: $content-color-light;
+				border-radius: 0;
+				border: 0;
+	     		outline: 1px solid $content-color-light;
+	     		appearance: none;
+
+	     		&:focus {
+	     			outline: 1px solid $content-color-light;
+	     		}
+			}
+
+			.drop-arrow {
+				font-size: 0.75em;
+			}
 		}
 
 		.search-result {
