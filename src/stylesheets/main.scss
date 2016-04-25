@@ -185,6 +185,7 @@ header {
 				border: 0;
 	     		outline: 1px solid $content-color-light;
 	     		appearance: none;
+	     		margin-right: 5px;
 
 	     		&:focus {
 	     			outline: 1px solid $content-color-light;
@@ -192,7 +193,7 @@ header {
 			}
 
 			.drop-arrow {
-				font-size: 0.75em;
+				font-size: 0.5em;
 			}
 		}
 
