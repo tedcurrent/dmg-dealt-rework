@@ -4,6 +4,7 @@ var ApiResponseActions = require("../actions/ApiResponseActions");
 var request = require("superagent");
 var NProgress = require("nprogress");
 var _ = require("lodash");
+var Util = require("../util/utils");
 
 var APIRequests = {
 	getSummoner: function(query) {
@@ -39,7 +40,8 @@ var APIRequests = {
 					ApiResponseActions.gameSearchError(err);
 					NProgress.done();
 				} else {
-					var parsedGames = _.orderBy(JSON.parse(result.text), ["dmgDealt"], ["desc"]);
+					var parsedGames = Util.cleanEmptyDamages(JSON.parse(result.text));
+					parsedGames = _.orderBy(parsedGames, ["dmgDealt"], ["desc"]);
 					query.topGame = parsedGames[0];
 					this.saveHighScore(query, function(err, hsResults) {
 						if (err) {

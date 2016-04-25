@@ -43867,6 +43867,7 @@ var ApiResponseActions = require("../actions/ApiResponseActions");
 var request = require("superagent");
 var NProgress = require("nprogress");
 var _ = require("lodash");
+var Util = require("../util/utils");
 
 var APIRequests = {
 	getSummoner: function (query) {
@@ -43898,7 +43899,8 @@ var APIRequests = {
 				ApiResponseActions.gameSearchError(err);
 				NProgress.done();
 			} else {
-				var parsedGames = _.orderBy(JSON.parse(result.text), ["dmgDealt"], ["desc"]);
+				var parsedGames = Util.cleanEmptyDamages(JSON.parse(result.text));
+				parsedGames = _.orderBy(parsedGames, ["dmgDealt"], ["desc"]);
 				query.topGame = parsedGames[0];
 				this.saveHighScore(query, function (err, hsResults) {
 					if (err) {
@@ -43941,7 +43943,7 @@ var APIRequests = {
 
 module.exports = APIRequests;
 
-},{"../actions/ApiResponseActions":387,"lodash":182,"nprogress":183,"superagent":380}],411:[function(require,module,exports){
+},{"../actions/ApiResponseActions":387,"../util/utils":415,"lodash":182,"nprogress":183,"superagent":380}],411:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -44140,6 +44142,7 @@ module.exports = SummonerSearchStore;
 "use strict";
 
 var AppConstants = require("../constants/AppConstants");
+var _ = require("lodash");
 
 Date.prototype.customFormat = function (formatString) {
 	var YYYY, YY, MMMM, MMM, MM, M, DDDD, DDD, DD, D, hhh, hh, h, mm, m, ss, s, ampm, AMPM, dMod, th;
@@ -44174,6 +44177,12 @@ module.exports = {
 		return formattedDate.customFormat("#DD# #MMMM#, #YYYY#").toString();
 	},
 
+	cleanEmptyDamages: function (gameArray) {
+		return _.remove(gameArray, function (game) {
+			return game.dmgDealt;
+		});
+	},
+
 	buildProfileIconUrl: function (iconId) {
 		return AppConstants.LOL_STATIC_BASE_URL + "/" + AppConstants.LOL_API_VERSION + "/img/profileicon/" + iconId + ".png";
 	},
@@ -44205,7 +44214,7 @@ module.exports = {
 	}
 };
 
-},{"../constants/AppConstants":408}],416:[function(require,module,exports){
+},{"../constants/AppConstants":408,"lodash":182}],416:[function(require,module,exports){
 "use strict";
 
 var React = require("react");

@@ -1,6 +1,7 @@
 "use strict";
 
 var AppConstants = require("../constants/AppConstants");
+var _ = require("lodash");
 
 Date.prototype.customFormat = function(formatString){
 	var YYYY,YY,MMMM,MMM,MM,M,DDDD,DDD,DD,D,hhh,hh,h,mm,m,ss,s,ampm,AMPM,dMod,th;
@@ -31,6 +32,12 @@ module.exports = {
 	fixDateToString: function(unformattedDate) {
 		var formattedDate = new Date(unformattedDate);
 		return formattedDate.customFormat("#DD# #MMMM#, #YYYY#").toString();
+	},
+
+	cleanEmptyDamages: function(gameArray) {
+		return _.remove(gameArray, function(game) {
+			return game.dmgDealt;
+		});
 	},
 
 	buildProfileIconUrl: function(iconId) {
