@@ -101,6 +101,7 @@ var Search = React.createClass({
 
 	resetResults: function() {
 		ApiResponseActions.updateSummonerSearchResult({});
+		this.arrowKeyNavigation(false);
 	},
 
 	resultSubmitHandler: function() {
