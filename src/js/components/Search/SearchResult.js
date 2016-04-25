@@ -38,9 +38,13 @@ var SearchResult = React.createClass({
 
 		var profileIconUrl = Util.buildProfileIconUrl(summoner.profileIconId);
 
+		var resultClass = "search-result";
+
+		resultClass = this.props.resultSelected ? resultClass + " selected" : resultClass;
+
 		return (
 			<div onClick={handleClick} 
-				className="search-result">
+				className={resultClass}>
 				<div className="thumbnail-container">
 					<Image src={profileIconUrl} alt={"summoner icon"} />
 				</div>

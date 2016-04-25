@@ -43507,13 +43507,22 @@ var SearchInput = React.createClass({
 	displayName: "SearchInput",
 
 	handleChange: function (e) {
+		this.props.resultSelectedChange(false);
 		this.props.onChange(e.target.value);
 	},
 
 	handleKeyDown: function (e) {
 		switch (e.key) {
 			case "Enter":
-				this.handleChange(e);
+				this.props.resultSelected ? this.props.onEnter() : this.handleChange(e);
+				break;
+			case "ArrowDown":
+				e.preventDefault();
+				this.props.resultSelectedChange(!this.props.resultSelected);
+				break;
+			case "ArrowUp":
+				e.preventDefault();
+				this.props.resultSelectedChange(!this.props.resultSelected);
 				break;
 			default:
 		}
@@ -43604,10 +43613,14 @@ var SearchResult = React.createClass({
 
 		var profileIconUrl = Util.buildProfileIconUrl(summoner.profileIconId);
 
+		var resultClass = "search-result";
+
+		resultClass = this.props.resultSelected ? resultClass + " selected" : resultClass;
+
 		return React.createElement(
 			"div",
 			{ onClick: handleClick,
-				className: "search-result" },
+				className: resultClass },
 			React.createElement(
 				"div",
 				{ className: "thumbnail-container" },
@@ -43692,7 +43705,8 @@ var Search = React.createClass({
 			searchResults: SummonerSearchStore.getAll(),
 			regionSelected: "euw",
 			querySent: false,
-			queryValue: ""
+			queryValue: "",
+			resultSelected: false
 		};
 	},
 
@@ -43757,6 +43771,10 @@ var Search = React.createClass({
 		}
 	},
 
+	arrowKeyNavigation: function (selected) {
+		this.setState({ resultSelected: selected });
+	},
+
 	render: function () {
 		return React.createElement(
 			"div",
@@ -43767,8 +43785,10 @@ var Search = React.createClass({
 				React.createElement(SearchInput, {
 					value: this.state.queryValue,
 					querySent: this.state.querySent,
+					resultSelected: this.state.resultSelected,
 					onChange: this.queryStringChange,
-					onEnter: this.resultSubmitHandler
+					onEnter: this.resultSubmitHandler,
+					resultSelectedChange: this.arrowKeyNavigation
 				}),
 				React.createElement(SearchDropDown, {
 					options: regionOptions,
@@ -43781,7 +43801,8 @@ var Search = React.createClass({
 			React.createElement(SearchResult, {
 				searchResult: this.state.searchResults,
 				onClick: this.resultSubmitHandler,
-				bodyClick: this.bodyClickHandler
+				bodyClick: this.bodyClickHandler,
+				resultSelected: this.state.resultSelected
 			})
 		);
 	}

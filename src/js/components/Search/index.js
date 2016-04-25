@@ -48,7 +48,8 @@ var Search = React.createClass({
 			searchResults: SummonerSearchStore.getAll(),
 			regionSelected: "euw",
 			querySent: false,
-			queryValue: ""
+			queryValue: "",
+			resultSelected: false
 		};
 	},
 
@@ -113,6 +114,10 @@ var Search = React.createClass({
 		}
 	},
 
+	arrowKeyNavigation: function(selected) {
+		this.setState({resultSelected: selected});
+	},
+
 	render: function() {
 		return (
 			<div className="search">
@@ -120,8 +125,10 @@ var Search = React.createClass({
 					<SearchInput 
 						value={this.state.queryValue}
 						querySent={this.state.querySent}
+						resultSelected={this.state.resultSelected}
 						onChange={this.queryStringChange}
 						onEnter={this.resultSubmitHandler}
+						resultSelectedChange={this.arrowKeyNavigation}
 					/>
 					<SearchDropDown
 						options={regionOptions} 
@@ -135,6 +142,7 @@ var Search = React.createClass({
 					searchResult={this.state.searchResults}
 					onClick={this.resultSubmitHandler}
 					bodyClick={this.bodyClickHandler}
+					resultSelected={this.state.resultSelected}
 				/>
 			</div>
 		);

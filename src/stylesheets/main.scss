@@ -236,6 +236,10 @@ header {
 				background-color: $content-color-super-light;
 				cursor: pointer;
 			}
+
+			&.selected {
+				background-color: $content-color-super-light;
+			}
 		}
 	}
 	
