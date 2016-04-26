@@ -42977,6 +42977,11 @@ var ErrorPage = React.createClass({
 					"h2",
 					null,
 					this.props.errorMessage
+				),
+				React.createElement(
+					"h2",
+					null,
+					this.props.errorMessage2
 				)
 			)
 		);
@@ -43306,7 +43311,8 @@ var PersonalGamesController = React.createClass({
 		} else if (results.errors) {
 			return React.createElement(ErrorPage, {
 				errorNumber: 404,
-				errorMessage: "No games found with the name and region combination. Please try something else."
+				errorMessage: "No games found with the name and region combination.",
+				errorMessage2: "Please try something else."
 			});
 		} else {
 			return React.createElement("div", null);
@@ -43409,7 +43415,8 @@ var RegionsPage = React.createClass({
 		} else if (results.errors) {
 			return React.createElement(ErrorPage, {
 				errorNumber: "500",
-				errorMessage: "There was an error in game search. Please try again later."
+				errorMessage: "There was an error in game search.",
+				errorMessage2: "Please try again later."
 			});
 		} else {
 			return React.createElement("div", null);

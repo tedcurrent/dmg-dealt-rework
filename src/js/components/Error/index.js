@@ -9,6 +9,7 @@ var ErrorPage = React.createClass({
 				<div className="text-container">
 					<h1>{this.props.errorNumber}</h1>
 					<h2>{this.props.errorMessage}</h2>
+					<h2>{this.props.errorMessage2}</h2>
 				</div>
 			</div>
 		);

@@ -55,7 +55,8 @@ var RegionsPage = React.createClass({
 			return (
 				<ErrorPage
 					errorNumber={"500"}
-					errorMessage={"There was an error in game search. Please try again later."}
+					errorMessage={"There was an error in game search."}
+					errorMessage2={"Please try again later."}
 				/>
 			);
 		} else {

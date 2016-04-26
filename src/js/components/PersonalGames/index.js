@@ -60,7 +60,8 @@ var PersonalGamesController = React.createClass({
 			return (
 				<ErrorPage
 					errorNumber={404}
-					errorMessage={"No games found with the name and region combination. Please try something else."}
+					errorMessage={"No games found with the name and region combination."}
+					errorMessage2={"Please try something else."}
 				/>
 			);
 		} else {
