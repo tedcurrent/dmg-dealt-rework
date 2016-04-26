@@ -42923,12 +42923,15 @@ module.exports = App;
 var React = require("react");
 var ReactDOM = require("react-dom");
 
+var defaultProfileIcon = "./images/default_profile_icon.png";
+
 var Image = React.createClass({
 	displayName: "Image",
 
 	getInitialState: function () {
 		return {
-			loaded: false
+			loaded: false,
+			errored: false
 		};
 	},
 
@@ -42946,9 +42949,14 @@ var Image = React.createClass({
 		img.src = imgSrc;
 	},
 
+	changeToDefault: function () {
+		this.setState({ errored: true });
+	},
+
 	render: function () {
 		var imgClass = !this.state.loaded ? "image" : "image loaded";
-		return React.createElement("img", { ref: "img", src: this.props.src, alt: this.props.alt, className: imgClass });
+		var imgSrc = !this.state.errored ? this.props.src : defaultProfileIcon;
+		return React.createElement("img", { onError: this.changeToDefault, ref: "img", src: imgSrc, alt: this.props.alt, className: imgClass });
 	}
 });
 
