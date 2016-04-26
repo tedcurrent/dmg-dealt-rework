@@ -12,8 +12,8 @@ var Splash = React.createClass({
 					<h3>
 						Find out recent damage numbers from 
 						<a href="http://eune.leagueoflegends.com/"> League of Legends </a>
-						and compare how you stack up with the deadliest.
 					</h3>
+					<h3>and compare how you stack up with the deadliest.</h3>
 				</div>
 			</div>
 		);

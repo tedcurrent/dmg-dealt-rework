@@ -42927,7 +42927,7 @@ var App = React.createClass({
 	render: function () {
 		return React.createElement(
 			"div",
-			null,
+			{ className: "wrapper" },
 			React.createElement(Header, null),
 			React.createElement(
 				"main",
@@ -43840,7 +43840,11 @@ var Splash = React.createClass({
 						"a",
 						{ href: "http://eune.leagueoflegends.com/" },
 						" League of Legends "
-					),
+					)
+				),
+				React.createElement(
+					"h3",
+					null,
 					"and compare how you stack up with the deadliest."
 				)
 			)
