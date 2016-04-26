@@ -58,21 +58,13 @@ var RegionsPage = React.createClass({
 					errorMessage={"There was an error in game search. Please try again later."}
 				/>
 			);
-		} else if (_.isEmpty(results.games)) {
-			return (
-				<ErrorPage
-					errorMessage={"No games found. Please try again later."}
-				/>
-			);
+		} else {
+			return (<div></div>);
 		}
 	},
 
 	render: function() {
-		return (
-			<div>
-				{this.renderComponents()}
-			</div>
-		);
+		return this.renderComponents();
 	}
 });
 

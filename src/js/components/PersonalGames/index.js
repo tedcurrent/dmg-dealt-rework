@@ -63,15 +63,13 @@ var PersonalGamesController = React.createClass({
 					errorMessage={"No games found with the name and region combination. Please try something else."}
 				/>
 			);
+		} else {
+			return (<div></div>);
 		}
 	},
 
 	render: function() {
-		return (
-			<div>
-				{this.renderComponents()}
-			</div>
-		);
+		return this.renderComponents();
 	}
 });
 

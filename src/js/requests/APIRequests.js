@@ -74,6 +74,7 @@ var APIRequests = {
 	},
 
 	getRegionalGames: function(callback) {
+		NProgress.start();
 		request
 			.get("/api/getRegionalScores")
 			.end(function(err, result) {
@@ -83,6 +84,8 @@ var APIRequests = {
 					var parsedGames = JSON.parse(result.text);
 					ApiResponseActions.updateRegionals(parsedGames);
 				}
+				
+				NProgress.done();
 			});
 	}
 };

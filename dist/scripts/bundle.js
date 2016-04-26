@@ -42790,20 +42790,16 @@ var NotFoundPage = React.createClass({
 	displayName: "NotFoundPage",
 
 	render: function () {
-		return React.createElement(
-			"div",
-			null,
-			React.createElement(ErrorPage, {
-				errorNumber: 404,
-				errorMessage: "Page Not Found"
-			})
-		);
+		return React.createElement(ErrorPage, {
+			errorNumber: 404,
+			errorMessage: "Page Not Found"
+		});
 	}
 });
 
 module.exports = NotFoundPage;
 
-},{"./components/Error":391,"react":377}],386:[function(require,module,exports){
+},{"./components/Error":390,"react":377}],386:[function(require,module,exports){
 "use strict";
 
 var AppDispatcher = require("../dispatcher/AppDispatcher");
@@ -42841,7 +42837,7 @@ var ApiRequestActions = {
 
 module.exports = ApiRequestActions;
 
-},{"../constants/AppConstants":408,"../dispatcher/AppDispatcher":409,"../requests/APIRequests":410}],387:[function(require,module,exports){
+},{"../constants/AppConstants":407,"../dispatcher/AppDispatcher":408,"../requests/APIRequests":409}],387:[function(require,module,exports){
 "use strict";
 
 var AppDispatcher = require("../dispatcher/AppDispatcher");
@@ -42893,33 +42889,15 @@ var ApiResponseActions = {
 
 module.exports = ApiResponseActions;
 
-},{"../constants/AppConstants":408,"../dispatcher/AppDispatcher":409}],388:[function(require,module,exports){
-"use strict";
-
-var AppDispatcher = require("../dispatcher/AppDispatcher");
-var AppConstants = require("../constants/AppConstants");
-var APIRequests = require("../requests/APIRequests");
-
-var InitActions = {
-	initApp: function () {
-		AppDispatcher.dispatch({
-			actionType: AppConstants.API_REQUEST
-		});
-		APIRequests.getRegionalGames();
-	}
-};
-
-module.exports = InitActions;
-
-},{"../constants/AppConstants":408,"../dispatcher/AppDispatcher":409,"../requests/APIRequests":410}],389:[function(require,module,exports){
+},{"../constants/AppConstants":407,"../dispatcher/AppDispatcher":408}],388:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
 var Header = require("./components/Header/");
 var Footer = require("./components/Footer/");
-var InitActions = require("./actions/InitActions");
+// var InitActions = require("./actions/InitActions");
 
-InitActions.initApp();
+// InitActions.initApp();
 
 var App = React.createClass({
 	displayName: "App",
@@ -42941,7 +42919,7 @@ var App = React.createClass({
 
 module.exports = App;
 
-},{"./actions/InitActions":388,"./components/Footer/":392,"./components/Header/":393,"react":377}],390:[function(require,module,exports){
+},{"./components/Footer/":391,"./components/Header/":392,"react":377}],389:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -42978,7 +42956,7 @@ var Image = React.createClass({
 
 module.exports = Image;
 
-},{"react":377,"react-dom":187}],391:[function(require,module,exports){
+},{"react":377,"react-dom":187}],390:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -43010,7 +42988,7 @@ var ErrorPage = React.createClass({
 
 module.exports = ErrorPage;
 
-},{"react":377}],392:[function(require,module,exports){
+},{"react":377}],391:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -43041,7 +43019,7 @@ var Footer = React.createClass({
 
 module.exports = Footer;
 
-},{"react":377}],393:[function(require,module,exports){
+},{"react":377}],392:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -43090,7 +43068,7 @@ var Header = React.createClass({
 
 module.exports = Header;
 
-},{"../../actions/ApiRequestActions":386,"../Search/index":406,"react":377,"react-router":215}],394:[function(require,module,exports){
+},{"../../actions/ApiRequestActions":386,"../Search/index":405,"react":377,"react-router":215}],393:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -43139,7 +43117,7 @@ var Game = React.createClass({
 
 module.exports = Game;
 
-},{"../../util/utils":415,"../Common/Image":390,"react":377}],395:[function(require,module,exports){
+},{"../../util/utils":414,"../Common/Image":389,"react":377}],394:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -43171,7 +43149,7 @@ var GameList = React.createClass({
 
 module.exports = GameList;
 
-},{"./Game":394,"./Overlay":396,"react":377}],396:[function(require,module,exports){
+},{"./Game":393,"./Overlay":395,"react":377}],395:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -43194,7 +43172,7 @@ var Overlay = React.createClass({
 
 module.exports = Overlay;
 
-},{"../../constants/AppConstants":408,"../../util/utils":415,"react":377}],397:[function(require,module,exports){
+},{"../../constants/AppConstants":407,"../../util/utils":414,"react":377}],396:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -43234,7 +43212,7 @@ var SummonerInfo = React.createClass({
 
 module.exports = SummonerInfo;
 
-},{"react":377}],398:[function(require,module,exports){
+},{"react":377}],397:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -43263,7 +43241,7 @@ var TopGame = React.createClass({
 
 module.exports = TopGame;
 
-},{"./Game":394,"./Overlay":396,"./SummonerInfo":397,"react":377}],399:[function(require,module,exports){
+},{"./Game":393,"./Overlay":395,"./SummonerInfo":396,"react":377}],398:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -43333,21 +43311,19 @@ var PersonalGamesController = React.createClass({
 				errorNumber: 404,
 				errorMessage: "No games found with the name and region combination. Please try something else."
 			});
+		} else {
+			return React.createElement("div", null);
 		}
 	},
 
 	render: function () {
-		return React.createElement(
-			"div",
-			null,
-			this.renderComponents()
-		);
+		return this.renderComponents();
 	}
 });
 
 module.exports = PersonalGamesController;
 
-},{"../../actions/ApiRequestActions":386,"../../stores/PersonalGamesStore":412,"../Error":391,"./GameList":395,"./SummonerInfo":397,"./TopGame":398,"lodash":182,"react":377}],400:[function(require,module,exports){
+},{"../../actions/ApiRequestActions":386,"../../stores/PersonalGamesStore":411,"../Error":390,"./GameList":394,"./SummonerInfo":396,"./TopGame":397,"lodash":182,"react":377}],399:[function(require,module,exports){
 "use strict";
 
 var React = require("React");
@@ -43375,7 +43351,7 @@ var RegionalGame = React.createClass({
 
 module.exports = RegionalGame;
 
-},{"../PersonalGames/Game":394,"../PersonalGames/Overlay":396,"../PersonalGames/SummonerInfo":397,"React":156}],401:[function(require,module,exports){
+},{"../PersonalGames/Game":393,"../PersonalGames/Overlay":395,"../PersonalGames/SummonerInfo":396,"React":156}],400:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -43438,25 +43414,19 @@ var RegionsPage = React.createClass({
 				errorNumber: "500",
 				errorMessage: "There was an error in game search. Please try again later."
 			});
-		} else if (_.isEmpty(results.games)) {
-			return React.createElement(ErrorPage, {
-				errorMessage: "No games found. Please try again later."
-			});
+		} else {
+			return React.createElement("div", null);
 		}
 	},
 
 	render: function () {
-		return React.createElement(
-			"div",
-			null,
-			this.renderComponents()
-		);
+		return this.renderComponents();
 	}
 });
 
 module.exports = RegionsPage;
 
-},{"../../actions/ApiRequestActions":386,"../../stores/RegionalGamesStore":413,"../Error":391,"./RegionalGame":400,"lodash":182,"react":377}],402:[function(require,module,exports){
+},{"../../actions/ApiRequestActions":386,"../../stores/RegionalGamesStore":412,"../Error":390,"./RegionalGame":399,"lodash":182,"react":377}],401:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -43498,7 +43468,7 @@ var Dropdown = React.createClass({
 
 module.exports = Dropdown;
 
-},{"react":377}],403:[function(require,module,exports){
+},{"react":377}],402:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -43543,7 +43513,7 @@ var SearchInput = React.createClass({
 
 module.exports = SearchInput;
 
-},{"react":377}],404:[function(require,module,exports){
+},{"react":377}],403:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -43562,7 +43532,7 @@ var SearchInputContainer = React.createClass({
 
 module.exports = SearchInputContainer;
 
-},{"react":377}],405:[function(require,module,exports){
+},{"react":377}],404:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -43659,7 +43629,7 @@ var SearchResult = React.createClass({
 
 module.exports = SearchResult;
 
-},{"../../util/utils":415,"../Common/Image":390,"lodash":182,"react":377,"react-router":215}],406:[function(require,module,exports){
+},{"../../util/utils":414,"../Common/Image":389,"lodash":182,"react":377,"react-router":215}],405:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -43811,7 +43781,7 @@ var Search = React.createClass({
 
 module.exports = Search;
 
-},{"../../actions/ApiRequestActions":386,"../../actions/ApiResponseActions":387,"../../stores/SummonerSearchStore":414,"./SearchDropDown":402,"./SearchInput":403,"./SearchInputContainer":404,"./SearchResult":405,"react":377,"react-dom":187,"react-router":215}],407:[function(require,module,exports){
+},{"../../actions/ApiRequestActions":386,"../../actions/ApiResponseActions":387,"../../stores/SummonerSearchStore":413,"./SearchDropDown":401,"./SearchInput":402,"./SearchInputContainer":403,"./SearchResult":404,"react":377,"react-dom":187,"react-router":215}],406:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -43854,7 +43824,7 @@ var Splash = React.createClass({
 
 module.exports = Splash;
 
-},{"react":377}],408:[function(require,module,exports){
+},{"react":377}],407:[function(require,module,exports){
 module.exports = {
 	API_REQUEST: "API_REQUEST",
 	SUMMONER_FOUND: "SUMMONER_FOUND",
@@ -43868,7 +43838,7 @@ module.exports = {
 	LOL_API_VERSION: "6.7.1"
 };
 
-},{}],409:[function(require,module,exports){
+},{}],408:[function(require,module,exports){
 /*
  * Copyright (c) 2014-2015, Facebook, Inc.
  * All rights reserved.
@@ -43886,7 +43856,7 @@ var Dispatcher = require("flux").Dispatcher;
 
 module.exports = new Dispatcher();
 
-},{"flux":163}],410:[function(require,module,exports){
+},{"flux":163}],409:[function(require,module,exports){
 "use strict";
 
 var ApiResponseActions = require("../actions/ApiResponseActions");
@@ -43956,6 +43926,7 @@ var APIRequests = {
 	},
 
 	getRegionalGames: function (callback) {
+		NProgress.start();
 		request.get("/api/getRegionalScores").end(function (err, result) {
 			if (err) {
 				ApiResponseActions.regionalSearchError(err);
@@ -43963,13 +43934,15 @@ var APIRequests = {
 				var parsedGames = JSON.parse(result.text);
 				ApiResponseActions.updateRegionals(parsedGames);
 			}
+
+			NProgress.done();
 		});
 	}
 };
 
 module.exports = APIRequests;
 
-},{"../actions/ApiResponseActions":387,"../util/utils":415,"lodash":182,"nprogress":183,"superagent":380}],411:[function(require,module,exports){
+},{"../actions/ApiResponseActions":387,"../util/utils":414,"lodash":182,"nprogress":183,"superagent":380}],410:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -43993,7 +43966,7 @@ var routes = React.createElement(
 
 module.exports = routes;
 
-},{"../404":385,"../app":389,"../components/PersonalGames/":399,"../components/RegionalGames/":401,"../components/Splash/":407,"react":377,"react-router":215}],412:[function(require,module,exports){
+},{"../404":385,"../app":388,"../components/PersonalGames/":398,"../components/RegionalGames/":400,"../components/Splash/":406,"react":377,"react-router":215}],411:[function(require,module,exports){
 "use strict";
 
 var AppDispatcher = require("../dispatcher/AppDispatcher");
@@ -44061,7 +44034,7 @@ AppDispatcher.register(function (action) {
 
 module.exports = PersonalScoresStore;
 
-},{"../constants/AppConstants":408,"../dispatcher/AppDispatcher":409,"events":161,"object-assign":184}],413:[function(require,module,exports){
+},{"../constants/AppConstants":407,"../dispatcher/AppDispatcher":408,"events":161,"object-assign":184}],412:[function(require,module,exports){
 "use strict";
 
 var AppDispatcher = require("../dispatcher/AppDispatcher");
@@ -44113,7 +44086,7 @@ AppDispatcher.register(function (action) {
 
 module.exports = RegionalScoresStore;
 
-},{"../constants/AppConstants":408,"../dispatcher/AppDispatcher":409,"events":161,"object-assign":184}],414:[function(require,module,exports){
+},{"../constants/AppConstants":407,"../dispatcher/AppDispatcher":408,"events":161,"object-assign":184}],413:[function(require,module,exports){
 "use strict";
 
 var AppDispatcher = require("../dispatcher/AppDispatcher");
@@ -44164,7 +44137,7 @@ AppDispatcher.register(function (action) {
 
 module.exports = SummonerSearchStore;
 
-},{"../constants/AppConstants":408,"../dispatcher/AppDispatcher":409,"events":161,"object-assign":184}],415:[function(require,module,exports){
+},{"../constants/AppConstants":407,"../dispatcher/AppDispatcher":408,"events":161,"object-assign":184}],414:[function(require,module,exports){
 "use strict";
 
 var AppConstants = require("../constants/AppConstants");
@@ -44240,7 +44213,7 @@ module.exports = {
 	}
 };
 
-},{"../constants/AppConstants":408,"lodash":182}],416:[function(require,module,exports){
+},{"../constants/AppConstants":407,"lodash":182}],415:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -44252,4 +44225,4 @@ var routes = require("./js/routes/routes");
 
 ReactDOM.render(React.createElement(Router, { history: BrowserHistory, routes: routes }), document.getElementById("app"));
 
-},{"./js/routes/routes":411,"react":377,"react-dom":187,"react-router":215}]},{},[416]);
+},{"./js/routes/routes":410,"react":377,"react-dom":187,"react-router":215}]},{},[415]);
