@@ -78,4 +78,4 @@ gulp.task("watch", function() {
 	gulp.watch(config.paths.styles, ["styles"]);
 });
 
-gulp.task("default", ["styles", "js", "lint", "dev", "watch"]);
+gulp.task("default", ["static", "styles", "js", "lint", "dev", "watch"]);

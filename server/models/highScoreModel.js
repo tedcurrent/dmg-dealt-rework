@@ -4,6 +4,10 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 var shortid = require("shortid");
 
+/**
+	* A highScoreModel that contains all the properties for saving a game and a summoner
+	* NOTE: Also contains the "gameId", which can be used to further expand this application
+*/
 var highScoreModel = new Schema({
 	_id: {
 		type: String,
