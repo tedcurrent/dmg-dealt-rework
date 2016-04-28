@@ -4,8 +4,14 @@ var _ = require("lodash");
 var fs = require("fs");
 var champDataUtil = require("./champDataUtil");
 
+// A collection of several utility functions
 var Utils = {
-	formatLolGames: function(games, callback) {
+	/**
+		* Filters relevant data off league games
+		* @param {array} A list of games
+		* @return {array} A list of formatted games
+	*/
+	formatLolGames: function(games) {
 		return _.map(games, function(game) {
 			return {
 				gameId: game.gameId,
@@ -17,16 +23,20 @@ var Utils = {
 		});
 	},
 
-	buildProfileIconUrl: function(iconId) {
-		var patchVersion = "6.7.1";
-		var url = "http://ddragon.leagueoflegends.com/cdn/" + patchVersion + "/img/profileicon/" + iconId + ".png";
-		return url;
-	},
-
+	/**
+		* Simple stringifier
+		* @param {object} Any object
+		* @return {string} Object in string format
+	*/
 	formatObjectToString: function(obj) {
 		return JSON.stringify(obj);
 	},
 
+	/**
+		* Writes any string to a given path
+		* @param {string} Write path 
+		* @param {string} String to write
+	*/
 	writeStringToFile: function(path, str) {
 		try {
 			fs.writeFileSync(path, str, "utf8");
