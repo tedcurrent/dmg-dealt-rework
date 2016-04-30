@@ -2,6 +2,7 @@
 
 var React = require("react");
 
+// Search input component with mouse and keyboard handlers
 var SearchInput = React.createClass({
 	handleChange: function(e) {
 		this.props.resultSelectedChange(false);

@@ -219,10 +219,6 @@ header {
 			padding: $header-padding;
 
 			span {
-				
-				&.name {
-					
-				}
 
 				&.level {
 					margin-left: auto;
@@ -476,5 +472,24 @@ footer {
 
 	.games-container {
 		font-size: 1em;
+	}
+}
+
+@media only screen and (max-width: 400px) {
+	body {
+		font-size: 0.8em;
+	}
+
+	h1 {
+		font-size: 3.9em;
+		letter-spacing: -3px;
+	}
+
+	h3 {
+		font-size: 1.2em;
+	}
+
+	.games-container {
+		font-size: 0.9em;
 	}
 }

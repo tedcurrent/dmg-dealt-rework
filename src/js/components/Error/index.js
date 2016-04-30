@@ -2,6 +2,7 @@
 
 var React = require("react");
 
+// Rendered upon errors (eg. 404)
 var ErrorPage = React.createClass({
 	render: function() {
 		return (

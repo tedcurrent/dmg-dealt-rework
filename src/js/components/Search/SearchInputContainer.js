@@ -2,6 +2,7 @@
 
 var React = require("react");
 
+// Search wrapper (input, dropdown..)
 var SearchInputContainer = React.createClass({
 	render: function() {
 		return (

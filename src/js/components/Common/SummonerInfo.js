@@ -2,6 +2,7 @@
 
 var React = require("react");
 
+// Any top game is rendered with summoner details
 var SummonerInfo = React.createClass({
 	renderTopMessage: function() {
 		if (this.props.region) {

@@ -12,6 +12,7 @@ var Overlay = React.createClass({
 			backgroundPosition: "50% 20%",
 			backgroundSize: "cover" 
 		};
+		
 		return (
 			<div className="overlay" style={overlayStyle}></div>
 		);

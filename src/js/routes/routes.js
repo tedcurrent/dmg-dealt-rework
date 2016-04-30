@@ -10,6 +10,7 @@ var Personal = require("../components/PersonalGames/");
 var Regions = require("../components/RegionalGames/");
 var NotFound = require("../404");
 
+// All possible routes listed here
 var routes = (
 	<Route path="/" component={App}>
 		<IndexRoute component={Splash} />

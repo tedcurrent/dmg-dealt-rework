@@ -11,6 +11,7 @@ var _refreshRegionals = function() {
 	ApiRequestActions.getRegionalGames();
 };
 
+// A wrapper for regional top scores page
 var RegionsPage = React.createClass({
 	getInitialState: function() {
 		return {
@@ -34,6 +35,7 @@ var RegionsPage = React.createClass({
 		});
 	},
 
+	// Renders either top game results, error or nothing
 	renderComponents: function() {
 		var results = this.state.regionalResults;
 

@@ -5,6 +5,7 @@ var ReactDOM = require("react-dom");
 
 var defaultProfileIcon = "./images/default_profile_icon.png";
 
+// A common component that should be used for every image
 var Image = React.createClass({
 	getInitialState: function() {
 		return {

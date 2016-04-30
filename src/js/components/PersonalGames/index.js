@@ -3,7 +3,6 @@
 var React = require("react");
 var TopGame = require("./TopGame");
 var GameList = require("./GameList");
-var SummonerInfo = require("./SummonerInfo");
 var ErrorPage = require("../Error");
 var ApiRequestActions = require("../../actions/ApiRequestActions");
 var PersonalGamesStore = require("../../stores/PersonalGamesStore");
@@ -18,6 +17,7 @@ var _refreshGames = function(props) {
 	ApiRequestActions.getPersonalGames(query);
 };
 
+// Controller for the PersonalGames page
 var PersonalGamesController = React.createClass({
 	getInitialState: function() {
 		return {
@@ -45,6 +45,7 @@ var PersonalGamesController = React.createClass({
 		_refreshGames(nextProps);
 	},
 
+	// Renders a list of games OR an error OR nothing (eg. after clean up)
 	renderComponents: function() {
 		var results = this.state.gameResults;
 

@@ -15,6 +15,7 @@ var _results = {
 	errors: 0
 };
 
+// Store for all individual score related items
 var PersonalScoresStore = assign({}, EventEmitter.prototype, {
 	emitChange: function() {
 		this.emit(CHANGE_EVENT);

@@ -1,10 +1,11 @@
 "use strict";
 
 var React = require("react");
-var Game = require("./Game");
-var SummonerInfo = require("./SummonerInfo");
-var Overlay = require("./Overlay");
+var Game = require("../Common/Game");
+var SummonerInfo = require("../Common/SummonerInfo");
+var Overlay = require("../Common/Overlay");
 
+// Top game with summoner details and custom coloring, otherwise a regular game
 var TopGame = React.createClass({
 	render: function() {
 		var newHs = this.props.newHs;

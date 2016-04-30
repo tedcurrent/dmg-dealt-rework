@@ -42786,6 +42786,7 @@ module.exports = warning;
 var React = require("react");
 var ErrorPage = require("./components/Error");
 
+// NotFoundPage controller
 var NotFoundPage = React.createClass({
 	displayName: "NotFoundPage",
 
@@ -42799,7 +42800,7 @@ var NotFoundPage = React.createClass({
 
 module.exports = NotFoundPage;
 
-},{"./components/Error":390,"react":377}],386:[function(require,module,exports){
+},{"./components/Error":393,"react":377}],386:[function(require,module,exports){
 "use strict";
 
 var AppDispatcher = require("../dispatcher/AppDispatcher");
@@ -42909,6 +42910,7 @@ var React = require("react");
 var Header = require("./components/Header/");
 var Footer = require("./components/Footer/");
 
+// The application wrapper component
 var App = React.createClass({
 	displayName: "App",
 
@@ -42929,175 +42931,14 @@ var App = React.createClass({
 
 module.exports = App;
 
-},{"./components/Footer/":391,"./components/Header/":392,"react":377}],389:[function(require,module,exports){
-"use strict";
-
-var React = require("react");
-var ReactDOM = require("react-dom");
-
-var defaultProfileIcon = "./images/default_profile_icon.png";
-
-var Image = React.createClass({
-	displayName: "Image",
-
-	getInitialState: function () {
-		return {
-			loaded: false,
-			errored: false
-		};
-	},
-
-	onImageLoad: function () {
-		if (this.isMounted()) {
-			this.setState({ loaded: true });
-		}
-	},
-
-	componentDidMount: function () {
-		var imgTag = ReactDOM.findDOMNode(this.refs.img);
-		var imgSrc = imgTag.getAttribute("src");
-		var img = new window.Image();
-		img.onload = this.onImageLoad;
-		img.src = imgSrc;
-	},
-
-	changeToDefault: function () {
-		this.setState({ errored: true });
-	},
-
-	render: function () {
-		var imgClass = !this.state.loaded ? "image" : "image loaded";
-		var imgSrc = !this.state.errored ? this.props.src : defaultProfileIcon;
-		return React.createElement("img", { onError: this.changeToDefault, ref: "img", src: imgSrc, alt: this.props.alt, className: imgClass });
-	}
-});
-
-module.exports = Image;
-
-},{"react":377,"react-dom":187}],390:[function(require,module,exports){
-"use strict";
-
-var React = require("react");
-
-var ErrorPage = React.createClass({
-	displayName: "ErrorPage",
-
-	render: function () {
-		return React.createElement(
-			"div",
-			{ className: "splash" },
-			React.createElement(
-				"div",
-				{ className: "text-container" },
-				React.createElement(
-					"h1",
-					null,
-					this.props.errorNumber
-				),
-				React.createElement(
-					"h2",
-					null,
-					this.props.errorMessage
-				),
-				React.createElement(
-					"h2",
-					null,
-					this.props.errorMessage2
-				)
-			)
-		);
-	}
-});
-
-module.exports = ErrorPage;
-
-},{"react":377}],391:[function(require,module,exports){
-"use strict";
-
-var React = require("react");
-
-var Footer = React.createClass({
-	displayName: "Footer",
-
-	render: function () {
-		var dateNow = new Date();
-		return React.createElement(
-			"footer",
-			null,
-			React.createElement(
-				"span",
-				null,
-				"© ",
-				React.createElement(
-					"a",
-					{ href: "mailto:teemu.virta@pp2.inet.fi", target: "_top" },
-					"Teemu Virta"
-				),
-				" ",
-				dateNow.getFullYear()
-			)
-		);
-	}
-});
-
-module.exports = Footer;
-
-},{"react":377}],392:[function(require,module,exports){
-"use strict";
-
-var React = require("react");
-var Search = require("../Search/index");
-var Link = require("react-router").Link;
-var ApiRequestActions = require("../../actions/ApiRequestActions");
-
-var Header = React.createClass({
-	displayName: "Header",
-
-	render: function () {
-		return React.createElement(
-			"header",
-			null,
-			React.createElement(
-				"span",
-				{ className: "logo" },
-				React.createElement(
-					"a",
-					{ href: "/" },
-					"DMGDealt"
-				)
-			),
-			React.createElement(Search, null),
-			React.createElement(
-				"ul",
-				null,
-				React.createElement(
-					"li",
-					null,
-					React.createElement(
-						Link,
-						{ to: "/regions" },
-						React.createElement("i", { className: "fa fa-globe", "aria-hidden": "true" }),
-						React.createElement(
-							"span",
-							null,
-							" TOP"
-						)
-					)
-				)
-			)
-		);
-	}
-});
-
-module.exports = Header;
-
-},{"../../actions/ApiRequestActions":386,"../Search/index":405,"react":377,"react-router":215}],393:[function(require,module,exports){
+},{"./components/Footer/":394,"./components/Header/":395,"react":377}],389:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
 var Util = require("../../util/utils");
 var Image = require("../Common/Image");
 
+// A single game component used all around
 var Game = React.createClass({
 	displayName: "Game",
 
@@ -43140,39 +42981,53 @@ var Game = React.createClass({
 
 module.exports = Game;
 
-},{"../../util/utils":414,"../Common/Image":389,"react":377}],394:[function(require,module,exports){
+},{"../../util/utils":414,"../Common/Image":390,"react":377}],390:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
-var Game = require("./Game");
-var Overlay = require("./Overlay");
+var ReactDOM = require("react-dom");
 
-var GameList = React.createClass({
-	displayName: "GameList",
+var defaultProfileIcon = "./images/default_profile_icon.png";
+
+// A common component that should be used for every image
+var Image = React.createClass({
+	displayName: "Image",
+
+	getInitialState: function () {
+		return {
+			loaded: false,
+			errored: false
+		};
+	},
+
+	onImageLoad: function () {
+		if (this.isMounted()) {
+			this.setState({ loaded: true });
+		}
+	},
+
+	componentDidMount: function () {
+		var imgTag = ReactDOM.findDOMNode(this.refs.img);
+		var imgSrc = imgTag.getAttribute("src");
+		var img = new window.Image();
+		img.onload = this.onImageLoad;
+		img.src = imgSrc;
+	},
+
+	changeToDefault: function () {
+		this.setState({ errored: true });
+	},
 
 	render: function () {
-		return React.createElement(
-			"ul",
-			null,
-			this.props.games.map(function (game) {
-				return React.createElement(
-					"li",
-					{ key: game.gameId },
-					React.createElement(
-						"div",
-						{ className: "game" },
-						React.createElement(Overlay, { champion: game.champion }),
-						React.createElement(Game, { game: game })
-					)
-				);
-			})
-		);
+		var imgClass = !this.state.loaded ? "image" : "image loaded";
+		var imgSrc = !this.state.errored ? this.props.src : defaultProfileIcon;
+		return React.createElement("img", { onError: this.changeToDefault, ref: "img", src: imgSrc, alt: this.props.alt, className: imgClass });
 	}
 });
 
-module.exports = GameList;
+module.exports = Image;
 
-},{"./Game":393,"./Overlay":395,"react":377}],395:[function(require,module,exports){
+},{"react":377,"react-dom":187}],391:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -43189,17 +43044,19 @@ var Overlay = React.createClass({
 			backgroundPosition: "50% 20%",
 			backgroundSize: "cover"
 		};
+
 		return React.createElement("div", { className: "overlay", style: overlayStyle });
 	}
 });
 
 module.exports = Overlay;
 
-},{"../../constants/AppConstants":407,"../../util/utils":414,"react":377}],396:[function(require,module,exports){
+},{"../../constants/AppConstants":407,"../../util/utils":414,"react":377}],392:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
 
+// Any top game is rendered with summoner details
 var SummonerInfo = React.createClass({
 	displayName: "SummonerInfo",
 
@@ -43235,14 +43092,168 @@ var SummonerInfo = React.createClass({
 
 module.exports = SummonerInfo;
 
-},{"react":377}],397:[function(require,module,exports){
+},{"react":377}],393:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
-var Game = require("./Game");
-var SummonerInfo = require("./SummonerInfo");
-var Overlay = require("./Overlay");
 
+// Rendered upon errors (eg. 404)
+var ErrorPage = React.createClass({
+	displayName: "ErrorPage",
+
+	render: function () {
+		return React.createElement(
+			"div",
+			{ className: "splash" },
+			React.createElement(
+				"div",
+				{ className: "text-container" },
+				React.createElement(
+					"h1",
+					null,
+					this.props.errorNumber
+				),
+				React.createElement(
+					"h2",
+					null,
+					this.props.errorMessage
+				),
+				React.createElement(
+					"h2",
+					null,
+					this.props.errorMessage2
+				)
+			)
+		);
+	}
+});
+
+module.exports = ErrorPage;
+
+},{"react":377}],394:[function(require,module,exports){
+"use strict";
+
+var React = require("react");
+
+// Footer
+var Footer = React.createClass({
+	displayName: "Footer",
+
+	render: function () {
+		var dateNow = new Date();
+		return React.createElement(
+			"footer",
+			null,
+			React.createElement(
+				"span",
+				null,
+				"© ",
+				React.createElement(
+					"a",
+					{ href: "mailto:teemu.virta@pp2.inet.fi", target: "_top" },
+					"Teemu Virta"
+				),
+				" ",
+				dateNow.getFullYear()
+			)
+		);
+	}
+});
+
+module.exports = Footer;
+
+},{"react":377}],395:[function(require,module,exports){
+"use strict";
+
+var React = require("react");
+var Search = require("../Search/index");
+var Link = require("react-router").Link;
+var ApiRequestActions = require("../../actions/ApiRequestActions");
+
+// A wrapper for navigation items and search
+var Header = React.createClass({
+	displayName: "Header",
+
+	render: function () {
+		return React.createElement(
+			"header",
+			null,
+			React.createElement(
+				"span",
+				{ className: "logo" },
+				React.createElement(
+					"a",
+					{ href: "/" },
+					"DMGDealt"
+				)
+			),
+			React.createElement(Search, null),
+			React.createElement(
+				"ul",
+				null,
+				React.createElement(
+					"li",
+					null,
+					React.createElement(
+						Link,
+						{ to: "/regions" },
+						React.createElement("i", { className: "fa fa-globe", "aria-hidden": "true" }),
+						React.createElement(
+							"span",
+							null,
+							" TOP"
+						)
+					)
+				)
+			)
+		);
+	}
+});
+
+module.exports = Header;
+
+},{"../../actions/ApiRequestActions":386,"../Search/index":405,"react":377,"react-router":215}],396:[function(require,module,exports){
+"use strict";
+
+var React = require("react");
+var Game = require("../Common/Game");
+var Overlay = require("../Common/Overlay");
+
+// Personal games listed
+var GameList = React.createClass({
+	displayName: "GameList",
+
+	render: function () {
+		return React.createElement(
+			"ul",
+			null,
+			this.props.games.map(function (game) {
+				return React.createElement(
+					"li",
+					{ key: game.gameId },
+					React.createElement(
+						"div",
+						{ className: "game" },
+						React.createElement(Overlay, { champion: game.champion }),
+						React.createElement(Game, { game: game })
+					)
+				);
+			})
+		);
+	}
+});
+
+module.exports = GameList;
+
+},{"../Common/Game":389,"../Common/Overlay":391,"react":377}],397:[function(require,module,exports){
+"use strict";
+
+var React = require("react");
+var Game = require("../Common/Game");
+var SummonerInfo = require("../Common/SummonerInfo");
+var Overlay = require("../Common/Overlay");
+
+// Top game with summoner details and custom coloring, otherwise a regular game
 var TopGame = React.createClass({
 	displayName: "TopGame",
 
@@ -43264,13 +43275,12 @@ var TopGame = React.createClass({
 
 module.exports = TopGame;
 
-},{"./Game":393,"./Overlay":395,"./SummonerInfo":396,"react":377}],398:[function(require,module,exports){
+},{"../Common/Game":389,"../Common/Overlay":391,"../Common/SummonerInfo":392,"react":377}],398:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
 var TopGame = require("./TopGame");
 var GameList = require("./GameList");
-var SummonerInfo = require("./SummonerInfo");
 var ErrorPage = require("../Error");
 var ApiRequestActions = require("../../actions/ApiRequestActions");
 var PersonalGamesStore = require("../../stores/PersonalGamesStore");
@@ -43285,6 +43295,7 @@ var _refreshGames = function (props) {
 	ApiRequestActions.getPersonalGames(query);
 };
 
+// Controller for the PersonalGames page
 var PersonalGamesController = React.createClass({
 	displayName: "PersonalGamesController",
 
@@ -43314,6 +43325,7 @@ var PersonalGamesController = React.createClass({
 		_refreshGames(nextProps);
 	},
 
+	// Renders a list of games OR an error OR nothing (eg. after clean up)
 	renderComponents: function () {
 		var results = this.state.gameResults;
 
@@ -43347,14 +43359,15 @@ var PersonalGamesController = React.createClass({
 
 module.exports = PersonalGamesController;
 
-},{"../../actions/ApiRequestActions":386,"../../stores/PersonalGamesStore":411,"../Error":390,"./GameList":394,"./SummonerInfo":396,"./TopGame":397,"lodash":182,"react":377}],399:[function(require,module,exports){
+},{"../../actions/ApiRequestActions":386,"../../stores/PersonalGamesStore":411,"../Error":393,"./GameList":396,"./TopGame":397,"lodash":182,"react":377}],399:[function(require,module,exports){
 "use strict";
 
 var React = require("React");
-var Game = require("../PersonalGames/Game");
-var Overlay = require("../PersonalGames/Overlay");
-var SummonerInfo = require("../PersonalGames/SummonerInfo");
+var Game = require("../Common/Game");
+var Overlay = require("../Common/Overlay");
+var SummonerInfo = require("../Common/SummonerInfo");
 
+// Similar to TopGame, but with extra visual details for regions
 var RegionalGame = React.createClass({
 	displayName: "RegionalGame",
 
@@ -43363,6 +43376,7 @@ var RegionalGame = React.createClass({
 		var summoner = this.props.game.highScore.summoner;
 		var region = this.props.game._id;
 		var className = region === "global" ? " global" : "";
+
 		return React.createElement(
 			"div",
 			{ className: "game top-game region" + className },
@@ -43375,7 +43389,7 @@ var RegionalGame = React.createClass({
 
 module.exports = RegionalGame;
 
-},{"../PersonalGames/Game":393,"../PersonalGames/Overlay":395,"../PersonalGames/SummonerInfo":396,"React":156}],400:[function(require,module,exports){
+},{"../Common/Game":389,"../Common/Overlay":391,"../Common/SummonerInfo":392,"React":156}],400:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -43389,6 +43403,7 @@ var _refreshRegionals = function () {
 	ApiRequestActions.getRegionalGames();
 };
 
+// A wrapper for regional top scores page
 var RegionsPage = React.createClass({
 	displayName: "RegionsPage",
 
@@ -43414,6 +43429,7 @@ var RegionsPage = React.createClass({
 		});
 	},
 
+	// Renders either top game results, error or nothing
 	renderComponents: function () {
 		var results = this.state.regionalResults;
 
@@ -43451,11 +43467,12 @@ var RegionsPage = React.createClass({
 
 module.exports = RegionsPage;
 
-},{"../../actions/ApiRequestActions":386,"../../stores/RegionalGamesStore":412,"../Error":390,"./RegionalGame":399,"lodash":182,"react":377}],401:[function(require,module,exports){
+},{"../../actions/ApiRequestActions":386,"../../stores/RegionalGamesStore":412,"../Error":393,"./RegionalGame":399,"lodash":182,"react":377}],401:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
 
+// Select component. Country options come from Search controller
 var Dropdown = React.createClass({
 	displayName: "Dropdown",
 
@@ -43498,6 +43515,7 @@ module.exports = Dropdown;
 
 var React = require("react");
 
+// Search input component with mouse and keyboard handlers
 var SearchInput = React.createClass({
 	displayName: "SearchInput",
 
@@ -43543,6 +43561,7 @@ module.exports = SearchInput;
 
 var React = require("react");
 
+// Search wrapper (input, dropdown..)
 var SearchInputContainer = React.createClass({
 	displayName: "SearchInputContainer",
 
@@ -43566,6 +43585,7 @@ var Util = require("../../util/utils");
 var Link = require("react-router").Link;
 var _ = require("lodash");
 
+// A result component for rendering summoner icon, name and level
 var SearchResult = React.createClass({
 	displayName: "SearchResult",
 
@@ -43589,6 +43609,7 @@ var SearchResult = React.createClass({
 		);
 	},
 
+	// If results, render, else return or display "nothing found"
 	gotResults: function () {
 		var summoner = this.props.searchResult.summoner;
 
@@ -43654,7 +43675,7 @@ var SearchResult = React.createClass({
 
 module.exports = SearchResult;
 
-},{"../../util/utils":414,"../Common/Image":389,"lodash":182,"react":377,"react-router":215}],405:[function(require,module,exports){
+},{"../../util/utils":414,"../Common/Image":390,"lodash":182,"react":377,"react-router":215}],405:[function(require,module,exports){
 "use strict";
 
 var React = require("react");
@@ -43668,6 +43689,7 @@ var ApiRequestActions = require("../../actions/ApiRequestActions");
 var ApiResponseActions = require("../../actions/ApiResponseActions");
 var SummonerSearchStore = require("../../stores/SummonerSearchStore");
 
+// A constant list of drop down options
 var regionOptions = [{
 	description: "EUW",
 	short: "euw"
@@ -43688,6 +43710,7 @@ var regionOptions = [{
 	short: "lan"
 }];
 
+// Search controller
 var Search = React.createClass({
 	displayName: "Search",
 
@@ -43729,6 +43752,7 @@ var Search = React.createClass({
 		this.setState({ queryValue: value }, this.anyInputChange);
 	},
 
+	// A slight wait before searching for a summoner as the user types to avoid server overload
 	anyInputChange: function () {
 		this.setState({ querySent: false }, function () {
 			clearTimeout(this._timeOut);
@@ -43811,6 +43835,7 @@ module.exports = Search;
 
 var React = require("react");
 
+// Starting screen for the app
 var Splash = React.createClass({
 	displayName: "Splash",
 
@@ -43865,7 +43890,7 @@ module.exports = {
 
 },{}],408:[function(require,module,exports){
 /*
- * Copyright (c) 2014-2015, Facebook, Inc.
+ * Copyright (c) 2014-2016, Facebook, Inc.
  * All rights reserved.
  *
  * This source code is licensed under the BSD-style license found in the
@@ -43890,7 +43915,13 @@ var NProgress = require("nprogress");
 var _ = require("lodash");
 var Util = require("../util/utils");
 
+// Requests towards the server
 var APIRequests = {
+	/**
+ 	* Get a summoner with summoner name and region
+ 	* @param {object} A query object with summoner name and region from the client 
+ 	* @return {function} Returns with a response action and results
+ */
 	getSummoner: function (query) {
 		if (query.summonerName === "" || query.summonerRegion === "") {
 			return;
@@ -43909,6 +43940,12 @@ var APIRequests = {
 		});
 	},
 
+	/**
+ 	* Get a list of games and a top game for any summoner
+ 	* NOTE: The GET can come from an /:id/:region route or search result click
+ 	* @param {object} A query object containing summoner id and region
+ 	* @return {function} Returns with a response action and results
+ */
 	getPersonalGames: function (query) {
 		if (_.isEmpty(query)) {
 			return;
@@ -43923,6 +43960,7 @@ var APIRequests = {
 				var parsedGames = Util.cleanEmptyDamages(JSON.parse(result.text));
 				parsedGames = _.orderBy(parsedGames, ["dmgDealt"], ["desc"]);
 				query.topGame = parsedGames[0];
+
 				this.saveHighScore(query, function (err, hsResults) {
 					if (err) {
 						ApiResponseActions.gameSearchError(err);
@@ -43940,6 +43978,12 @@ var APIRequests = {
 		}.bind(this));
 	},
 
+	/**
+ 	* Post the top score found from recent games, expecting a new top score
+ 	* @param {object} A query object containing a top game with summoner and game info 
+ 	* @param {function} Callback
+ 	* @return {function} A callback is returned with info on whether a new highscore was made and the score itself
+ */
 	saveHighScore: function (query, callback) {
 		request.post("/api/saveHighScore/").send(query).end(function (err, result) {
 			if (err) {
@@ -43950,7 +43994,11 @@ var APIRequests = {
 		});
 	},
 
-	getRegionalGames: function (callback) {
+	/**
+ 	* Get top games from all regions 
+ 	* @return {function} Returns with a response action and results
+ */
+	getRegionalGames: function () {
 		NProgress.start();
 		request.get("/api/getRegionalScores").end(function (err, result) {
 			if (err) {
@@ -43980,6 +44028,7 @@ var Personal = require("../components/PersonalGames/");
 var Regions = require("../components/RegionalGames/");
 var NotFound = require("../404");
 
+// All possible routes listed here
 var routes = React.createElement(
 	Route,
 	{ path: "/", component: App },
@@ -44009,6 +44058,7 @@ var _results = {
 	errors: 0
 };
 
+// Store for all individual score related items
 var PersonalScoresStore = assign({}, EventEmitter.prototype, {
 	emitChange: function () {
 		this.emit(CHANGE_EVENT);
@@ -44074,6 +44124,7 @@ var _results = {
 	errors: 0
 };
 
+// Store for all regional score related items
 var RegionalScoresStore = assign({}, EventEmitter.prototype, {
 	emitChange: function () {
 		this.emit(CHANGE_EVENT);
@@ -44125,6 +44176,7 @@ var _results = {
 	errors: 0
 };
 
+// Store for all summoner search related items
 var SummonerSearchStore = assign({}, EventEmitter.prototype, {
 	emitChange: function () {
 		this.emit(CHANGE_EVENT);
@@ -44168,6 +44220,7 @@ module.exports = SummonerSearchStore;
 var AppConstants = require("../constants/AppConstants");
 var _ = require("lodash");
 
+// Date formatter extension
 Date.prototype.customFormat = function (formatString) {
 	var YYYY, YY, MMMM, MMM, MM, M, DDDD, DDD, DD, D, hhh, hh, h, mm, m, ss, s, ampm, AMPM, dMod, th;
 	var dateObject = this;
@@ -44189,28 +44242,50 @@ Date.prototype.customFormat = function (formatString) {
 	return formatString.replace("#hhh#", hhh).replace("#hh#", hh).replace("#h#", h).replace("#mm#", mm).replace("#m#", m).replace("#ss#", ss).replace("#s#", s).replace("#ampm#", ampm).replace("#AMPM#", AMPM);
 };
 
+// A string capitalizer extension
 String.prototype.capitalize = function () {
 	return this.replace(/(^|\s)([a-z])/g, function (m, p1, p2) {
 		return p1 + p2.toUpperCase();
 	});
 };
 
+// Client side utilities
 module.exports = {
+	/**
+ 	* Formats a date to a custom string
+ 	* @param {date} Date in ISO format
+ 	* @return {string} Date as string formatted to eg. 16 January, 2016
+ */
 	fixDateToString: function (unformattedDate) {
 		var formattedDate = new Date(unformattedDate);
 		return formattedDate.customFormat("#DD# #MMMM#, #YYYY#").toString();
 	},
 
+	/**
+ 	* Deletes any games with no damage dealt champions (eg. player left game or the like)
+ 	* @param {array} An array of game objects 
+ 	* @return {array} A cleaned up array of game objects
+ */
 	cleanEmptyDamages: function (gameArray) {
 		return _.remove(gameArray, function (game) {
 			return game.dmgDealt;
 		});
 	},
 
+	/**
+ 	* Creates an url to LoL static data for a profile icon
+ 	* @param {int} Profile icon id 
+ 	* @return {string} URL for profile image
+ */
 	buildProfileIconUrl: function (iconId) {
 		return AppConstants.LOL_STATIC_BASE_URL + "/" + AppConstants.LOL_API_VERSION + "/img/profileicon/" + iconId + ".png";
 	},
 
+	/**
+ 	* Formats champion names to LOL static accepted format
+ 	* @param {string} Champion name in any format 
+ 	* @return {string} Formatted champion name 
+ */
 	championNameForUrl: function (championName) {
 		switch (championName) {
 			case "Kog'Maw":
@@ -44224,12 +44299,11 @@ module.exports = {
 		}
 	},
 
-	championSquareUrl: function (championName) {
-		var fullUrl = AppConstants.LOL_STATIC_BASE_URL + "/" + AppConstants.LOL_API_VERSION + "/img/champion/";
-		var championNameUrlified = this.championNameForUrl(championName) + ".png";
-		return fullUrl + championNameUrlified;
-	},
-
+	/**
+ 	* Creates an url to LoL static data for a champion splash image
+ 	* @param {string} Champion name in any format 
+ 	* @return {string} URL for champion splash image
+ */
 	championSplashUrl: function (championName) {
 		var fullUrl = AppConstants.LOL_STATIC_BASE_URL + "/img/champion/splash/";
 		var championNameUrlified = this.championNameForUrl(championName);

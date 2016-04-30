@@ -6,6 +6,7 @@ var Util = require("../../util/utils");
 var Link = require("react-router").Link;
 var _ = require("lodash");
 
+// A result component for rendering summoner icon, name and level
 var SearchResult = React.createClass({
 	componentDidMount: function() {
 		document.addEventListener("click", this.bodyClickHandler);
@@ -23,6 +24,7 @@ var SearchResult = React.createClass({
 		return <div className="search-result">An error occurred. Please try again</div>;
 	},
 
+	// If results, render, else return or display "nothing found"
 	gotResults: function() {
 		var summoner = this.props.searchResult.summoner;
 

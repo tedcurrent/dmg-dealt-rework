@@ -12,6 +12,7 @@ var _results = {
 	errors: 0
 };
 
+// Store for all regional score related items
 var RegionalScoresStore = assign({}, EventEmitter.prototype, {
 	emitChange: function() {
 		this.emit(CHANGE_EVENT);

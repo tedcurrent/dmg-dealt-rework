@@ -2,6 +2,7 @@
 
 var React = require("react");
 
+// Footer
 var Footer = React.createClass({
 	render: function() {
 		var dateNow = new Date();

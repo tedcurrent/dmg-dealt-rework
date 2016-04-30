@@ -3,6 +3,7 @@
 var React = require("react");
 var ErrorPage = require("./components/Error");
 
+// NotFoundPage controller
 var NotFoundPage = React.createClass({
 	render: function() {
 		return (

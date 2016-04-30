@@ -2,6 +2,7 @@
 
 var React = require("react");
 
+// Starting screen for the app
 var Splash = React.createClass({
 	render: function() {
 		var tagline = "Spice up your game";

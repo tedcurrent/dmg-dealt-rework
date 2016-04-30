@@ -5,6 +5,7 @@ var Search = require("../Search/index");
 var Link = require("react-router").Link;
 var ApiRequestActions = require("../../actions/ApiRequestActions");
 
+// A wrapper for navigation items and search
 var Header = React.createClass({
 	render: function() {
 		return (

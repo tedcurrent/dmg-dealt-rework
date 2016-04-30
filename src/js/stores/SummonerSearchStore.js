@@ -11,6 +11,7 @@ var _results = {
 	errors: 0
 };
 
+// Store for all summoner search related items
 var SummonerSearchStore = assign({}, EventEmitter.prototype, {
 	emitChange: function() {
 		this.emit(CHANGE_EVENT);

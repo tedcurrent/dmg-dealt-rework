@@ -1,16 +1,18 @@
 "use strict";
 
 var React = require("React");
-var Game = require("../PersonalGames/Game");
-var Overlay = require("../PersonalGames/Overlay");
-var SummonerInfo = require("../PersonalGames/SummonerInfo");
+var Game = require("../Common/Game");
+var Overlay = require("../Common/Overlay");
+var SummonerInfo = require("../Common/SummonerInfo");
 
+// Similar to TopGame, but with extra visual details for regions
 var RegionalGame = React.createClass({
 	render: function() {
 		var game = this.props.game.highScore.game;
 		var summoner = this.props.game.highScore.summoner;
 		var region = this.props.game._id;
 		var className = region === "global" ? " global" : "";
+
 		return (
 			<div className={"game top-game region" + className}>
 				<Overlay champion={game.champion} />

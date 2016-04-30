@@ -11,6 +11,7 @@ var ApiRequestActions = require("../../actions/ApiRequestActions");
 var ApiResponseActions = require("../../actions/ApiResponseActions");
 var SummonerSearchStore = require("../../stores/SummonerSearchStore");
 
+// A constant list of drop down options
 var regionOptions = [
 	{
 		description: "EUW",
@@ -38,6 +39,7 @@ var regionOptions = [
 	}
 ];
 
+// Search controller
 var Search = React.createClass({
 	contextTypes: {
 		router: React.PropTypes.object.isRequired
@@ -77,6 +79,7 @@ var Search = React.createClass({
 		this.setState({queryValue: value}, this.anyInputChange);
 	},
 
+	// A slight wait before searching for a summoner as the user types to avoid server overload
 	anyInputChange: function() {
 		this.setState({querySent: false}, function() {
 			clearTimeout(this._timeOut);

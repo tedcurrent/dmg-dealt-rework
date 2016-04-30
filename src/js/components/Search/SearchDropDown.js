@@ -2,6 +2,7 @@
 
 var React = require("react");
 
+// Select component. Country options come from Search controller
 var Dropdown = React.createClass({
 	handleChange: function(e) {
 		this.props.onChange(e.target.value);
