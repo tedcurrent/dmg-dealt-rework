@@ -6,8 +6,10 @@ var env = require("gulp-env");
 var browserify = require("browserify");
 var babelify = require("babelify");
 var source = require("vinyl-source-stream");
+var buffer = require("vinyl-buffer");
 var lint = require("gulp-eslint");
 var concat = require("gulp-concat");
+var uglify = require("gulp-uglify");
 var autoprefixer = require("gulp-autoprefixer");
 var cleanCSS = require("gulp-clean-css");
 var sass = require("gulp-sass");
@@ -32,6 +34,8 @@ gulp.task("js", function() {
 		.bundle()
 		.on("error", console.error.bind(console))
 		.pipe(source("bundle.js"))
+		.pipe(buffer())
+		.pipe(uglify())
 		.pipe(gulp.dest(config.paths.dist + "/scripts"));
 });
 
