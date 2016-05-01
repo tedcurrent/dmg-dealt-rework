@@ -44,6 +44,7 @@
     "gulp-sass": "^2.2.0",
     "gulp-tape": "0.0.7",
     "gulp-uglify": "^1.5.3",
+    "supertest": "^1.2.0",
     "tap-diff": "^0.1.1",
     "tape": "^4.5.1",
     "vinyl-buffer": "^1.0.0",
