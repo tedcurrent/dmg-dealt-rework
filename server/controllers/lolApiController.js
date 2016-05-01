@@ -68,7 +68,7 @@ var LolApiCtrl = {
 		LolApi.getRecentGames(summonerInfo.id, summonerInfo.region, function(err, result) {
 			var games = Util.formatLolGames(result);
 
-			return callback(err, games);
+			callback(err, games);
 		});
 	},
 

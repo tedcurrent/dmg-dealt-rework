@@ -13,6 +13,8 @@ var uglify = require("gulp-uglify");
 var autoprefixer = require("gulp-autoprefixer");
 var cleanCSS = require("gulp-clean-css");
 var sass = require("gulp-sass");
+var tape = require("gulp-tape");
+var tapDiff = require("tap-diff");
 var champDataUtil = require("./server/utils/champDataUtil");
 
 var config = {
@@ -23,6 +25,7 @@ var config = {
 		styles: ["./src/stylesheets/**/*.css", "./src/stylesheets/**/*.scss"],
 		images: "./src/images/*",
 		static: "./server/static",
+		test: "./test/**/*.js",
 		dist: "./dist"
 	}
 };
@@ -74,6 +77,14 @@ gulp.task("lint", function() {
 // Write static data
 gulp.task("static", function() {
 	champDataUtil.writeChampsToPath(config.paths.static + "/championData.json");
+});
+
+// Test
+gulp.task("test", function() {
+	return gulp.src(config.paths.test)
+		.pipe(tape({
+			reporter: tapDiff()
+		}));
 });
 
 // Watch files

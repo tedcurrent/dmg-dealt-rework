@@ -1,11 +1,10 @@
 "use strict";
-var LolApi = require("../controllers/lolApiController");
 var _ = require("lodash");
 var fs = require("fs");
 var champDataUtil = require("./champDataUtil");
 
 // A collection of several utility functions
-var Utils = {
+var Util = {
 	/**
 		* Filters relevant data off league games
 		* @param {array} A list of games
@@ -47,4 +46,4 @@ var Utils = {
 	}
 };
 
-module.exports = Utils;
+module.exports = Util;

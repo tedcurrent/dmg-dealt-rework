@@ -40,7 +40,7 @@ function _saveUpdate(req, oldHs, callback) {
 };
 
 
-//An abstraction for creating a "TOP TOP TOP" game eg. a global high score.
+// An abstraction for creating a "TOP TOP TOP" game eg. a global high score.
 function _addGlobalScore() {
 	var globalTopScore = _.clone(_results[0]);
 	globalTopScore._id = "global";
