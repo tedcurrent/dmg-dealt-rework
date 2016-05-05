@@ -2,7 +2,6 @@
 
 var React = require("react");
 var Header = require("./components/Header/");
-var Footer = require("./components/Footer/");
 
 // The application wrapper component
 var App = React.createClass({
@@ -13,7 +12,6 @@ var App = React.createClass({
 				<main>
 					{this.props.children}
 				</main>
-				<Footer />
 			</div>
 		);
 	}

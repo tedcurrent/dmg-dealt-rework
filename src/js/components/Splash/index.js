@@ -1,6 +1,7 @@
 "use strict";
 
 var React = require("react");
+var Footer = require("../Footer");
 
 // Starting screen for the app
 var Splash = React.createClass({
@@ -16,6 +17,7 @@ var Splash = React.createClass({
 					</h3>
 					<h3>and compare how you stack up with the deadliest.</h3>
 				</div>
+				<Footer />
 			</div>
 		);
 	}
