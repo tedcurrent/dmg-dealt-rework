@@ -51,6 +51,7 @@ var Search = React.createClass({
 			regionSelected: "euw",
 			querySent: false,
 			queryValue: "",
+			queryLengthOk: true,
 			resultSelected: false
 		};
 	},
@@ -81,17 +82,18 @@ var Search = React.createClass({
 
 	// A slight wait before searching for a summoner as the user types to avoid server overload
 	anyInputChange: function() {
+		this.resetResults();
+
 		this.setState({querySent: false}, function() {
 			clearTimeout(this._timeOut);
-			this._timeOut = setTimeout(function() {
-				this.querySubmit();
-				this.setState({querySent: true});
-			}.bind(this), 400);
-		});
 
-		if (!this.state.queryValue || !this.state.regionSelected) {
-			this.resetResults();
-		}
+			if (this.isQueryLengthOk(this.state.queryValue)) {
+				this._timeOut = setTimeout(function() {
+					this.querySubmit();
+					this.setState({querySent: true});
+				}.bind(this), 400);
+			}
+		});
 	},
 
 	querySubmit: function() {
@@ -122,6 +124,16 @@ var Search = React.createClass({
 		this.setState({resultSelected: selected});
 	},
 
+	isQueryLengthOk: function(queryValue) {
+		if (queryValue.length === 1) {
+			this.setState({queryLengthOk: false});
+			return false;
+		} else {
+			this.setState({queryLengthOk: true});
+			return true;
+		}
+	},
+
 	render: function() {
 		return (
 			<div className="search">
@@ -144,6 +156,7 @@ var Search = React.createClass({
 				</SearchInputContainer>
 				<SearchResult 
 					searchResult={this.state.searchResults}
+					queryLengthOk={this.state.queryLengthOk}
 					onClick={this.resultSubmitHandler}
 					bodyClick={this.bodyClickHandler}
 					resultSelected={this.state.resultSelected}

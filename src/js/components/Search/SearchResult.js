@@ -28,6 +28,10 @@ var SearchResult = React.createClass({
 	gotResults: function() {
 		var summoner = this.props.searchResult.summoner;
 
+		if (!this.props.queryLengthOk) {
+			return <div className="search-result">A summoner name should be at least 2 characters.</div>;
+		}
+
 		if (!summoner) {
 			return <div className="search-result">No summoner found.</div>;
 		}
