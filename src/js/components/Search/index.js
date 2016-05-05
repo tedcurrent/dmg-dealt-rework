@@ -87,12 +87,12 @@ var Search = React.createClass({
 		this.setState({querySent: false}, function() {
 			clearTimeout(this._timeOut);
 
-			if (this.isQueryLengthOk(this.state.queryValue)) {
-				this._timeOut = setTimeout(function() {
+			this._timeOut = setTimeout(function() {
+				if (this.isQueryLengthOk(this.state.queryValue)) {
 					this.querySubmit();
 					this.setState({querySent: true});
-				}.bind(this), 400);
-			}
+				}
+			}.bind(this), 400);
 		});
 	},
 
@@ -107,6 +107,7 @@ var Search = React.createClass({
 	resetResults: function() {
 		ApiResponseActions.updateSummonerSearchResult({});
 		this.arrowKeyNavigation(false);
+		this.setState({queryLengthOk: true});
 	},
 
 	resultSubmitHandler: function() {
