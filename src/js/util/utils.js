@@ -75,6 +75,8 @@ module.exports = {
 				return "RekSai";
 			case "Jarvan IV":
 				return "JarvanIV";
+			case "Fiddlesticks":
+				return "FiddleSticks";
 			default:
 				return championName.toLowerCase().replace("'", "").replace(".", "").capitalize().replace(" ", "");
 		}
