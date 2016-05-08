@@ -389,11 +389,15 @@ header {
 			}
 
 			&.region {
-				border: 2px solid $region-top-color;
+				border: none;
+
+				.summoner-info {
+					color: $old-top-color;
+				}
 			}
 
 			&.global {
-				font-size: 1.5em;
+				font-size: 1.3em;
 				padding: 1em;
 			}
 
