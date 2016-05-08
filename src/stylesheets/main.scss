@@ -392,7 +392,10 @@ header {
 				border: none;
 
 				.summoner-info {
-					color: $old-top-color;
+
+					.region-info {
+						color: $old-top-color;
+					}
 				}
 			}
 
