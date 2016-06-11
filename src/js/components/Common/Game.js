@@ -2,7 +2,6 @@
 
 var React = require("react");
 var Util = require("../../util/utils");
-var Image = require("../Common/Image");
 
 // A single game component used all around
 var Game = React.createClass({

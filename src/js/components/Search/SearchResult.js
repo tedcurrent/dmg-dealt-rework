@@ -52,7 +52,7 @@ var SearchResult = React.createClass({
 			<div onClick={handleClick} 
 				className={resultClass}>
 				<div className="thumbnail-container">
-					<Image src={profileIconUrl} alt={"summoner icon"} />
+					<Image src={profileIconUrl} defaultImage={"/images/default_profile_icon.png"} alt={"summoner icon"} />
 				</div>
 				<span className="name">{summoner.name}</span>
 				<span className="level">

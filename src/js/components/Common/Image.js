@@ -3,8 +3,6 @@
 var React = require("react");
 var ReactDOM = require("react-dom");
 
-var defaultProfileIcon = "/images/default_profile_icon.png";
-
 // A common component that should be used for every image
 var Image = React.createClass({
 	getInitialState: function() {
@@ -34,7 +32,7 @@ var Image = React.createClass({
 
 	render: function() {
 		var imgClass = !this.state.loaded ? "image" : "image loaded";
-		var imgSrc = !this.state.errored ? this.props.src : defaultProfileIcon;
+		var imgSrc = !this.state.errored ? this.props.src : this.props.defaultImage;
 		return (
 			<img onError={this.changeToDefault} ref="img" src={imgSrc} alt={this.props.alt} className={imgClass} />
 		);
