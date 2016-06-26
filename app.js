@@ -8,13 +8,13 @@ var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
 var rateLimit = require("express-rate-limit");
 
-// routes
+// Routes
 var index = require("./server/routes/index");
 var api = require("./server/routes/api");
 
 var app = express();
 
-// rate limiter cfg
+// Rate limiter cfg
 var limiter = rateLimit({
 	windowMs: 30000,
 	max: 100,
@@ -22,11 +22,10 @@ var limiter = rateLimit({
 	delayMs: 1000
 });
 
-// view engine setup
+// View engine setup
 app.set("views", path.join(__dirname, "/server/views"));
 app.set("view engine", "jade");
 
-// uncomment after placing your favicon in /dist
 app.use(favicon(path.join(__dirname, "dist/icons", "favicon.ico")));
 app.use(logger("dev"));
 app.use(bodyParser.json());
@@ -34,17 +33,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "dist")));
 
-// limiters
+// Limiters
 app.use("/api/", limiter);
 
-// route middleware
+// Route middleware
 app.use("/api", api);
 app.use("/", index);
 
-// error handlers
 
-// development error handler
-// will print stacktrace
+// Development error handler
 if (app.get("env") === "development") {
 	app.use(function(err, req, res, next) {
 		res.status(err.status || 500);
@@ -55,8 +52,7 @@ if (app.get("env") === "development") {
 	});
 }
 
-// production error handler
-// no stacktraces leaked to user
+// Production error handler
 app.use(function(err, req, res, next) {
 	res.status(err.status || 500);
 	res.json({
