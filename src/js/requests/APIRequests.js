@@ -45,6 +45,7 @@ var APIRequests = {
 					parsedGames = _.orderBy(parsedGames, ["dmgDealt"], ["desc"]);
 					query.topGame = parsedGames[0];
 
+					// A highscore is returned with personal games
 					this.saveHighScore(query, function(err, hsResults) {
 						if (err) {
 							ApiResponseActions.gameSearchError(err);
