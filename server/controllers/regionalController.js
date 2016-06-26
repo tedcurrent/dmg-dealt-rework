@@ -6,14 +6,14 @@ var _ = require("lodash");
 // Get the top players and their games from each region
 module.exports = {
 	getRegionalScores: function(callback) {
-		HighScoreController.getRegionalTopScores(function(err, result) {
-			if (err || !result.length) {
+		HighScoreController.getRegionalTopScores(function(err, results) {
+			if (err || !results.length) {
 				return callback(err, {});
 			}
 
-			var globalScore = _createGlobalScore(result);
-			_setGlobalAsFirstInList(result, globalScore);
-			callback(err, result);
+			var globalScore = _createGlobalScore(results);
+			_setGlobalAsFirstInList(results, globalScore);
+			callback(err, results);
 		});
 	}
 };

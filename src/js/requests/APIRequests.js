@@ -8,11 +8,6 @@ var Util = require("../util/utils");
 
 // Requests towards the server
 var APIRequests = {
-	/**
-		* Get a summoner with summoner name and region
-		* @param {object} A query object with summoner name and region from the client 
-		* @return {function} Returns with a response action and results
-	*/
 	getSummoner: function(query) {
 		if (query.summonerName === "" || query.summonerRegion === "") {
 			return;
@@ -33,12 +28,6 @@ var APIRequests = {
 			});
 	},
 
-	/**
-		* Get a list of games and a top game for any summoner
-		* NOTE: The GET can come from an /:id/:region route or search result click
-		* @param {object} A query object containing summoner id and region
-		* @return {function} Returns with a response action and results
-	*/
 	getPersonalGames: function(query) {
 		if (_.isEmpty(query)) {
 			return;
@@ -73,12 +62,6 @@ var APIRequests = {
 			}.bind(this));
 	},
 
-	/**
-		* Post the top score found from recent games, expecting a new top score
-		* @param {object} A query object containing a top game with summoner and game info 
-		* @param {function} Callback
-		* @return {function} A callback is returned with info on whether a new highscore was made and the score itself
-	*/
 	saveHighScore: function(query, callback) {
 		request
 			.post("/api/saveHighScore/")
@@ -92,10 +75,6 @@ var APIRequests = {
 			});
 	},
 
-	/**
-		* Get top games from all regions 
-		* @return {function} Returns with a response action and results
-	*/
 	getRegionalGames: function() {
 		NProgress.start();
 		request

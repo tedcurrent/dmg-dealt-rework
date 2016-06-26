@@ -7,10 +7,6 @@ var ApiRequestActions = require("../../actions/ApiRequestActions");
 var RegionalGamesStore = require("../../stores/RegionalGamesStore");
 var _ = require("lodash");
 
-var _refreshRegionals = function() {
-	ApiRequestActions.getRegionalGames();
-};
-
 // A wrapper for regional top scores page
 var RegionsPage = React.createClass({
 	getInitialState: function() {
@@ -70,5 +66,9 @@ var RegionsPage = React.createClass({
 		return this.renderComponents();
 	}
 });
+
+var _refreshRegionals = function() {
+	ApiRequestActions.getRegionalGames();
+};
 
 module.exports = RegionsPage;

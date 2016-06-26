@@ -2,7 +2,7 @@
 
 var React = require("react");
 var Game = require("../Common/Game");
-var Overlay = require("../Common/Overlay");
+var Background = require("../Common/Background");
 
 // Personal games listed
 var GameList = React.createClass({
@@ -13,7 +13,7 @@ var GameList = React.createClass({
 					return (
 						<li key={game.gameId}>
 							<div className="game">
-								<Overlay champion={game.champion} />
+								<Background champion={game.champion} />
 								<Game game={game}/>
 							</div>
 						</li>

@@ -11,41 +11,21 @@ String.prototype.capitalize = function() {
 
 // Client side utilities
 module.exports = {
-	/**
-		* Formats a date to a custom string
-		* @param {date} Date in ISO format
-		* @return {string} Date as string formatted to eg. 16 January, 2016
-	*/
 	fixDateToString: function(unformattedDate) {
 		var formattedDate = new Date(unformattedDate);
 		return moment(formattedDate).format("DD MMMM, YYYY");
 	},
 
-	/**
-		* Deletes any games with no damage dealt champions (eg. player left game or the like)
-		* @param {array} An array of game objects 
-		* @return {array} A cleaned up array of game objects
-	*/
 	cleanEmptyDamages: function(gameArray) {
 		return _.remove(gameArray, function(game) {
 			return game.dmgDealt;
 		});
 	},
 
-	/**
-		* Creates an url to LoL static data for a profile icon
-		* @param {int} Profile icon id 
-		* @return {string} URL for profile image
-	*/
 	buildProfileIconUrl: function(iconId) {
 		return AppConstants.LOL_STATIC_BASE_URL + "/" + AppConstants.LOL_API_VERSION + "/img/profileicon/" + iconId + ".png";
 	},
 
-	/**
-		* Formats champion names to LOL static accepted format
-		* @param {string} Champion name in any format 
-		* @return {string} Formatted champion name 
-	*/
 	championNameForUrl: function(championName) {
 		switch (championName) {
 			case "Kog'Maw":
@@ -63,11 +43,6 @@ module.exports = {
 		}
 	},
 
-	/**
-		* Creates a url to LoL static data for a champion splash image
-		* @param {string} Champion name in any format 
-		* @return {string} URL for champion splash image
-	*/
 	championSplashUrl: function(championName) {
 		var fullUrl = AppConstants.LOL_STATIC_BASE_URL + "/img/champion/splash/";
 		var championNameUrlified = this.championNameForUrl(championName);

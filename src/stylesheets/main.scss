@@ -13,7 +13,7 @@ $content-color-light: #272c35;
 $content-color-super-light: #3e4654;
 $content-color-trans: rgba(26, 30, 36, 0.7); 
 $dmg-color: #e06464;
-$overlay-color-dark: rgb(26, 30, 36);
+$game-background-color-dark: rgb(26, 30, 36);
 $new-top-color: #3dce38;
 $old-top-color: #ceac00;
 $region-top-color: #e06464;
@@ -312,12 +312,12 @@ header {
 		background-position: 50% 50%;
 		border-radius: 3px;
 
-		.overlay {
+		.game-background {
 			position: absolute;
 			top: 0;
 			left: 0;
 			z-index: 1;
-			background-color: $overlay-color-dark;
+			background-color: $game-background-color-dark;
 			opacity: 0.8;
 			width: 100%;
 			height: 100%;
@@ -345,7 +345,7 @@ header {
 
 		&:hover {
 
-			.overlay {
+			.game-background {
 				opacity: 0.5;
 			}
 		}
@@ -402,6 +402,7 @@ header {
 			&.global {
 				font-size: 1.3em;
 				padding: 1em;
+				border: 2px solid $old-top-color;
 			}
 
 		}

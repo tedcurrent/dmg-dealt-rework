@@ -61,5 +61,4 @@ module.exports = {
 		    	callback(err, res);
 		    });
 	}
-
 };

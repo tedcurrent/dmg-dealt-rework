@@ -8,15 +8,6 @@ var ApiRequestActions = require("../../actions/ApiRequestActions");
 var PersonalGamesStore = require("../../stores/PersonalGamesStore");
 var _ = require("lodash");
 
-var _refreshGames = function(props) {
-	var query = {
-		id: props.params.id,
-		region: props.params.region
-	};
-
-	ApiRequestActions.getPersonalGames(query);
-};
-
 // Controller for the PersonalGames page
 var PersonalGamesController = React.createClass({
 	getInitialState: function() {
@@ -74,5 +65,14 @@ var PersonalGamesController = React.createClass({
 		return this.renderComponents();
 	}
 });
+
+var _refreshGames = function(props) {
+	var query = {
+		id: props.params.id,
+		region: props.params.region
+	};
+
+	ApiRequestActions.getPersonalGames(query);
+};
 
 module.exports = PersonalGamesController;

@@ -7,7 +7,7 @@ var SearchInputContainer = React.createClass({
 	render: function() {
 		return (
 			<div className="input-container">
-			{this.props.children}
+				{this.props.children}
 			</div>
 		);
 	}
