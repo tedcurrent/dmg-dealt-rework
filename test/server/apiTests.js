@@ -16,7 +16,7 @@ var _config = {
 	    gameMode: "CLASSIC",
 	    champion: "Morgana",
 	    gameDate: 1444756345019,
-	    dmgDealt: 9178
+	    dmgDealt: 120002
   	},
 
 	api: {
@@ -95,6 +95,7 @@ test("POST /saveHighScore", function(t) {
 			var result = JSON.parse(res.text);
 			t.equal(result.highScore.summoner.summonerId, query.id, "Should find summoner with ID");
 			t.ok(result.highScore.game, "Should find a highScore");
+			t.equal(result.newHighScore, true, "Should make a new highScore");
 			t.end();
 		});
 });

@@ -5,6 +5,7 @@ var router = express.Router();
 var LolApiController = require("../controllers/lolApiController");
 var HighScoreController = require("../controllers/highScoreController");
 var ScoreController = require("../controllers/scoreController");
+var RegionalController = require("../controllers/regionalController");
 var Util = require("../utils/util");
 
 // GET summoner object with a summoner name and region
@@ -52,7 +53,7 @@ router.get("/getGames/:summonerId/:region", function(req, res, next) {
 
 // GET an array of score objects
 router.get("/getRegionalScores", function(req, res, next) {
-	ScoreController.getRegionalScores(function (err, result) {
+	RegionalController.getRegionalScores(function (err, result) {
 		if (err) {
 			return next(err);
 		}
@@ -63,7 +64,9 @@ router.get("/getRegionalScores", function(req, res, next) {
 
 // POST a request with summoner and top game information. Returns an old or new top score
 router.post("/saveHighScore", function(req, res, next) {
-	ScoreController.newHighScore(req, function(err, result) {
+	var potentialHighScore = req.body;
+
+	ScoreController.trySaveNewHighScore(potentialHighScore, function(err, result) {
 		if (err) {
 			return next(err);
 		}
