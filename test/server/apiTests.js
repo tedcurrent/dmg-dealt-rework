@@ -16,7 +16,16 @@ var _config = {
 	    gameMode: "CLASSIC",
 	    champion: "Morgana",
 	    gameDate: 1444756345019,
-	    dmgDealt: 120002
+	    dmgDealt: 120002,
+	    stats: {
+	    	timePlayed: 2312,
+		    kills: 4,
+		    deaths: 10,
+		    assists: 10,
+		    largestMultiKill: 1,
+		    physicalDamage: 6899,
+	    	magicDamage: 20059
+	    }
   	},
 
 	api: {

@@ -25,7 +25,16 @@ module.exports = {
 			gameMode: newHighScore.topGame.gameMode,
 			gameDate: newHighScore.topGame.gameDate,
 			champion: newHighScore.topGame.champion,
-			dmgDealt: newHighScore.topGame.dmgDealt
+			dmgDealt: newHighScore.topGame.dmgDealt,
+			stats: {
+				timePlayed: newHighScore.topGame.stats.timePlayed,
+				kills: newHighScore.topGame.stats.kills,
+				deaths: newHighScore.topGame.stats.deaths,
+				assists: newHighScore.topGame.stats.assists,
+				largestMultiKill: newHighScore.topGame.stats.largestMultiKill,
+				physicalDamage: newHighScore.topGame.stats.physicalDamage,
+				magicDamage: newHighScore.topGame.stats.magicDamage
+			}
 		};
 
 		return highScore;

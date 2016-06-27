@@ -12,7 +12,16 @@ var Util = {
 				gameMode: game.gameMode,
 				champion: champDataUtil.championIdToChampionName(game.championId),
 				gameDate: game.createDate,
-				dmgDealt: game.stats.totalDamageDealtToChampions
+				dmgDealt: game.stats.totalDamageDealtToChampions,
+				stats: {
+					timePlayed: game.stats.timePlayed,
+					kills: game.stats.championsKilled,
+					deaths: game.stats.numDeaths,
+					assists: game.stats.assists,
+					largestMultiKill: game.stats.largestMultiKill,
+					physicalDamage: game.stats.physicalDamageDealtPlayer,
+					magicDamage: game.stats.magicDamageDealtPlayer
+				}
 			};
 		});
 	},

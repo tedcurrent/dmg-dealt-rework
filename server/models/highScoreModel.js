@@ -62,6 +62,43 @@ var highScoreModel = new Schema({
 		gameDate: {
 			type: Date,
 			default: Date.now
+		},
+
+		stats : {
+			timePlayed: {
+				type: Number,
+				default: 0
+			},
+
+			kills: {
+				type: Number,
+				default: 0
+			},
+
+			deaths: {
+				type: Number,
+				default: 0
+			},
+
+			assists: {
+				type: Number,
+				default: 0
+			},
+
+			largestMultiKill: {
+				type: Number,
+				default: 0
+			},
+
+			physicalDamage: {
+				type: Number,
+				default: 0
+			},
+
+			magicDamage: {
+				type: Number,
+				default: 0
+			}
 		}
 	}
 });
