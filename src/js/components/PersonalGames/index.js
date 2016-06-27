@@ -18,7 +18,6 @@ var PersonalGamesController = React.createClass({
 
 	componentWillMount: function() {
 		_refreshGames(this.props);
-
 		PersonalGamesStore.addChangeListener(this._onChange);
 	},
 
@@ -41,23 +40,11 @@ var PersonalGamesController = React.createClass({
 		var results = this.state.gameResults;
 
 		if (results.errors === 0 && !_.isEmpty(results.summoner)) {
-			return (
-				<div className="games-container">
-					<TopGame summoner={results.summoner} topGame={results.highScore} newHs={results.newHighScore}/>
-					<h3>Last 10 Days of DMG</h3>
-					<GameList games={results.games}/>
-				</div>
-			);
+			return _renderGames(results);
 		} else if (results.errors) {
-			return (
-				<ErrorPage
-					errorNumber={404}
-					errorMessage={"No games found with the name and region combination."}
-					errorMessage2={"Please try something else."}
-				/>
-			);
+			return _renderError();
 		} else {
-			return (<div></div>);
+			return _renderNothing();
 		}
 	},
 
@@ -73,6 +60,30 @@ var _refreshGames = function(props) {
 	};
 
 	ApiRequestActions.getPersonalGames(query);
+};
+
+var _renderGames = function(results) {
+	return (
+		<div className="games-container">
+			<TopGame summoner={results.summoner} topGame={results.highScore} newHs={results.newHighScore}/>
+			<h3>Last 10 Days of DMG</h3>
+			<GameList games={results.games}/>
+		</div>
+	);
+};
+
+var _renderError = function() {
+	return (
+		<ErrorPage
+			errorNumber={404}
+			errorMessage={"No games found with the name and region combination."}
+			errorDetail={"Please try something else."}
+		/>
+	);
+};
+
+var _renderNothing = function() {
+	return <div></div>;
 };
 
 module.exports = PersonalGamesController;

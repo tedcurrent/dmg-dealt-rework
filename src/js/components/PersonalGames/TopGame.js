@@ -1,9 +1,8 @@
 "use strict";
 
 var React = require("react");
-var Game = require("../Common/Game");
-var SummonerInfo = require("../Common/SummonerInfo");
-var Background = require("../Common/Background");
+var SummonerInfo = require("../Game/SummonerInfo");
+var GameWrapper = require("../Game/Wrapper");
 
 // Top game with summoner details and custom coloring, otherwise a regular game
 var TopGame = React.createClass({
@@ -14,11 +13,9 @@ var TopGame = React.createClass({
 		var topGame = this.props.topGame;
 		
 		return (
-			<div className={topGameClass}>
-				<Background champion={topGame.champion} />
+			<GameWrapper game={topGame} gameClass={topGameClass}>
 				<SummonerInfo newHs={newHs} summoner={this.props.summoner} />
-				<Game key={topGame.gameId} game={topGame} />
-			</div>
+			</GameWrapper>
 		);
 	}
 });

@@ -1,9 +1,8 @@
 "use strict";
 
 var React = require("React");
-var Game = require("../Common/Game");
-var Background = require("../Common/Background");
-var SummonerInfo = require("../Common/SummonerInfo");
+var SummonerInfo = require("../Game/SummonerInfo");
+var GameWrapper = require("../Game/Wrapper");
 
 // Similar to TopGame, but with extra visual details for regions
 var RegionalGame = React.createClass({
@@ -14,11 +13,9 @@ var RegionalGame = React.createClass({
 		var regionName = region;
 
 		return (
-			<div className={"game top-game region " + regionName}>
-				<Background champion={game.champion} />
+			<GameWrapper key={game.id} game={game} gameClass={"game top-game region " + regionName}>
 				<SummonerInfo region={region} summoner={summoner} />
-				<Game key={game.id} game={game} />
-			</div>
+			</GameWrapper>
 		);
 	}
 });

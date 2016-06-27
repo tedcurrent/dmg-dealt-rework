@@ -36,29 +36,11 @@ var RegionsPage = React.createClass({
 		var results = this.state.regionalResults;
 
 		if (results.errors === 0 && results.games.length) {
-			return (
-				<div className="games-container">
-					<ul>
-						{results.games.map(function (game) {
-							return (
-								<li key={game._id}>
-									<RegionalGame game={game}/>
-								</li>
-							);
-						})}
-					</ul>
-				</div>
-			);
+			return _renderGames(results);
 		} else if (results.errors) {
-			return (
-				<ErrorPage
-					errorNumber={"500"}
-					errorMessage={"There was an error in game search."}
-					errorMessage2={"Please try again later."}
-				/>
-			);
+			return _renderError();
 		} else {
-			return (<div></div>);
+			return _renderNothing();
 		}
 	},
 
@@ -69,6 +51,36 @@ var RegionsPage = React.createClass({
 
 var _refreshRegionals = function() {
 	ApiRequestActions.getRegionalGames();
+};
+
+var _renderGames = function(results) {
+	return (
+		<div className="games-container">
+			<ul>
+				{results.games.map(function (game) {
+					return (
+						<li key={game._id}>
+							<RegionalGame game={game}/>
+						</li>
+					);
+				})}
+			</ul>
+		</div>
+	);
+};
+
+var _renderError = function() {
+	return (
+		<ErrorPage
+			errorNumber={"500"}
+			errorMessage={"There was an error in game search."}
+			errorDetail={"Please try again later."}
+		/>
+	);
+};
+
+var _renderNothing = function() {
+	return <div></div>;
 };
 
 module.exports = RegionsPage;

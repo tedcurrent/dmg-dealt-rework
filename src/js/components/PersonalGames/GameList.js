@@ -1,8 +1,7 @@
 "use strict";
 
 var React = require("react");
-var Game = require("../Common/Game");
-var Background = require("../Common/Background");
+var GameWrapper = require("../Game/Wrapper");
 
 // Personal games listed
 var GameList = React.createClass({
@@ -12,10 +11,7 @@ var GameList = React.createClass({
 				{this.props.games.map(function (game) {
 					return (
 						<li key={game.gameId}>
-							<div className="game">
-								<Background champion={game.champion} />
-								<Game game={game}/>
-							</div>
+							<GameWrapper game={game} gameClass={"game"}/>
 						</li>
 					);
 				})}

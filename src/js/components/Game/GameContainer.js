@@ -1,10 +1,9 @@
 "use strict";
-
 var React = require("react");
 var Util = require("../../util/utils");
 
-// A single game component used all around
-var Game = React.createClass({
+// A visual wrapper for game elements
+var GameContainer = React.createClass({
 	render: function() {
 		var game = this.props.game;
 		return (
@@ -22,4 +21,4 @@ var Game = React.createClass({
 	}
 });
 
-module.exports = Game;
+module.exports = GameContainer;
