@@ -306,33 +306,33 @@ header {
 	.game-wrapper {
 		margin: 1em 0;
 
-		.game {
-		position: relative;
-		padding: 1.5em;
-		color: $secondary-color;
-		background-size: cover;
-		background-position: 50% 50%;
-		border-radius: 3px;
-
-		.game-background {
-			position: absolute;
-			top: 0;
-			left: 0;
-			z-index: 1;
-			background-color: $game-background-color-dark;
-			opacity: 0.8;
-			width: 100%;
-			height: 100%;
-			transition: all 0.3s;
-		}
-
-		.game-container {
-			display: flex;
-			justify-content: space-between;
+		.game-header {
 			position: relative;
-			z-index: 10;
+			padding: 1.5em;
+			color: $secondary-color;
+			background-size: cover;
+			background-position: 50% 50%;
+			border-radius: 3px;
 
-				.game-details {
+			.game-header-background {
+				position: absolute;
+				top: 0;
+				left: 0;
+				z-index: 1;
+				background-color: $game-background-color-dark;
+				opacity: 0.8;
+				width: 100%;
+				height: 100%;
+				transition: all 0.3s;
+			}
+
+			.game-header-container {
+				display: flex;
+				justify-content: space-between;
+				position: relative;
+				z-index: 10;
+
+				.game-header-details {
 					display: flex;
 					flex-direction: column;
 				}
@@ -347,7 +347,7 @@ header {
 
 			&:hover {
 
-				.game-background {
+				.game-header-background {
 					opacity: 0.5;
 				}
 			}
@@ -366,7 +366,7 @@ header {
 					}
 				}
 
-				.game-container {
+				.game-header-container {
 
 					.game-dmg {
 						font-weight: bold;

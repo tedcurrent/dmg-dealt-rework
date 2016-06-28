@@ -4,7 +4,7 @@ var React = require("react");
 var AppConstants = require("../../constants/AppConstants");
 var Util = require("../../util/utils");
 
-var Background = React.createClass({
+var GameBackground = React.createClass({
 	render: function() {
 		var splashUrl = Util.championSplashUrl(this.props.champion);
 		var gameBackgroundStyle = {
@@ -14,9 +14,9 @@ var Background = React.createClass({
 		};
 		
 		return (
-			<div className="game-background" style={gameBackgroundStyle}></div>
+			<div className="game-header-background" style={gameBackgroundStyle}></div>
 		);
 	}
 });
 
-module.exports = Background;
+module.exports = GameBackground;

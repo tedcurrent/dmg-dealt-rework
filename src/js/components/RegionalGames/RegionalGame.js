@@ -2,7 +2,7 @@
 
 var React = require("React");
 var SummonerInfo = require("../Game/SummonerInfo");
-var GameWrapper = require("../Game/Wrapper");
+var GameWrapper = require("../Game/GameWrapper");
 
 // Similar to TopGame, but with extra visual details for regions
 var RegionalGame = React.createClass({
@@ -13,7 +13,7 @@ var RegionalGame = React.createClass({
 		var regionName = region;
 
 		return (
-			<GameWrapper key={game.id} game={game} gameClass={"game top-game region " + regionName}>
+			<GameWrapper key={game.id} game={game} gameClass={"game-header top-game region " + regionName}>
 				<SummonerInfo region={region} summoner={summoner} />
 			</GameWrapper>
 		);

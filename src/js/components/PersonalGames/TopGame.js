@@ -2,13 +2,13 @@
 
 var React = require("react");
 var SummonerInfo = require("../Game/SummonerInfo");
-var GameWrapper = require("../Game/Wrapper");
+var GameWrapper = require("../Game/GameWrapper");
 
 // Top game with summoner details and custom coloring, otherwise a regular game
 var TopGame = React.createClass({
 	render: function() {
 		var newHs = this.props.newHs;
-		var topGameClass = "game top-game";
+		var topGameClass = "game-header top-game";
 		topGameClass = newHs ? topGameClass + " new" : topGameClass + " old";
 		var topGame = this.props.topGame;
 		

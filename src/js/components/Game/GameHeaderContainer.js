@@ -3,12 +3,12 @@ var React = require("react");
 var Util = require("../../util/utils");
 
 // A visual wrapper for game elements
-var GameContainer = React.createClass({
+var GameHeaderContainer = React.createClass({
 	render: function() {
 		var game = this.props.game;
 		return (
-			<div className="game-container">
-				<div className="game-details">
+			<div className="game-header-container">
+				<div className="game-header-details">
 					<span>{game.gameMode}</span>
 					<span>{game.champion}</span>
 					<span>{Util.fixDateToString(game.gameDate)}</span>
@@ -21,4 +21,4 @@ var GameContainer = React.createClass({
 	}
 });
 
-module.exports = GameContainer;
+module.exports = GameHeaderContainer;
