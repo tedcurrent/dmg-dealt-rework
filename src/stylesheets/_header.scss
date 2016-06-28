@@ -1,0 +1,131 @@
+// !HEADER
+
+header {
+	position: absolute;
+	z-index: 10;
+	width: 100%;
+	top: 0;
+	left: 0;
+	display: flex;
+	justify-content: space-between;
+	padding: 1em;
+	background-color: $content-color-trans;
+	color: $secondary-color;
+
+	ul {
+		display: flex;
+		width: 150px;
+		justify-content: flex-end;
+		padding: $header-padding;
+
+		li {
+			margin-left: 1em;
+			display: flex;
+			align-items: center;
+		}
+
+		a {
+
+			&:hover {
+				color: $emphasis-color;
+			}
+		}
+	}
+
+	a {
+		color: $secondary-color;
+	}
+	
+	.search {
+		position: relative;
+		width: 250px;
+
+		input[type="text"] {
+			background-color: $content-color-light;
+			color: $secondary-color;
+			padding: $header-padding;
+			width: 100%;
+			border: 0;
+			border-bottom: solid 1px $default-color;
+			transition: border 0.3s;
+
+			&:focus {
+				border-bottom: solid 1px $emphasis-color-dark;
+			}
+		}
+
+		.drop-down {
+			position: absolute;
+			top: $header-padding;
+			right: $header-padding;
+			color: $emphasis-color-dark;
+
+			select {
+				background: $content-color-light;
+				border-radius: 0;
+				border: 0;
+	     		outline: 1px solid $content-color-light;
+	     		appearance: none;
+	     		padding: 0 5px;
+
+	     		&:focus {
+	     			outline: 1px solid $content-color-light;
+	     		}
+
+	     		&:hover {
+	     			cursor: pointer;
+	     		}
+
+	     		&::-ms-expand {
+	     			display: none;
+	     		}
+			}
+
+			.drop-arrow {
+				font-size: 0.5em;
+				padding: 1.2em 0;
+				background: $content-color-light;
+			}
+		}
+
+		.search-result {
+			position: absolute;
+			width: 100%;
+			background-color: $content-color;
+			display: flex;
+			align-items: center;
+			padding: $header-padding;
+
+			span {
+
+				&.level {
+					margin-left: auto;
+				}
+			}
+
+			.thumbnail-container {
+				width: 45px;
+				height: 45px;
+				vertical-align: middle;
+
+				img {
+					width: 100%;
+				}
+			}
+
+			&:hover {
+				background-color: $content-color-super-light;
+				cursor: pointer;
+			}
+
+			&.selected {
+				background-color: $content-color-super-light;
+			}
+		}
+	}
+	
+	.logo {
+		width: 150px;
+		padding: $header-padding;
+	}
+}

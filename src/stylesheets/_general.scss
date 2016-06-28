@@ -1,0 +1,85 @@
+// !GENERAL
+
+@-ms-viewport {
+	width: device-width;
+}
+
+* {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	-webkit-font-smoothing: antialiased;
+}
+
+html {
+	font-family: 'Alegreya', serif;
+	min-height: 100%;
+	position: relative;
+	padding-bottom: 20em;
+	height: 100%;
+}
+
+body {
+	background-color: $default-color;
+	height: 100%;
+}
+
+h1 {
+	font-size: 5em;
+	letter-spacing: -6px;
+	margin: 0;
+}
+
+h2 {
+	font-size: 3em;
+	margin: 0;
+}
+
+h3 {
+	font-size: 1.5em;
+	margin: 0;
+}
+
+ul {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+	color: $emphasis-color;
+	transition: all 0.3s;
+
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
+input[type="text"] {
+	display: block;
+	margin: 0;
+	appearance: none;
+	box-shadow: none;
+	border-radius: none;
+
+	&:focus {
+		outline: none;
+	}
+}
+
+.emphasis {
+	color: $emphasis-color;
+}
+
+.thumbnail-container {
+	width: 64px;
+	height: 64px;
+	vertical-align: center;
+	margin-right: 5px;
+
+	img {
+		width: 100%;
+		border-radius: 3px;
+	}
+}

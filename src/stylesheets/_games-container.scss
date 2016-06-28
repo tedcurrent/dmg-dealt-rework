@@ -1,0 +1,131 @@
+// !GAMES
+
+.games-container {
+	display: flex;
+	flex-direction: column;
+	margin: 5.5em auto 2em auto;
+	max-width: 960px;
+	padding: 0 1em;
+	font-size: 1.2em;
+
+	h3 {
+		color: $secondary-color;
+		text-align: center;
+	}
+
+	.game-wrapper {
+		margin: 1em 0;
+
+		.game-header {
+			position: relative;
+			padding: 1.5em;
+			color: $secondary-color;
+			background-size: cover;
+			background-position: 50% 50%;
+			border-radius: 3px;
+
+			.game-header-background {
+				position: absolute;
+				top: 0;
+				left: 0;
+				z-index: 1;
+				background-color: $game-background-color-dark;
+				opacity: 0.8;
+				width: 100%;
+				height: 100%;
+				transition: all 0.3s;
+			}
+
+			.game-header-container {
+				display: flex;
+				justify-content: space-between;
+				position: relative;
+				z-index: 10;
+
+				.game-header-details {
+					display: flex;
+					flex-direction: column;
+				}
+
+				.game-dmg {
+					display: flex;
+					align-items: center;
+					font-size: 3em;
+					color: $dmg-color;
+				}
+			}
+
+			&:hover {
+
+				.game-header-background {
+					opacity: 0.5;
+				}
+			}
+
+			&.top-game {
+
+				.summoner-info {
+					display: flex;
+					justify-content: space-between;
+					position: relative;
+					z-index: 10;
+					font-size: 1.6em;
+
+					.region-info {
+						font-weight: bold;
+					}
+				}
+
+				.game-header-container {
+
+					.game-dmg {
+						font-weight: bold;
+						font-size: 3.4em;
+					}
+				}
+
+				&.new {
+					border: 2px solid $new-top-color;
+
+					.game-dmg {
+						color: $new-top-color;
+					}
+				}
+
+				&.old {
+					border: 2px solid $old-top-color;
+
+					.game-dmg {
+						color: $old-top-color;
+					}
+				}
+
+				&.region {
+					border: none;
+
+					.summoner-info {
+
+						.region-info {
+							color: $old-top-color;
+						}
+					}
+				}
+
+				&.global {
+					border: 2px solid $old-top-color;
+				}
+
+			}
+		}
+	}
+
+	.no-games {
+		color: $secondary-color;
+		margin: auto;
+	}
+
+	.error {
+		color: $dmg-color;
+		margin: auto;
+	}
+}

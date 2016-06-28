@@ -1,0 +1,44 @@
+@media only screen and (max-width: 650px) {
+
+	body {
+		font-size: 0.9em;
+	}
+
+	h1 {
+		font-size: 4em;
+		letter-spacing: -3px;
+	}
+
+	h3 {
+		font-size: 1.3em;
+	}
+
+	header {
+		padding: 0.5em;
+
+		.logo {
+			width: 110px;
+		}
+
+		ul {
+			width: 110px;
+
+			li {
+
+				a {
+					span {
+						display: none;
+					}
+				}
+			}
+		}
+	}
+
+	.splash {
+		top: 140px;
+	}
+
+	.games-container {
+		font-size: 1em;
+	}
+}

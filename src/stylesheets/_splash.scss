@@ -1,0 +1,21 @@
+// !SPLASH
+
+.splash {
+	display: flex;
+	justify-content: center;
+	position: relative;
+	width: 100%;
+	top: 42%;
+	color: $secondary-color;
+
+	.text-container {
+		position: relative;
+		text-align: center;
+		width: 100%;
+		padding: 1em;
+
+		h1 {
+			text-transform: uppercase;
+		}
+	}
+}
