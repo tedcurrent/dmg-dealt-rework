@@ -39,6 +39,26 @@
 	}
 
 	.games-container {
-		font-size: 1em;
+		font-size: 1.1em;
+
+		.game-stats {
+			
+			.game-stats-areas {
+				flex-direction: column;
+
+				.game-stats-chart-area {
+					width: 100% !important;
+					height: 125px !important;
+				}
+
+				.game-stats-detail-area {
+					width: 100% !important;
+					text-align: center !important;
+					display: flex;
+					flex-direction: row;
+					justify-content: space-between;
+				}
+			}
+		}		
 	}
 }

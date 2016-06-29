@@ -19,7 +19,7 @@ var GameWrapper = React.createClass({
 	showStats: function() {
 		if (this.state.statsOpen) {
 			return (
-				<GameStats stats={this.props.game.stats} />
+				<GameStats game={this.props.game} />
 			);
 		}
 	},

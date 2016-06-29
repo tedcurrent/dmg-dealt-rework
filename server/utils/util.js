@@ -19,8 +19,8 @@ var Util = {
 					deaths: game.stats.numDeaths,
 					assists: game.stats.assists,
 					largestMultiKill: game.stats.largestMultiKill,
-					physicalDamage: game.stats.physicalDamageDealtPlayer,
-					magicDamage: game.stats.magicDamageDealtPlayer
+					physicalDamage: game.stats.physicalDamageDealtToChampions,
+					magicDamage: game.stats.magicDamageDealtToChampions
 				}
 			};
 		});

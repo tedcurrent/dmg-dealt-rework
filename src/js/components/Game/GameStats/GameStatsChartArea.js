@@ -1,22 +1,17 @@
 "use strict";
 
 var React = require("react");
+var GameStatsDamageChart = require("./GameStatsDamageChart");
 
 var GameStatsChartArea = React.createClass({
 	render: function() {
+		var chartName = "chart-" + this.props.game.gameId;
 		return (
 			<div className="game-stats-chart-area">
-				<p>GameChartArea</p>
+				<GameStatsDamageChart stats={this.props.game.stats} chartName={chartName} />
 			</div>
 		);
 	}
 });
 
 module.exports = GameStatsChartArea;
-
-// <GameStatsChartArea className="game-stats-chart-area">
-// // 			<GameDamageChart className="game-stats-chart"></GameDamageChart>
-// // 		</GameStatsChartArea>
-// // 		<GameStatsDetailArea className="game-stats-detail-area">
-// // 			<div>...</div>
-// // 		</GameStatsDetailArea>

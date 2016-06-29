@@ -8,6 +8,11 @@
 	padding: 0 1em;
 	font-size: 1.2em;
 
+	h2 {
+		color: $secondary-color;
+		text-align: center;
+	}
+
 	h3 {
 		color: $secondary-color;
 		text-align: center;
@@ -120,6 +125,37 @@
 
 		.game-stats {
 			color: $secondary-color;
+			background-color: $content-color-semi-light;
+			padding: 1em 1.5em;
+
+			.game-stats-areas {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+
+				.game-stats-chart-area {
+					width: 50%;
+					height: 200px;
+
+					.damage-chart {
+						width: 100%;
+						height: 100%;
+
+						 div:first-of-type {
+							width: 100%;
+							height: 100%;
+						}
+					}
+				}
+
+				.game-stats-detail-area {
+					text-align: right;
+					
+					.detail {
+						color: $emphasis-color-dark;
+					}
+				}
+			}
 		}
 	}
 

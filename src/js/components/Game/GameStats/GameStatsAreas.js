@@ -7,20 +7,12 @@ var GameStatsDetailArea = require("./GameStatsDetailArea");
 var GameStatsAreas = React.createClass({
 	render: function() {
 		return (
-			<div className="game-stats-area">
-				<p>GameStatsAreas</p>
-				<GameStatsChartArea stats={this.props.stats} />
-				<GameStatsDetailArea stats={this.props.stats} />
+			<div className="game-stats-areas">
+				<GameStatsChartArea game={this.props.game} />
+				<GameStatsDetailArea stats={this.props.game.stats} />
 			</div>
 		);
 	}
 });
 
 module.exports = GameStatsAreas;
-
-// <GameStatsChartArea className="game-stats-chart-area">
-// // 			<GameDamageChart className="game-stats-chart"></GameDamageChart>
-// // 		</GameStatsChartArea>
-// // 		<GameStatsDetailArea className="game-stats-detail-area">
-// // 			<div>...</div>
-// // 		</GameStatsDetailArea>

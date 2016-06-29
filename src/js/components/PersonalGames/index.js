@@ -66,7 +66,7 @@ var _renderGames = function(results) {
 	return (
 		<div className="games-container">
 			<TopGame summoner={results.summoner} topGame={results.highScore} newHs={results.newHighScore}/>
-			<h3>Last 10 Days of DMG</h3>
+			<h2>Last 10 Days of DMG</h2>
 			<GameList games={results.games}/>
 		</div>
 	);
