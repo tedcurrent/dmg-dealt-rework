@@ -2,9 +2,9 @@
 
 var React = require("react");
 var GameHeader = require("./GameHeader");
-var GameStats = require("./GameStats");
+var GameStats = require("./GameStats/");
 
-// A wrapper for the game "header" and the stats view
+// A wrapper for the game "header" and the stats view. Also acts as a controller for showing stats
 var GameWrapper = React.createClass({
 	getInitialState: function() {
 		return {
@@ -17,7 +17,7 @@ var GameWrapper = React.createClass({
 	},
 
 	showStats: function() {
-		if(this.state.statsOpen) {
+		if (this.state.statsOpen) {
 			return (
 				<GameStats stats={this.props.game.stats} />
 			);
@@ -25,9 +25,8 @@ var GameWrapper = React.createClass({
 	},
 
 	componentWillReceiveProps: function(nextProps) {
-		if (this.state.statsOpen) {
+		if (this.state.statsOpen)
 			this.setState({statsOpen: false});
-		}
 	},
 
 	render: function() {

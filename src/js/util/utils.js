@@ -16,6 +16,33 @@ module.exports = {
 		return moment(formattedDate).format("DD MMMM, YYYY");
 	},
 
+	getMinuteFormat: function(seconds) {
+		if (seconds === undefined)
+			return "00:00";
+		return moment(seconds * AppConstants.MILLISECONDS).format("mm:ss");
+	},
+
+	getKDAFormat: function(kills, deaths, assists) {
+		if (kills === undefined || deaths === undefined || assists === undefined)
+			return "0/0/0";
+		return kills + "/" + deaths + "/" + assists;
+	},
+
+	getMultikillFormat: function(multiKillNumber) {
+		switch (multiKillNumber) {
+			case 2:
+				return "DOUBLE KILL";
+			case 3:
+				return "TRIPLE KILL";
+			case 4:
+				return "QUADRA KILL";
+			case 5:
+				return "PENTA KILL";
+			default:
+				return "NONE";
+		}
+	},
+
 	cleanEmptyDamages: function(gameArray) {
 		return _.remove(gameArray, function(game) {
 			return game.dmgDealt;

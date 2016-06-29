@@ -8,5 +8,6 @@ module.exports = {
 	REGIONALS_FOUND: "REGIONALS_FOUND",
 	REGIONALS_ERROR: "REGIONALS_ERROR",
 	LOL_STATIC_BASE_URL: "http://ddragon.leagueoflegends.com/cdn",
-	LOL_API_VERSION:"6.7.1"
+	LOL_API_VERSION:"6.7.1",
+	MILLISECONDS: 1000
 };
