@@ -90,7 +90,7 @@ var Search = React.createClass({
 	},
 
 	bodyClickHandler: function(e) {
-		if (_clickNotInsideElement(e, this)) {
+		if (!ReactDOM.findDOMNode(this).contains(e.target)) {
 			this.resetResults();
 		}
 	},
@@ -140,9 +140,5 @@ var Search = React.createClass({
 		);
 	}
 });
-
-function _clickNotInsideElement(clickedElement, targetElement) {
-	return !ReactDOM.findDOMNode(targetElement).contains(clickedElement.target);
-}
 
 module.exports = Search;
