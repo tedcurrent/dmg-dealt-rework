@@ -10,34 +10,7 @@ var SearchResult = require("./SearchResult");
 var ApiRequestActions = require("../../actions/ApiRequestActions");
 var ApiResponseActions = require("../../actions/ApiResponseActions");
 var SummonerSearchStore = require("../../stores/SummonerSearchStore");
-
-// A constant list of drop down options
-var regionOptions = [
-	{
-		description: "EUW",
-		short: "euw"
-	},
-	{
-		description: "EUNE",
-		short: "eune"
-	},
-	{
-		description: "NA",
-		short: "na"
-	},
-	{
-		description: "KR",
-		short: "kr"
-	},
-	{
-		description: "CN",
-		short: "cn"
-	},
-	{
-		description: "LAN",
-		short: "lan"
-	}
-];
+var AppConstants = require("../../constants/AppConstants");
 
 // Search controller
 var Search = React.createClass({
@@ -148,7 +121,7 @@ var Search = React.createClass({
 						resultSelectedChange={this.arrowKeyNavigation}
 					/>
 					<SearchDropDown
-						options={regionOptions} 
+						options={AppConstants.SEARCH_REGION_OPTIONS} 
 						value={this.state.regionSelected}
 						labelField="description"
 						valueField="short"

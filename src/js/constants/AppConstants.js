@@ -14,5 +14,31 @@ module.exports = {
 	TRIPLE_KILL: "TRIPLE KILL",
 	QUADRA_KILL: "QUARDA KILL",
 	PENTA_KILL: "PENTA KILL",
-	SINGLE_KILL: "NONE"
+	SINGLE_KILL: "NONE",
+	SEARCH_REGION_OPTIONS: [
+		{
+			description: "EUW",
+			short: "euw"
+		},
+		{
+			description: "EUNE",
+			short: "eune"
+		},
+		{
+			description: "NA",
+			short: "na"
+		},
+		{
+			description: "KR",
+			short: "kr"
+		},
+		{
+			description: "CN",
+			short: "cn"
+		},
+		{
+			description: "LAN",
+			short: "lan"
+		}
+	]
 };

@@ -3,7 +3,6 @@
 var React = require("react");
 var Image = require("../Common/Image");
 var Util = require("../../util/utils");
-var Link = require("react-router").Link;
 var _ = require("lodash");
 
 // A result component for rendering summoner icon, name and level
