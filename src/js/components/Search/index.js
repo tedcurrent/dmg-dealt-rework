@@ -84,12 +84,13 @@ var Search = React.createClass({
 	},
 
 	resultSubmitHandler: function() {
-		this.context.router.push("/" + this.state.searchResults.summoner.id + "/" + this.state.searchResults.summoner.region);
+		var summoner = this.state.searchResults.summoner;
+		this.context.router.push("/" + summoner.id + "/" + summoner.region);
 		this.resetResults();
 	},
 
 	bodyClickHandler: function(e) {
-		if (!ReactDOM.findDOMNode(this).contains(e.target)) {
+		if (_clickNotInsideElement(e, this)) {
 			this.resetResults();
 		}
 	},
@@ -139,5 +140,9 @@ var Search = React.createClass({
 		);
 	}
 });
+
+function _clickNotInsideElement(clickedElement, targetElement) {
+	return !ReactDOM.findDOMNode(targetElement).contains(clickedElement.target);
+}
 
 module.exports = Search;
