@@ -27,7 +27,6 @@
 			color: $secondary-color;
 			background-size: cover;
 			background-position: 50% 50%;
-			border-radius: 3px;
 
 			.game-header-background {
 				position: absolute;
@@ -126,12 +125,17 @@
 		.game-stats {
 			color: $secondary-color;
 			background-color: $content-color-semi-light;
-			padding: 1em 1.5em;
+
+			h3 {
+				background-color: $content-color;
+				line-height: 2em;
+			}
 
 			.game-stats-areas {
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
+				padding: 1em 1.5em;
 
 				.game-stats-chart-area {
 					width: 50%;
@@ -151,7 +155,7 @@
 				.game-stats-detail-area {
 					text-align: right;
 					
-					.detail {
+					.description {
 						color: $emphasis-color-dark;
 					}
 				}

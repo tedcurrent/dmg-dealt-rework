@@ -6,7 +6,7 @@ var moment = require("moment");
 
 // A string capitalizer extension
 String.prototype.capitalize = function() {
-	return this.replace(/(^|\s)([a-z])/g, function(m, p1, p2){ return p1+p2.toUpperCase(); } );
+	return this.replace(/(^|\s)([a-z])/g, function(m, p1, p2) { return p1+p2.toUpperCase(); } );
 };
 
 // Client side utilities
@@ -31,16 +31,23 @@ module.exports = {
 	getMultikillFormat: function(multiKillNumber) {
 		switch (multiKillNumber) {
 			case 2:
-				return "DOUBLE KILL";
+				return AppConstants.DOUBLE_KILL;
 			case 3:
-				return "TRIPLE KILL";
+				return AppConstants.TRIPLE_KILL;
 			case 4:
-				return "QUADRA KILL";
+				return AppConstants.QUADRA_KILL;
 			case 5:
-				return "PENTA KILL";
+				return AppConstants.PENTA_KILL;
 			default:
-				return "NONE";
+				return AppConstants.SINGLE_KILL;
 		}
+	},
+
+	getChartDamages: function(stats) {
+		return [
+			{name: "Physical damage", y: stats.physicalDamage},
+			{name: "Magic damage", y: stats.magicDamage}
+		];
 	},
 
 	cleanEmptyDamages: function(gameArray) {
@@ -66,7 +73,11 @@ module.exports = {
 			case "Wukong":
 				return "MonkeyKing";
 			default:
-				return championName.toLowerCase().replace("'", "").replace(".", "").capitalize().replace(" ", "");
+				return championName.toLowerCase()
+					.replace("'", "")
+					.replace(".", "")
+					.capitalize()
+					.replace(" ", "");
 		}
 	},
 
