@@ -24,5 +24,38 @@ module.exports = {
 		title: {
 			text: ""
 		}
+	},
+
+	DAMAGE_DONUT_OPTIONS: {
+		chart: {
+			backgroundColor: "#20232A",
+			type: "pie",
+			spacingTop: 0,
+			spacingBottom: 0,
+			spacingLeft: 0,
+			spacingRight: 0
+		},
+
+		colors: ["#e06464", "#6464e0"],
+
+		legend: {
+			align: "right",
+			itemStyle: {
+				"color": "#f2f0de"
+			},
+			layout: "vertical",
+			verticalAlign: "middle"
+		},
+
+		series: [
+			{
+				borderColor: "#20232A",
+				name: "Damage done",
+				data: [
+					{name: "Physical damage", y: 0},
+					{name: "Magic damage", y: 0}
+				]
+			}
+		]
 	}
 };
