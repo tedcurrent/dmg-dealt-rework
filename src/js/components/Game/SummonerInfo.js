@@ -4,7 +4,16 @@ var React = require("react");
 
 // Any top game is rendered with summoner details
 var SummonerInfo = React.createClass({
-	renderTopMessage: function() {
+	render: function() {
+		return (
+			<div className="summoner-info">
+				<span className="name">{this.props.summoner.summonerName}</span>
+				{this._renderTopMessage()}
+			</div>
+		);
+	},
+
+	_renderTopMessage: function() {
 		if (this.props.region) {
 			return (
 				<span className="region-info">
@@ -19,15 +28,6 @@ var SummonerInfo = React.createClass({
 			);
 		}
 		
-	},
-
-	render: function() {
-		return (
-			<div className="summoner-info">
-				<span className="name">{this.props.summoner.summonerName}</span>
-				{this.renderTopMessage()}
-			</div>
-		);
 	}
 });
 

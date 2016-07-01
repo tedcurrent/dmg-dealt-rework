@@ -8,7 +8,11 @@ var Footer = React.createClass({
 		var dateNow = new Date();
 		return (
 			<footer>
-				<span>&copy; <a href="mailto:teemu.virta@pp2.inet.fi" target="_top">Teemu Virta</a> {dateNow.getFullYear()}</span>
+				<span>
+					&copy;
+					<a href="mailto:teemu.virta@pp2.inet.fi" target="_top"> Teemu Virta </a>
+					{dateNow.getFullYear()}
+				</span>
 			</footer>
 		);
 	}

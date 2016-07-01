@@ -12,18 +12,6 @@ var GameWrapper = React.createClass({
 		};
 	},
 
-	headerClickHandler: function() {
-		this.setState({statsOpen: !this.state.statsOpen});
-	},
-
-	showStats: function() {
-		if (this.state.statsOpen) {
-			return (
-				<GameStats game={this.props.game} />
-			);
-		}
-	},
-
 	componentWillReceiveProps: function(nextProps) {
 		if (this.state.statsOpen)
 			this.setState({statsOpen: false});
@@ -35,13 +23,25 @@ var GameWrapper = React.createClass({
 				<GameHeader 
 					game={this.props.game} 
 					gameClass={this.props.gameClass}
-					onClick={this.headerClickHandler}
+					onClick={this._headerClickHandler}
 				>
 					{this.props.children}
 				</GameHeader>
-				{this.showStats()}
+				{this._showStats()}
 			</div>
 		);
+	},
+
+	_headerClickHandler: function() {
+		this.setState({statsOpen: !this.state.statsOpen});
+	},
+
+	_showStats: function() {
+		if (this.state.statsOpen) {
+			return (
+				<GameStats game={this.props.game} />
+			);
+		}
 	}
 });
 

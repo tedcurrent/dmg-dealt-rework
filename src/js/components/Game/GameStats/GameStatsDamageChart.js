@@ -10,23 +10,15 @@ var GameStatsDamageChart = React.createClass({
 	chartRef: undefined,
 
 	componentDidMount: function() {
-		this.updateChartData(this.props.stats);
+		this._updateChartData(this.props.stats);
 	},
 
 	componentWillReceiveProps: function(nextProps) {
-		this.updateChartData(this.nextProps.stats);
-	},
-
-	updateChartData: function(stats) {
-		this.refs[this.chartRef]
-			.chart
-			.series[0]
-			.setData(Util.getChartDamages(stats));
+		this._updateChartData(this.nextProps.stats);
 	},
 
 	render: function() {
 		this.chartRef = this.props.chartName;
-		
 		return (
 			<div className="damage-chart">
 				{React.createElement(Chart, { 
@@ -36,6 +28,13 @@ var GameStatsDamageChart = React.createClass({
 				})}
 			</div>
 		);
+	},
+
+	_updateChartData: function(stats) {
+		this.refs[this.chartRef]
+			.chart
+			.series[0]
+			.setData(Util.getChartDamages(stats));
 	}
 });
 

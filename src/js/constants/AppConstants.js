@@ -9,12 +9,12 @@ module.exports = {
 	REGIONALS_ERROR: "REGIONALS_ERROR",
 	LOL_STATIC_BASE_URL: "http://ddragon.leagueoflegends.com/cdn",
 	LOL_API_VERSION:"6.7.1",
-	MILLISECONDS: 1000,
 	DOUBLE_KILL: "DOUBLE KILL",
 	TRIPLE_KILL: "TRIPLE KILL",
 	QUADRA_KILL: "QUARDA KILL",
 	PENTA_KILL: "PENTA KILL",
 	SINGLE_KILL: "NONE",
+	DEFAULT_SUMMONER_ICON_PATH: "/images/default_profile_icon.png",
 	SEARCH_REGION_OPTIONS: [
 		{
 			description: "EUW",
@@ -40,5 +40,7 @@ module.exports = {
 			description: "LAN",
 			short: "lan"
 		}
-	]
+	],
+	MILLISECONDS: 1000,
+	QUERY_MIN_LENGTH: 2
 };

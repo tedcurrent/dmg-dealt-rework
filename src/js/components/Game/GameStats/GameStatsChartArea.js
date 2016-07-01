@@ -6,10 +6,12 @@ var shortid = require("shortid");
 
 var GameStatsChartArea = React.createClass({
 	render: function() {
-		var chartName = "chart-" + shortid.generate();
 		return (
 			<div className="game-stats-chart-area">
-				<GameStatsDamageChart stats={this.props.game.stats} chartName={chartName} />
+				<GameStatsDamageChart 
+					stats={this.props.game.stats} 
+					chartName={"chart-" + shortid.generate()} 
+				/>
 			</div>
 		);
 	}

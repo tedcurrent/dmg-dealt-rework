@@ -1,9 +1,8 @@
 "use strict";
 
 var React = require("react");
-var TopGame = require("./TopGame");
-var GameList = require("./GameList");
 var ErrorPage = require("../Error");
+var GamesContainer = require("./GamesContainer");
 var ApiRequestActions = require("../../actions/ApiRequestActions");
 var PersonalGamesStore = require("../../stores/PersonalGamesStore");
 var _ = require("lodash");
@@ -17,7 +16,7 @@ var PersonalGamesController = React.createClass({
 	},
 
 	componentWillMount: function() {
-		_refreshGames(this.props);
+		this._refreshGames(this.props);
 		PersonalGamesStore.addChangeListener(this._onChange);
 	},
 
@@ -25,65 +24,57 @@ var PersonalGamesController = React.createClass({
 		PersonalGamesStore.removeChangeListener(this._onChange);
 	},
 
-	_onChange: function() {
-		this.setState({
-			gameResults: PersonalGamesStore.getAll()
-		});
-	},
-
 	componentWillReceiveProps: function(nextProps) {
-		_refreshGames(nextProps);
-	},
-
-	// Renders a list of games OR an error OR nothing (eg. after clean up)
-	renderComponents: function() {
-		var results = this.state.gameResults;
-
-		if (results.errors === 0 && !_.isEmpty(results.summoner)) {
-			return _renderGames(results);
-		} else if (results.errors) {
-			return _renderError();
-		} else {
-			return _renderNothing();
-		}
+		this._refreshGames(nextProps);
 	},
 
 	render: function() {
-		return this.renderComponents();
+		return this._renderComponents();
+	},
+
+	// Renders a list of games OR an error OR nothing
+	_renderComponents: function() {
+		var results = this.state.gameResults;
+
+		if (results.errors === 0 && !_.isEmpty(results.summoner)) {
+			return this._renderGames();
+		} else if (results.errors) {
+			return this._renderError();
+		} else {
+			return this._renderNothing();
+		}
+	},
+
+	_renderGames: function(results) {
+		return <GamesContainer results={this.state.gameResults} />;
+	},
+
+	_renderError: function() {
+		return (
+			<ErrorPage
+				errorNumber={404}
+				errorMessage={"No games found with the name and region combination."}
+				errorDetail={"Please try something else."}
+			/>
+		);
+	},
+
+	_renderNothing: function() {
+		return <div></div>;
+	},
+
+	_onChange: function() {
+		this.setState({gameResults: PersonalGamesStore.getAll()});
+	},
+
+	_refreshGames: function(props) {
+		var query = {
+			id: props.params.id,
+			region: props.params.region
+		};
+
+		ApiRequestActions.getPersonalGames(query);
 	}
 });
-
-var _refreshGames = function(props) {
-	var query = {
-		id: props.params.id,
-		region: props.params.region
-	};
-
-	ApiRequestActions.getPersonalGames(query);
-};
-
-var _renderGames = function(results) {
-	return (
-		<div className="games-container">
-			<TopGame summoner={results.summoner} topGame={results.highScore} newHs={results.newHighScore}/>
-			<h2>Last 10 Days of DMG</h2>
-			<GameList games={results.games}/>
-		</div>
-	);
-};
-
-var _renderError = function() {
-	return (
-		<ErrorPage
-			errorNumber={404}
-			errorMessage={"No games found with the name and region combination."}
-			errorDetail={"Please try something else."}
-		/>
-	);
-};
-
-var _renderNothing = function() {
-	return <div></div>;
-};
 
 module.exports = PersonalGamesController;

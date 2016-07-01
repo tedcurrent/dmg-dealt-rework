@@ -9,7 +9,7 @@ String.prototype.capitalize = function() {
 	return this.replace(/(^|\s)([a-z])/g, function(m, p1, p2) { return p1+p2.toUpperCase(); } );
 };
 
-// Client side utilities
+// A static collection of utility methods
 module.exports = {
 	fixDateToString: function(unformattedDate) {
 		var formattedDate = new Date(unformattedDate);
