@@ -1,7 +1,7 @@
 "use strict";
 
 var React = require("react");
-var GameWrapper = require("../Game/GameWrapper");
+var GameWrapper = require("../Game");
 
 // Personal games listed
 var GameList = React.createClass({

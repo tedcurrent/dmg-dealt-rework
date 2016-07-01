@@ -2,7 +2,7 @@
 
 var React = require("React");
 var SummonerInfo = require("../Game/SummonerInfo");
-var GameWrapper = require("../Game/GameWrapper");
+var GameWrapper = require("../Game");
 
 // Similar to TopGame, but with extra visual details for regions
 var RegionalGame = React.createClass({
