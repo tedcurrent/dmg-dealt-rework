@@ -36,7 +36,7 @@ module.exports = {
 			spacingRight: 0
 		},
 
-		colors: ["#e06464", "#6464e0"],
+		colors: ["#e06464", "#6464e0", "#64e08c"],
 
 		legend: {
 			align: "right",
@@ -53,7 +53,8 @@ module.exports = {
 				name: "Damage done",
 				data: [
 					{name: "Physical damage", y: 0},
-					{name: "Magic damage", y: 0}
+					{name: "Magic damage", y: 0},
+					{name: "True damage", y: 0}
 				]
 			}
 		]

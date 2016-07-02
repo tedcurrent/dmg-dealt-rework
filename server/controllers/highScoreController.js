@@ -33,7 +33,8 @@ module.exports = {
 				assists: newHighScore.topGame.stats.assists,
 				largestMultiKill: newHighScore.topGame.stats.largestMultiKill,
 				physicalDamage: newHighScore.topGame.stats.physicalDamage,
-				magicDamage: newHighScore.topGame.stats.magicDamage
+				magicDamage: newHighScore.topGame.stats.magicDamage,
+				trueDamage: newHighScore.topGame.stats.trueDamage
 			}
 		};
 

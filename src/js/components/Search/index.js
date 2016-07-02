@@ -22,7 +22,6 @@ var Search = React.createClass({
 		return {
 			searchResults: SummonerSearchStore.getAll(),
 			regionSelected: "euw",
-			querySent: false,
 			queryValue: "",
 			queryLengthOk: true,
 			resultSelected: false
@@ -45,7 +44,6 @@ var Search = React.createClass({
 				<SearchInputContainer>
 					<SearchInput 
 						value={this.state.queryValue}
-						querySent={this.state.querySent}
 						resultSelected={this.state.resultSelected}
 						onChange={this._queryStringChange}
 						onEnter={this._resultSubmitHandler}
@@ -85,17 +83,14 @@ var Search = React.createClass({
 	// Throttle before searching for a summoner as the user types to avoid server overload
 	_anyInputChange: function() {
 		this._resetResults();
+		clearTimeout(this._timeOut);
 
-		this.setState({querySent: false}, function() {
-			clearTimeout(this._timeOut);
-
-			this._timeOut = setTimeout(function() {
-				this._validateQueryLength(function() {
-					if (this.state.queryLengthOk)
-						this._querySubmit();
-				}.bind(this));
-			}.bind(this), 400);
-		});
+		this._timeOut = setTimeout(function() {
+			this._validateQueryLength(function() {
+				if (this.state.queryLengthOk)
+					this._querySubmit();
+			}.bind(this));
+		}.bind(this), 400);
 	},
 
 	_querySubmit: function() {

@@ -20,7 +20,8 @@ var Util = {
 					assists: game.stats.assists,
 					largestMultiKill: game.stats.largestMultiKill,
 					physicalDamage: game.stats.physicalDamageDealtToChampions,
-					magicDamage: game.stats.magicDamageDealtToChampions
+					magicDamage: game.stats.magicDamageDealtToChampions,
+					trueDamage: game.stats.trueDamageDealtToChampions
 				}
 			};
 		});

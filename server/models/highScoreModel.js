@@ -98,6 +98,11 @@ var highScoreModel = new Schema({
 			magicDamage: {
 				type: Number,
 				default: 0
+			},
+
+			trueDamage: {
+				type: Number,
+				default: 0
 			}
 		}
 	}

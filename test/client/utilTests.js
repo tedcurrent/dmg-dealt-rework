@@ -58,8 +58,28 @@ test("Multikill format conversion", function(t) {
 });
 
 test("Chart damage format conversion", function(t) {
-	var expectedArray = [{name: "Physical damage", y: 123}, {name: "Magic damage", y: 321}];
-	var parsedArray = Utils.getChartDamages({physicalDamage: 123, magicDamage: 321});
+	var expectedArray = [
+		{name: "Physical damage", y: 123},
+		{name: "Magic damage", y: 321},
+		{name: "True damage", y: 111}
+	];
+	var parsedArray = Utils.getChartDamages({physicalDamage: 123, magicDamage: 321, trueDamage: 111});
+	t.deepEqual(expectedArray, parsedArray, "Should have parsed correctly");
+
+	expectedArray = [
+		{name: "Physical damage", y: 0},
+		{name: "Magic damage", y: 1337},
+		{name: "True damage", y: 0}
+	];
+	parsedArray = Utils.getChartDamages({magicDamage: 1337});
+	t.deepEqual(expectedArray, parsedArray, "Should have parsed correctly");
+
+	expectedArray = [
+		{name: "Physical damage", y: 0},
+		{name: "Magic damage", y: 0},
+		{name: "True damage", y: 0}
+	];
+	parsedArray = Utils.getChartDamages({});
 	t.deepEqual(expectedArray, parsedArray, "Should have parsed correctly");
 
 	t.end();

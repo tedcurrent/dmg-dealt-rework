@@ -24,7 +24,8 @@ var _config = {
 		    assists: 10,
 		    largestMultiKill: 1,
 		    physicalDamage: 6899,
-	    	magicDamage: 20059
+	    	magicDamage: 20059,
+	    	trueDamage: 666
 	    }
   	},
 

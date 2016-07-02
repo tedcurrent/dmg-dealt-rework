@@ -45,8 +45,9 @@ module.exports = {
 
 	getChartDamages: function(stats) {
 		return [
-			{name: "Physical damage", y: stats.physicalDamage},
-			{name: "Magic damage", y: stats.magicDamage}
+			{name: "Physical damage", y: stats.physicalDamage || 0},
+			{name: "Magic damage", y: stats.magicDamage || 0},
+			{name: "True damage", y: stats.trueDamage || 0}
 		];
 	},
 
