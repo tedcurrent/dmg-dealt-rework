@@ -14,6 +14,9 @@ module.exports = {
 	QUADRA_KILL: "QUARDA KILL",
 	PENTA_KILL: "PENTA KILL",
 	SINGLE_KILL: "NONE",
+	DAMAGE_PHYSICAL: "Physical damage",
+	DAMAGE_MAGIC: "Magic damage",
+	DAMAGE_TRUE: "True damage",
 	DEFAULT_SUMMONER_ICON_PATH: "/images/default_profile_icon.png",
 	SEARCH_REGION_OPTIONS: [
 		{

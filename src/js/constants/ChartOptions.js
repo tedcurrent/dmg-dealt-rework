@@ -36,7 +36,7 @@ module.exports = {
 			spacingRight: 0
 		},
 
-		colors: ["#e06464", "#6464e0", "#64e08c"],
+		colors: ["#965daa", "#493972", "#cd91d6"],
 
 		legend: {
 			align: "right",
