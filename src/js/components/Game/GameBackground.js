@@ -8,9 +8,7 @@ var GameBackground = React.createClass({
 	render: function() {
 		var splashUrl = Util.championSplashUrl(this.props.champion);
 		var gameBackgroundStyle = {
-			background: "url(" + splashUrl + ")",
-			backgroundPosition: "50% 20%",
-			backgroundSize: "cover" 
+			background: "url(" + splashUrl + ")"
 		};
 		
 		return (
