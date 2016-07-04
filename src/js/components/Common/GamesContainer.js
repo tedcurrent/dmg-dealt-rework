@@ -10,6 +10,8 @@ var GamesContainer = React.createClass({
 				transitionName="animate-games-container" 
 				transitionAppear={true}
 				transitionAppearTimeout={250}
+				transitionEnterTimeout={0}
+				transitionLeaveTimeout={0}
 			>
 				<div className="games-container" key="games-container">
 					{this.props.children}

@@ -17,9 +17,7 @@ module.exports = {
 	},
 
 	getMinuteFormat: function(seconds) {
-		if (seconds === undefined)
-			return "00:00";
-		return moment(seconds * AppConstants.MILLISECONDS).format("mm:ss");
+		return seconds ? moment(seconds * AppConstants.MILLISECONDS).format("mm:ss") : "00:00";
 	},
 
 	getKDAFormat: function(kills, deaths, assists) {
