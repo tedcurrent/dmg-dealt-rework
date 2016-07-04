@@ -6,7 +6,9 @@ var moment = require("moment");
 
 // A string capitalizer extension
 String.prototype.capitalize = function() {
-	return this.replace(/(^|\s)([a-z])/g, function(m, p1, p2) { return p1+p2.toUpperCase(); } );
+	return this.replace(/(^|\s)([a-z])/g, function(m, p1, p2) { 
+		return p1+p2.toUpperCase();
+	});
 };
 
 // A static collection of utility methods
