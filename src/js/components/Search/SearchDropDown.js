@@ -2,7 +2,7 @@
 
 var React = require("react");
 
-// Select component. Country options come from Search controller
+// Select component. Country options come from the owning component
 var Dropdown = React.createClass({
 	render: function() {
 		var options = this.props.options.map(function(option) {

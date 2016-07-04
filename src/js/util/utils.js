@@ -12,8 +12,7 @@ String.prototype.capitalize = function() {
 // A static collection of utility methods
 module.exports = {
 	fixDateToString: function(unformattedDate) {
-		var formattedDate = new Date(unformattedDate);
-		return moment(formattedDate).format("DD MMMM, YYYY");
+		return moment(new Date(unformattedDate)).format("DD MMMM, YYYY");
 	},
 
 	getMinuteFormat: function(seconds) {
@@ -84,5 +83,9 @@ module.exports = {
 		var championNameUrlified = this.championNameForUrl(championName);
 		var skinSelection = "_0.jpg";
 		return fullUrl + championNameUrlified + skinSelection;
+	},
+
+	isQueryLengthOk: function(query) {
+		return !(query.length < AppConstants.QUERY_MIN_LENGTH && query.length !== 0);
 	}
 };

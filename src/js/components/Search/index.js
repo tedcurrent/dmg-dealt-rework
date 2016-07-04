@@ -4,13 +4,11 @@ var React = require("react");
 var ReactDOM = require("react-dom");
 var Router = require("react-router").Router;
 var SearchInputContainer = require("./SearchInputContainer");
-var SearchInput = require("./SearchInput");
-var SearchDropDown = require("./SearchDropDown");
 var SearchResultWrapper = require("./SearchResultWrapper");
 var ApiRequestActions = require("../../actions/ApiRequestActions");
 var ApiResponseActions = require("../../actions/ApiResponseActions");
 var SummonerSearchStore = require("../../stores/SummonerSearchStore");
-var AppConstants = require("../../constants/AppConstants");
+var Util = require("../../util/utils");
 var _ = require("lodash");
 
 // Search controller
@@ -41,22 +39,15 @@ var Search = React.createClass({
 	render: function() {
 		return (
 			<div className="search">
-				<SearchInputContainer>
-					<SearchInput 
-						value={this.state.queryValue}
-						resultSelected={this.state.resultSelected}
-						onChange={this._queryStringChange}
-						onEnter={this._resultSubmitHandler}
-						resultSelectedChange={this._arrowKeyNavigation}
-					/>
-					<SearchDropDown
-						options={AppConstants.SEARCH_REGION_OPTIONS} 
-						value={this.state.regionSelected}
-						labelField="description"
-						valueField="short"
-						onChange={this._dropDownChange}
-					/>
-				</SearchInputContainer>
+				<SearchInputContainer
+					queryValue={this.state.queryValue}
+					resultSelected={this.state.resultSelected}
+					queryStringChange={this._queryStringChange}
+					resultSubmitHandler={this._resultSubmitHandler}
+					arrowKeyNavigation={this._arrowKeyNavigation}
+					regionSelected={this.state.regionSelected}
+					dropDownChange={this._dropDownChange}
+				/>
 				<SearchResultWrapper 
 					searchResult={this.state.searchResults}
 					queryLengthOk={this.state.queryLengthOk}
@@ -80,10 +71,10 @@ var Search = React.createClass({
 		this.setState({queryValue: value}, this._anyInputChange);
 	},
 
-	// Calls to this are debounced to avoid server call overload
+	// Calls to this are debounced (see lifecycle) to avoid server call overload
 	_anyInputChange: function() {
 		this._resetResults();
-		this._validateQueryLength(function() {
+		this._validateQueryLength(this.state.queryValue, function() {
 			if (this.state.queryLengthOk)
 				this._querySubmit();
 		}.bind(this));
@@ -119,11 +110,8 @@ var Search = React.createClass({
 		this.setState({resultSelected: selected});
 	},
 
-	_validateQueryLength: function(callback) {
-		var queryLength = this.state.queryValue.length;
-		return this.setState({
-			queryLengthOk: !(queryLength < AppConstants.QUERY_MIN_LENGTH && queryLength !== 0)
-		}, callback);
+	_validateQueryLength: function(queryValue, callback) {
+		this.setState({queryLengthOk: Util.isQueryLengthOk(queryValue)}, callback);
 	}
 });
 
