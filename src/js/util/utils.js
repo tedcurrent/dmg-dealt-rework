@@ -75,8 +75,7 @@ module.exports = {
 				return "MonkeyKing";
 			default:
 				return championName.toLowerCase()
-					.replace("'", "")
-					.replace(".", "")
+					.replace(/\.|\'/g, "")
 					.capitalize()
 					.replace(" ", "");
 		}

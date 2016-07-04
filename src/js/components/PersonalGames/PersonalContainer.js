@@ -1,20 +1,21 @@
 "use strict";
 
 var React = require("react");
+var GamesContainer = require("../Common/GamesContainer");
 var TopGame = require("./TopGame");
 var GameList = require("./GameList");
 
-var GamesContainer = React.createClass({
+var PersonalContainer = React.createClass({
 	render: function() {
 		var results = this.props.results;
 		return (
-			<div className="games-container">
+			<GamesContainer>
 				<TopGame summoner={results.summoner} topGame={results.highScore} newHs={results.newHighScore}/>
 				<h2>Last 10 Days of DMG</h2>
 				<GameList games={results.games}/>
-			</div>
+			</GamesContainer>
 		);
 	}
 });
 
-module.exports = GamesContainer;
+module.exports = PersonalContainer;

@@ -37,9 +37,8 @@ var GameWrapper = React.createClass({
 	},
 
 	_showStats: function() {
-		if (this.state.statsOpen) {
+		if (this.state.statsOpen)
 			return <GameStats game={this.props.game} />;
-		}
 	}
 });
 

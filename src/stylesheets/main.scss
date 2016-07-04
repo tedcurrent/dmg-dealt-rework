@@ -26,8 +26,8 @@ $header-padding: 10px;
  *
  */
 
-@import "normalize";
-@import "nprogress";
+@import "./external/normalize";
+@import "./external/nprogress";
 
 
 /* 
@@ -45,10 +45,18 @@ $header-padding: 10px;
 
 /* 
  *
+ * !ANIMATIONS
+ *
+ */
+ 
+@import "./animations/animations";
+
+/* 
+ *
  * !MEDIA-QUERIES
  *
  */
 
-@import "media-650px";
-@import "media-400px";
-@import "media-webkit";
+@import "./media-queries/media-650px";
+@import "./media-queries/media-400px";
+@import "./media-queries/media-webkit";

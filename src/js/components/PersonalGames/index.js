@@ -2,7 +2,7 @@
 
 var React = require("react");
 var ErrorPage = require("../Error");
-var GamesContainer = require("./GamesContainer");
+var PersonalContainer = require("./PersonalContainer");
 var ApiRequestActions = require("../../actions/ApiRequestActions");
 var PersonalGamesStore = require("../../stores/PersonalGamesStore");
 var _ = require("lodash");
@@ -46,7 +46,7 @@ var PersonalGamesController = React.createClass({
 	},
 
 	_renderGames: function(results) {
-		return <GamesContainer results={this.state.gameResults} />;
+		return <PersonalContainer results={this.state.gameResults} />;
 	},
 
 	_renderError: function() {

@@ -1,0 +1,8 @@
+.animate-games-container-appear {
+	opacity: 0.01;
+}
+
+.animate-games-container-appear.animate-games-container-appear-active {
+	opacity: 1;
+	transition: opacity 250ms ease-in;
+}

@@ -2,13 +2,14 @@
 
 var React = require("react");
 var RegionalGame = require("./RegionalGame");
+var GamesContainer = require("../Common/GamesContainer");
 var _ = require("lodash");
 
 var RegionContainer = React.createClass({
 	render: function() {
 		var results = this.props.results;
 		return (
-			<div className="games-container regions">
+			<GamesContainer>
 				<ul>
 					{results.games.map(function (game) {
 						return (
@@ -18,7 +19,7 @@ var RegionContainer = React.createClass({
 						);
 					})}
 				</ul>
-			</div>
+			</GamesContainer>
 		);
 	}
 });

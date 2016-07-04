@@ -83,7 +83,27 @@ test("Chart damage format conversion", function(t) {
 	t.deepEqual(expectedArray, parsedArray, "Should have parsed correctly");
 
 	t.end();
-})
+});
+
+test("Champion name formatting", function(t) {
+	var expectedString = "LeeSin";
+	var parsedString = Utils.championNameForUrl("Lee Sin");
+	t.equal(expectedString, parsedString, "Should have parsed correctly");
+
+	var expectedString = "RekSai";
+	var parsedString = Utils.championNameForUrl("Rek'Sai");
+	t.equal(expectedString, parsedString, "Should have parsed correctly");
+
+	var expectedString = "FiddleSticks";
+	var parsedString = Utils.championNameForUrl("Fiddlesticks");
+	t.equal(expectedString, parsedString, "Should have parsed correctly");
+
+	var expectedString = "Khazix";
+	var parsedString = Utils.championNameForUrl("Kha'Zix");
+	t.equal(expectedString, parsedString, "Should have parsed correctly");
+
+	t.end();
+});
 
 
 
