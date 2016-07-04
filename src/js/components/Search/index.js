@@ -11,6 +11,7 @@ var ApiRequestActions = require("../../actions/ApiRequestActions");
 var ApiResponseActions = require("../../actions/ApiResponseActions");
 var SummonerSearchStore = require("../../stores/SummonerSearchStore");
 var AppConstants = require("../../constants/AppConstants");
+var _ = require("lodash");
 
 // Search controller
 var Search = React.createClass({
@@ -28,10 +29,9 @@ var Search = React.createClass({
 		};
 	},
 
-	_timeOut: null,
-
 	componentWillMount: function() {
 		SummonerSearchStore.addChangeListener(this._onChange);
+		this._anyInputChange = _.debounce(this._anyInputChange, 400);
 	},
 
 	componentWillUnmount: function() {
@@ -80,17 +80,13 @@ var Search = React.createClass({
 		this.setState({queryValue: value}, this._anyInputChange);
 	},
 
-	// Throttle before searching for a summoner as the user types to avoid server overload
+	// Calls to this are debounced to avoid server call overload
 	_anyInputChange: function() {
 		this._resetResults();
-		clearTimeout(this._timeOut);
-
-		this._timeOut = setTimeout(function() {
-			this._validateQueryLength(function() {
-				if (this.state.queryLengthOk)
-					this._querySubmit();
-			}.bind(this));
-		}.bind(this), 400);
+		this._validateQueryLength(function() {
+			if (this.state.queryLengthOk)
+				this._querySubmit();
+		}.bind(this));
 	},
 
 	_querySubmit: function() {
