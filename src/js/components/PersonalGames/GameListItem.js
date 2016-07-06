@@ -7,7 +7,7 @@ var GameListItem = React.createClass({
 	render: function() {
 		return (
 			<li>
-				<GameWrapper game={this.props.game} gameClass={"game-header"}/>
+				<GameWrapper game={this.props.game} gameClass="game-header" />
 			</li>
 		);
 	}

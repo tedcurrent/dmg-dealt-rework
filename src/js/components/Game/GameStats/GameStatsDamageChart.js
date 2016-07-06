@@ -14,7 +14,7 @@ var GameStatsDamageChart = React.createClass({
 	},
 
 	componentWillReceiveProps: function(nextProps) {
-		this._updateChartData(this.nextProps.stats);
+		this._updateChartData(nextProps.stats);
 	},
 
 	render: function() {

@@ -3,7 +3,6 @@
 var React = require("react");
 var RegionalGame = require("./RegionalGame");
 var GamesContainer = require("../Common/GamesContainer");
-var _ = require("lodash");
 
 var RegionContainer = React.createClass({
 	render: function() {

@@ -24,9 +24,11 @@
 		.game-header {
 			position: relative;
 			padding: 1.5em;
+			background-color: $game-background-color-dark;
 			color: $secondary-color;
 			background-size: cover;
 			background-position: 50% 50%;
+			z-index: 10;
 
 			.game-header-background {
 				position: absolute;
