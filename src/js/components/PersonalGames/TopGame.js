@@ -10,11 +10,11 @@ var TopGame = React.createClass({
 		var newHs = this.props.newHs;
 		var topGameClass = "game-header top-game";
 		topGameClass = newHs ? topGameClass + " new" : topGameClass + " old";
-		var topGame = this.props.topGame;
+		var infoMessage = newHs ? "New Top DMG" : "All-time top dmg";
 		
 		return (
-			<GameWrapper game={topGame} gameClass={topGameClass}>
-				<SummonerInfo newHs={newHs} summoner={this.props.summoner} />
+			<GameWrapper game={this.props.topGame} gameClass={topGameClass}>
+				<SummonerInfo info={infoMessage} summoner={this.props.summoner} />
 			</GameWrapper>
 		);
 	}

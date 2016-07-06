@@ -1,6 +1,6 @@
 "use strict";
 var React = require("react");
-var Util = require("../../util/utils");
+var DateTimeUtils = require("../../util/dateTimeUtils");
 
 // A visual wrapper for game elements
 var GameHeaderContainer = React.createClass({
@@ -11,7 +11,7 @@ var GameHeaderContainer = React.createClass({
 				<div className="game-header-details">
 					<span>{game.gameMode}</span>
 					<span>{game.champion}</span>
-					<span>{Util.fixDateToString(game.gameDate)}</span>
+					<span>{DateTimeUtils.parseDate(game.gameDate)}</span>
 				</div>
 				<div className="game-dmg">
 					<span>{game.dmgDealt}</span>

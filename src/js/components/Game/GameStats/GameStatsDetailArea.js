@@ -2,6 +2,7 @@
 
 var React = require("react");
 var Util = require("../../../util/utils");
+var DateTimeUtils = require("../../../util/dateTimeUtils");
 var GameStatsDetail = require("./GameStatsDetail");
 
 var GameStatsDetailArea = React.createClass({
@@ -11,7 +12,7 @@ var GameStatsDetailArea = React.createClass({
 			<div className="game-stats-detail-area">
 				<GameStatsDetail
 					description={"Duration"}
-					detail={Util.getMinuteFormat(stats.timePlayed)}
+					detail={DateTimeUtils.parseDuration(stats.timePlayed)}
 				/>
 				<GameStatsDetail
 					description={"K/D/A"}

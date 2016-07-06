@@ -44,6 +44,5 @@ module.exports = {
 			short: "lan"
 		}
 	],
-	MILLISECONDS: 1000,
 	QUERY_MIN_LENGTH: 2
 };

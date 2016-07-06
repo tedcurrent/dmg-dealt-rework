@@ -12,11 +12,7 @@ var RegionContainer = React.createClass({
 			<GamesContainer>
 				<ul>
 					{results.games.map(function (game) {
-						return (
-							<li key={game._id}>
-								<RegionalGame game={game}/>
-							</li>
-						);
+						return <RegionalGame key={game._id} game={game}/>;
 					})}
 				</ul>
 			</GamesContainer>

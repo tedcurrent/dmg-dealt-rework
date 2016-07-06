@@ -2,7 +2,6 @@
 
 var AppConstants = require("../constants/AppConstants");
 var _ = require("lodash");
-var moment = require("moment");
 
 // A string capitalizer extension
 String.prototype.capitalize = function() {
@@ -13,14 +12,6 @@ String.prototype.capitalize = function() {
 
 // A static collection of utility methods
 module.exports = {
-	fixDateToString: function(unformattedDate) {
-		return moment(new Date(unformattedDate)).format("DD MMMM, YYYY");
-	},
-
-	getMinuteFormat: function(seconds) {
-		return seconds ? moment(seconds * AppConstants.MILLISECONDS).format("mm:ss") : "00:00";
-	},
-
 	getKDAFormat: function(kills, deaths, assists) {
 		if (kills === undefined || deaths === undefined || assists === undefined)
 			return "0/0/0";

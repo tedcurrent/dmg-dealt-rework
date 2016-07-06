@@ -8,26 +8,9 @@ var SummonerInfo = React.createClass({
 		return (
 			<div className="summoner-info">
 				<span className="name">{this.props.summoner.summonerName}</span>
-				{this._renderTopMessage()}
+				<span className="info">{this.props.info}</span>
 			</div>
 		);
-	},
-
-	_renderTopMessage: function() {
-		if (this.props.region) {
-			return (
-				<span className="region-info">
-					{this.props.region.toUpperCase()}
-				</span>
-			);
-		} else {
-			return (
-				<span className="top-info">
-					{this.props.newHs ? "New Top DMG" : "All-time top dmg"}
-				</span>
-			);
-		}
-		
 	}
 });
 
