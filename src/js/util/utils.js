@@ -2,18 +2,43 @@
 
 var AppConstants = require("../constants/AppConstants");
 var _ = require("lodash");
-var moment = require("moment");
 
 // A string capitalizer extension
 String.prototype.capitalize = function() {
-	return this.replace(/(^|\s)([a-z])/g, function(m, p1, p2){ return p1+p2.toUpperCase(); } );
+	return this.replace(/(^|\s)([a-z])/g, function(m, p1, p2) { 
+		return p1+p2.toUpperCase();
+	});
 };
 
-// Client side utilities
+// A static collection of utility methods
 module.exports = {
-	fixDateToString: function(unformattedDate) {
-		var formattedDate = new Date(unformattedDate);
-		return moment(formattedDate).format("DD MMMM, YYYY");
+	getKDAFormat: function(kills, deaths, assists) {
+		if (kills === undefined || deaths === undefined || assists === undefined)
+			return "0/0/0";
+		return kills + "/" + deaths + "/" + assists;
+	},
+
+	getMultikillFormat: function(multiKillNumber) {
+		switch (multiKillNumber) {
+			case 2:
+				return AppConstants.DOUBLE_KILL;
+			case 3:
+				return AppConstants.TRIPLE_KILL;
+			case 4:
+				return AppConstants.QUADRA_KILL;
+			case 5:
+				return AppConstants.PENTA_KILL;
+			default:
+				return AppConstants.SINGLE_KILL;
+		}
+	},
+
+	getChartDamages: function(stats) {
+		return [
+			{name: AppConstants.DAMAGE_PHYSICAL, y: stats.physicalDamage || 0},
+			{name: AppConstants.DAMAGE_MAGIC, y: stats.magicDamage || 0},
+			{name: AppConstants.DAMAGE_TRUE, y: stats.trueDamage || 0}
+		];
 	},
 
 	cleanEmptyDamages: function(gameArray) {
@@ -39,7 +64,10 @@ module.exports = {
 			case "Wukong":
 				return "MonkeyKing";
 			default:
-				return championName.toLowerCase().replace("'", "").replace(".", "").capitalize().replace(" ", "");
+				return championName.toLowerCase()
+					.replace(/\.|\'/g, "")
+					.capitalize()
+					.replace(" ", "");
 		}
 	},
 
@@ -48,5 +76,9 @@ module.exports = {
 		var championNameUrlified = this.championNameForUrl(championName);
 		var skinSelection = "_0.jpg";
 		return fullUrl + championNameUrlified + skinSelection;
+	},
+
+	isQueryLengthOk: function(query) {
+		return !(query.length < AppConstants.QUERY_MIN_LENGTH && query.length !== 0);
 	}
 };

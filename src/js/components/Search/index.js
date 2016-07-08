@@ -4,40 +4,12 @@ var React = require("react");
 var ReactDOM = require("react-dom");
 var Router = require("react-router").Router;
 var SearchInputContainer = require("./SearchInputContainer");
-var SearchInput = require("./SearchInput");
-var SearchDropDown = require("./SearchDropDown");
-var SearchResult = require("./SearchResult");
+var SearchResultWrapper = require("./SearchResultWrapper");
 var ApiRequestActions = require("../../actions/ApiRequestActions");
 var ApiResponseActions = require("../../actions/ApiResponseActions");
 var SummonerSearchStore = require("../../stores/SummonerSearchStore");
-
-// A constant list of drop down options
-var regionOptions = [
-	{
-		description: "EUW",
-		short: "euw"
-	},
-	{
-		description: "EUNE",
-		short: "eune"
-	},
-	{
-		description: "NA",
-		short: "na"
-	},
-	{
-		description: "KR",
-		short: "kr"
-	},
-	{
-		description: "CN",
-		short: "cn"
-	},
-	{
-		description: "LAN",
-		short: "lan"
-	}
-];
+var Util = require("../../util/utils");
+var _ = require("lodash");
 
 // Search controller
 var Search = React.createClass({
@@ -49,121 +21,97 @@ var Search = React.createClass({
 		return {
 			searchResults: SummonerSearchStore.getAll(),
 			regionSelected: "euw",
-			querySent: false,
 			queryValue: "",
 			queryLengthOk: true,
 			resultSelected: false
 		};
 	},
 
-	timeOut: null,
-
 	componentWillMount: function() {
 		SummonerSearchStore.addChangeListener(this._onChange);
+		this._anyInputChange = _.debounce(this._anyInputChange, 400);
 	},
 
 	componentWillUnmount: function() {
 		SummonerSearchStore.removeChangeListener(this._onChange);
 	},
 
+	render: function() {
+		return (
+			<div className="search">
+				<SearchInputContainer
+					queryValue={this.state.queryValue}
+					resultSelected={this.state.resultSelected}
+					queryStringChange={this._queryStringChange}
+					resultSubmitHandler={this._resultSubmitHandler}
+					arrowKeyNavigation={this._arrowKeyNavigation}
+					regionSelected={this.state.regionSelected}
+					dropDownChange={this._dropDownChange}
+				/>
+				<SearchResultWrapper 
+					searchResult={this.state.searchResults}
+					queryLengthOk={this.state.queryLengthOk}
+					onClick={this._resultSubmitHandler}
+					bodyClick={this._bodyClickHandler}
+					resultSelected={this.state.resultSelected}
+				/>
+			</div>
+		);
+	},
+
 	_onChange: function() {
-		this.setState({
-			searchResults: SummonerSearchStore.getAll()
-		});
+		this.setState({searchResults: SummonerSearchStore.getAll()});
 	},
 
-	dropDownChange: function(value) {
-		this.setState({regionSelected: value}, this.anyInputChange);
+	_dropDownChange: function(value) {
+		this.setState({regionSelected: value}, this._anyInputChange);
 	},
 
-	queryStringChange: function(value) {
-		this.setState({queryValue: value}, this.anyInputChange);
+	_queryStringChange: function(value) {
+		this.setState({queryValue: value}, this._anyInputChange);
 	},
 
-	// A slight wait before searching for a summoner as the user types to avoid server overload
-	anyInputChange: function() {
-		this.resetResults();
-
-		this.setState({querySent: false}, function() {
-			clearTimeout(this._timeOut);
-
-			this._timeOut = setTimeout(function() {
-				if (this.isQueryLengthOk(this.state.queryValue)) {
-					this.querySubmit();
-					this.setState({querySent: true});
-				}
-			}.bind(this), 400);
-		});
+	// Calls to this are debounced (see lifecycle) to avoid server call overload
+	_anyInputChange: function() {
+		this._resetResults();
+		this._validateQueryLength(this.state.queryValue, function() {
+			if (this.state.queryLengthOk)
+				this._querySubmit();
+		}.bind(this));
 	},
 
-	querySubmit: function() {
+	_querySubmit: function() {
 		var query = {
 			summonerName: this.state.queryValue,
 			summonerRegion: this.state.regionSelected
 		};
 		ApiRequestActions.getSummoner(query);
+		this.setState({querySent: true});
 	},
 
-	resetResults: function() {
+	_resetResults: function() {
 		ApiResponseActions.updateSummonerSearchResult({});
-		this.arrowKeyNavigation(false);
+		this._arrowKeyNavigation(false);
 		this.setState({queryLengthOk: true});
 	},
 
-	resultSubmitHandler: function() {
-		this.context.router.push("/" + this.state.searchResults.summoner.id + "/" + this.state.searchResults.summoner.region);
-		this.resetResults();
+	_resultSubmitHandler: function() {
+		var summoner = this.state.searchResults.summoner;
+		this.context.router.push("/" + summoner.id + "/" + summoner.region);
+		this._resetResults();
 	},
 
-	bodyClickHandler: function(e) {
-		if (!ReactDOM.findDOMNode(this).contains(e.target)) {
-			this.resetResults();
-		}
+	_bodyClickHandler: function(e) {
+		if (!ReactDOM.findDOMNode(this).contains(e.target))
+			this._resetResults();
 	},
 
-	arrowKeyNavigation: function(selected) {
+	_arrowKeyNavigation: function(selected) {
 		this.setState({resultSelected: selected});
 	},
 
-	isQueryLengthOk: function(queryValue) {
-		if (queryValue.length === 1) {
-			this.setState({queryLengthOk: false});
-			return false;
-		} else {
-			this.setState({queryLengthOk: true});
-			return true;
-		}
-	},
-
-	render: function() {
-		return (
-			<div className="search">
-				<SearchInputContainer>
-					<SearchInput 
-						value={this.state.queryValue}
-						querySent={this.state.querySent}
-						resultSelected={this.state.resultSelected}
-						onChange={this.queryStringChange}
-						onEnter={this.resultSubmitHandler}
-						resultSelectedChange={this.arrowKeyNavigation}
-					/>
-					<SearchDropDown
-						options={regionOptions} 
-						value={this.state.regionSelected}
-						labelField="description"
-						valueField="short"
-						onChange={this.dropDownChange}
-					/>
-				</SearchInputContainer>
-				<SearchResult 
-					searchResult={this.state.searchResults}
-					queryLengthOk={this.state.queryLengthOk}
-					onClick={this.resultSubmitHandler}
-					bodyClick={this.bodyClickHandler}
-					resultSelected={this.state.resultSelected}
-				/>
-			</div>
-		);
+	_validateQueryLength: function(queryValue, callback) {
+		this.setState({queryLengthOk: Util.isQueryLengthOk(queryValue)}, callback);
 	}
 });
 

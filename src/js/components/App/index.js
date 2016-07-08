@@ -1,8 +1,8 @@
 "use strict";
 
 var React = require("react");
-var Header = require("./components/Header/");
-var Footer = require("./components/Footer/");
+var Header = require("../Header/");
+var Footer = require("../Footer/");
 
 // The application wrapper component
 var App = React.createClass({

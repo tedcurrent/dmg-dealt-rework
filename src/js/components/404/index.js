@@ -1,7 +1,7 @@
 "use strict";
 
 var React = require("react");
-var ErrorPage = require("./components/Error");
+var ErrorPage = require("../Error");
 
 // NotFoundPage controller
 var NotFoundPage = React.createClass({

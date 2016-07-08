@@ -2,12 +2,8 @@
 
 var React = require("react");
 
-// Select component. Country options come from Search controller
+// Select component. Country options come from the owning component
 var Dropdown = React.createClass({
-	handleChange: function(e) {
-		this.props.onChange(e.target.value);
-	},
-	
 	render: function() {
 		var options = this.props.options.map(function(option) {
 			return (
@@ -21,12 +17,16 @@ var Dropdown = React.createClass({
 			<div className="drop-down">
 				<select id={this.props.id}
 					value={this.props.value} 
-					onChange={this.handleChange}>
+					onChange={this._handleChange}>
 					{options}
 				</select>
 				<span className="drop-arrow">&#9660;</span>
 			</div>
 		);
+	},
+
+	_handleChange: function(e) {
+		this.props.onChange(e.target.value);
 	}
 });
 

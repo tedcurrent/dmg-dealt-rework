@@ -26,16 +26,16 @@ var Image = React.createClass({
 		img.src = imgSrc;
 	},
 
-	changeToDefault: function() {
-		this.setState({errored: true});
-	},
-
 	render: function() {
 		var imgClass = !this.state.loaded ? "image" : "image loaded";
 		var imgSrc = !this.state.errored ? this.props.src : this.props.defaultImage;
 		return (
-			<img onError={this.changeToDefault} ref="img" src={imgSrc} alt={this.props.alt} className={imgClass} />
+			<img onError={this._changeToDefault} ref="img" src={imgSrc} alt={this.props.alt} className={imgClass} />
 		);
+	},
+
+	_changeToDefault: function() {
+		this.setState({errored: true});
 	}
 });
 
