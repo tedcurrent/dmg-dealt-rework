@@ -11,7 +11,7 @@ var PersonalContainer = React.createClass({
 		return (
 			<GamesContainer>
 				<TopGame summoner={results.summoner} topGame={results.highScore} newHs={results.newHighScore}/>
-				<h2>Last 10 Days of DMG</h2>
+				<h2>Last 10 Games of DMG</h2>
 				<GameList games={results.games}/>
 			</GamesContainer>
 		);

@@ -54,7 +54,7 @@ gulp.task("styles", function() {
 
 // Start nodemon
 gulp.task("dev", function() {
-	env({vars: {"NODE_ENV": "production"}});
+	env({vars: {"NODE_ENV": "development"}});
 	nodemon({
 		script: "./bin/www",
 		ext: "js jade css",

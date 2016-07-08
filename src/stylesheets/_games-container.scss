@@ -23,6 +23,7 @@
 
 		.game-header {
 			position: relative;
+			z-index: 7;
 			padding: 1.5em;
 			background-color: $game-background-color-dark;
 			color: $secondary-color;
