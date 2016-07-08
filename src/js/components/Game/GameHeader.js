@@ -2,6 +2,7 @@
 
 var React = require("react");
 var GameBackground = require("./GameBackground");
+var GameOverlay = require("./GameOverlay");
 var GameHeaderContainer = require("./GameHeaderContainer");
 
 var GameHeader = React.createClass({
@@ -11,6 +12,7 @@ var GameHeader = React.createClass({
 				{this.props.children}
 				<GameHeaderContainer game={this.props.game} />
 				<GameBackground champion={this.props.game.champion} />
+				<GameOverlay statsOpen={this.props.statsOpen} />
 			</div>
 			
 		);

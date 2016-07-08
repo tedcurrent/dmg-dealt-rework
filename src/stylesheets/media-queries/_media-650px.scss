@@ -40,29 +40,46 @@
 
 	.games-container {
 		font-size: 1.1em;
+		
+		.game-wrapper { 
 
-		.game-stats {
+			.game-header {
+
+				.game-header-overlay {
+					font-size: 0.8em;
+					justify-content: flex-end;
+					background-color: transparent;
+					opacity: 1;
+
+					span {
+						display: none;
+					}
+				}	
+			}
+
+			.game-stats {
 			
-			h3 {
-				line-height: 3em !important;
-			}
-
-			.game-stats-areas {
-				flex-direction: column;
-
-				.game-stats-chart-area {
-					width: 100% !important;
-					height: 125px !important;
+				h3 {
+					line-height: 3em;
 				}
 
-				.game-stats-detail-area {
-					width: 100% !important;
-					text-align: center !important;
-					display: flex;
-					flex-direction: row;
-					justify-content: space-between;
+				.game-stats-areas {
+					flex-direction: column;
+
+					.game-stats-chart-area {
+						width: 100%;
+						height: 125px;
+					}
+
+					.game-stats-detail-area {
+						width: 100%;
+						text-align: center;
+						display: flex;
+						flex-direction: row;
+						justify-content: space-between;
+					}
 				}
 			}
-		}		
+		}	
 	}
 }

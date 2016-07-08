@@ -25,6 +25,7 @@ var GameWrapper = React.createClass({
 					game={this.props.game} 
 					gameClass={this.props.gameClass}
 					onClick={this._headerClickHandler}
+					statsOpen={this.state.statsOpen}
 				>
 					{this.props.children}
 				</GameHeader>
