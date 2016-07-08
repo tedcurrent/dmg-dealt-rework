@@ -40,6 +40,12 @@ module.exports = {
 
 		legend: {
 			align: "right",
+			itemHiddenStyle: {
+				color: "#272c35"
+			},
+			itemHoverStyle: {
+				color: "#ceac00"
+			},
 			itemStyle: {
 				"color": "#f2f0de"
 			},
