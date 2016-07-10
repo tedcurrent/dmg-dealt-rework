@@ -42,9 +42,7 @@ var APIRequests = {
 					NProgress.done();
 				} else {
 					var parsedGames = Util.cleanEmptyDamages(JSON.parse(result.text));
-					parsedGames = _.orderBy(parsedGames, ["dmgDealt"], ["desc"]);
-					query.topGame = parsedGames[0];
-
+					query.topGame = Util.getHighestDamageGame(parsedGames);
 					// A highscore is returned with personal games
 					this.saveHighScore(query, function(err, hsResults) {
 						if (err) {
@@ -54,7 +52,6 @@ var APIRequests = {
 								games: parsedGames,
 								hs: JSON.parse(hsResults.text)
 							};
-
 							ApiResponseActions.updatePersonalGames(finalResult);
 						}
 						NProgress.done();

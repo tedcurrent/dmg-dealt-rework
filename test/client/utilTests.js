@@ -85,7 +85,29 @@ test("Champion name formatting", function(t) {
 	t.end();
 });
 
+test("Clean empty damages", function(t) {
+	var expectedArray = [{dmgDealt: 1}];
+	var parsedArray = Utils.cleanEmptyDamages([{dmgDealt: 1}, {dmgDealt: ""}, {dmgDealt: 0}, {testMaster: ""}]);
+	t.deepEqual(expectedArray, parsedArray, "Should have cleaned all emptyish objects");
 
+	t.end();
+});
+
+test("Get highest dmg game", function(t) {
+	var expectedObject = {dmgDealt: 666};
+	var parsedObject = Utils.getHighestDamageGame([{dmgDealt: 1}, {dmgDealt: 666}, {dmgDealt: ""}, {dmgDealt: "derp"}]);
+	t.deepEqual(expectedObject, parsedObject, "Should have gotten only one object with the largest value");
+
+	t.end();
+});
+
+test("Sort games by dmg", function(t) {
+	var expectedArray = [{dmgDealt: 6}, {dmgDealt: 3}, {dmgDealt: -1}];
+	var parsedArray = Utils.sortGamesByDmg([{dmgDealt: 3}, {dmgDealt: -1}, {dmgDealt: 6}]);
+	t.deepEqual(expectedArray, parsedArray, "Should have sorted correctly");
+
+	t.end();
+});
 
 
 
