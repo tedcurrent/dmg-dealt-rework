@@ -47,6 +47,16 @@ module.exports = {
 		});
 	},
 
+	getHighestDamageGame: function(games) {
+		return _.maxBy(games, function(game) {
+			return game.dmgDealt;
+		});
+	},
+
+	sortGamesByDmg: function(games) {
+		return _.orderBy(games, ["dmgDealt"], ["desc"]);
+	},
+
 	buildProfileIconUrl: function(iconId) {
 		return AppConstants.LOL_STATIC_BASE_URL + "/" + AppConstants.LOL_API_VERSION + "/img/profileicon/" + iconId + ".png";
 	},

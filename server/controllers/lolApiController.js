@@ -12,7 +12,7 @@ var LolApiCtrl = {
 		var region = summonerInfoRaw.region.toLowerCase();
 
 		LolApi.Summoner.getByName(name, region, function(err, result) {
-			if (err || !result) {
+			if (err || !result || !result[name]) {
 				return callback(null, {});
 			}
 
