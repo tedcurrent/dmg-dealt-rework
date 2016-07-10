@@ -48,7 +48,10 @@ module.exports = {
 	},
 
 	findBySummonerIdAndRegion: function(summonerId, summonerRegion, callback) {
-		highScoreModel.findOne({"summoner.summonerId": summonerId, "summoner.region": summonerRegion}, function(err, oldHighScore) {
+		highScoreModel.findOne({
+			"summoner.summonerId": summonerId, 
+			"summoner.region": summonerRegion
+		}, function(err, oldHighScore) {
 			callback(err, oldHighScore);
 		});
 	},
@@ -70,5 +73,12 @@ module.exports = {
 		    .exec(function(err, res) {
 		    	callback(err, res);
 		    });
+	},
+
+	removeScoreByIdAndRegion: function(summonerId, summonerRegion, callback) {
+		highScoreModel.remove({
+			"summoner.summonerId": summonerId,
+			"summoner.region": summonerRegion
+		}, callback);
 	}
 };

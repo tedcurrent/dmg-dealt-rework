@@ -23,7 +23,8 @@ var config = {
 		mainJs: "./src/main.js",
 		sass: "./src/stylesheets/main.scss",
 		styles: ["./src/stylesheets/**/*.css", "./src/stylesheets/**/*.scss"],
-		images: "./src/images/*",
+		images: "./src/assets/images/*",
+		icons: "./src/assets/icons/*",
 		static: "./server/static",
 		test: "./test/**/*.js",
 		dist: "./dist"
@@ -50,6 +51,15 @@ gulp.task("styles", function() {
 		.pipe(cleanCSS())
 		.pipe(concat("bundle.css"))
 		.pipe(gulp.dest(config.paths.dist + "/css"));
+});
+
+// Move all assets
+gulp.task("assets", function() {
+	gulp.src(config.paths.images)
+		.pipe(gulp.dest(config.paths.dist + "/images"));
+
+	gulp.src(config.paths.icons)
+		.pipe(gulp.dest(config.paths.dist + "/icons"));
 });
 
 // Start nodemon
@@ -93,4 +103,4 @@ gulp.task("watch", function() {
 	gulp.watch(config.paths.styles, ["styles"]);
 });
 
-gulp.task("default", ["static", "styles", "js", "lint", "dev", "watch"]);
+gulp.task("default", ["static", "styles", "assets", "js", "lint", "dev", "watch"]);

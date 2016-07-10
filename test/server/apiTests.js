@@ -1,6 +1,8 @@
 "use strict";
 var test = require("tape");
 var request = require("supertest");
+var mongoose = require("mongoose");
+var HighScoreController = require("../../server/controllers/highScoreController");
 
 var _config = {
 	testSummoner: {
@@ -104,8 +106,25 @@ test("POST /saveHighScore", function(t) {
 			t.error(err);
 			var result = JSON.parse(res.text);
 			t.equal(result.highScore.summoner.summonerId, query.id, "Should find summoner with ID");
-			t.ok(result.highScore.game, "Should find a highScore");
+			t.ok(result.highScore.game, "Should find a potential highScore");
 			t.equal(result.newHighScore, true, "Should make a new highScore");
 			t.end();
 		});
 });
+
+test.onFinish(function() {
+	_cleanUp();
+});
+
+var _cleanUp = function() {
+	var db = mongoose.connect(process.env.MONGODB_CONNECTION, function(err) {
+		if (err)
+			throw new Error("Connection to MongoDB failed");
+	});
+
+	HighScoreController.removeScoreByIdAndRegion(_config.testSummoner.id, _config.testSummoner.region, function(err) {
+		if (err)
+			throw new Error("Clean up failed, please try again");
+		mongoose.connection.close();
+	});
+};
