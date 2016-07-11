@@ -1,23 +1,23 @@
 "use strict";
 
-var gulp = require("gulp");
-var nodemon = require("gulp-nodemon");
-var env = require("gulp-env");
-var browserify = require("browserify");
-var babelify = require("babelify");
-var source = require("vinyl-source-stream");
-var buffer = require("vinyl-buffer");
-var lint = require("gulp-eslint");
-var concat = require("gulp-concat");
-var uglify = require("gulp-uglify");
-var autoprefixer = require("gulp-autoprefixer");
-var cleanCSS = require("gulp-clean-css");
-var sass = require("gulp-sass");
-var tape = require("gulp-tape");
-var tapDiff = require("tap-diff");
-var champDataUtil = require("./server/utils/champDataUtil");
+import gulp from "gulp";
+import nodemon from "gulp-nodemon";
+import env from "gulp-env";
+import browserify from "browserify";
+import babelify from "babelify";
+import source from "vinyl-source-stream";
+import buffer from "vinyl-buffer";
+import lint from "gulp-eslint";
+import concat from "gulp-concat";
+import uglify from "gulp-uglify";
+import autoprefixer from "gulp-autoprefixer";
+import cleanCSS from "gulp-clean-css";
+import sass from "gulp-sass";
+import tape from "gulp-tape";
+import tapDiff from "tap-diff";
+import champDataUtil from "./server/utils/champDataUtil";
 
-var config = {
+const config = {
 	paths: {
 		js: "./src/**/*.js",
 		mainJs: "./src/main.js",
@@ -32,7 +32,7 @@ var config = {
 };
 
 // Reactify js
-gulp.task("js", function() {
+gulp.task("js", () => {
 	browserify(config.paths.mainJs)
 		.transform("babelify", {presets: ["react"]})
 		.bundle()
@@ -44,7 +44,7 @@ gulp.task("js", function() {
 });
 
 // Concat all css
-gulp.task("styles", function() {
+gulp.task("styles", () => {
 	gulp.src(config.paths.sass)
 		.pipe(sass().on("error", sass.logError))
 		.pipe(autoprefixer())
@@ -54,7 +54,7 @@ gulp.task("styles", function() {
 });
 
 // Move all assets
-gulp.task("assets", function() {
+gulp.task("assets", () => {
 	gulp.src(config.paths.images)
 		.pipe(gulp.dest(config.paths.dist + "/images"));
 
@@ -63,8 +63,8 @@ gulp.task("assets", function() {
 });
 
 // Start nodemon
-gulp.task("dev", function() {
-	env({vars: {"NODE_ENV": "development"}});
+gulp.task("dev", () => {
+	env({imports: {"NODE_ENV": "development"}});
 	nodemon({
 		script: "./bin/www",
 		ext: "js jade css",
@@ -72,25 +72,25 @@ gulp.task("dev", function() {
 			PORT: 3001
 		}
 	})
-	.on("restart", function() {
+	.on("restart", () => {
 		console.log("Server restarted!");
 	});
 });
 
 // Lint
-gulp.task("lint", function() {
+gulp.task("lint", () => {
 	return gulp.src(config.paths.js)
 		.pipe(lint())
 		.pipe(lint.format());
 });
 
 // Write static data
-gulp.task("static", function() {
+gulp.task("static", () => {
 	champDataUtil.writeChampsToPath(config.paths.static + "/championData.json");
 });
 
 // Test
-gulp.task("test", function() {
+gulp.task("test", () => {
 	return gulp.src(config.paths.test)
 		.pipe(tape({
 			reporter: tapDiff()
@@ -98,7 +98,7 @@ gulp.task("test", function() {
 });
 
 // Watch files
-gulp.task("watch", function() {
+gulp.task("watch", () => {
 	gulp.watch(config.paths.js, ["js", "lint"]);
 	gulp.watch(config.paths.styles, ["styles"]);
 });
