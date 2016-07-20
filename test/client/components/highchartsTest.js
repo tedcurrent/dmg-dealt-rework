@@ -27,11 +27,10 @@ const mockChart = () => {
 test("<Highcharts />", (t) => {
 	spy(Highcharts.prototype, "componentDidMount");
 	const wrapper = mount(mockChart());
+	
 	t.ok(Highcharts.prototype.componentDidMount.calledOnce, "Should have called 'componentDidMount' once");
 	t.ok(wrapper.contains(<div id="mockChart" />), "Should have a '#mockChart' container");
 	t.equals(wrapper.props().options.series.length, 1, "Should have one (1) series object")
-
-	console.log(wrapper.debug());
 
 	t.end();
 });

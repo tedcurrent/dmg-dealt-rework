@@ -35,7 +35,7 @@ var Image = React.createClass({
 	},
 
 	_changeToDefault: function() {
-		this.setState({errored: true});
+		this.setState({errored: true, loaded: true});
 	}
 });
 

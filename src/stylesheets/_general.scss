@@ -72,6 +72,15 @@ input[type="text"] {
 	color: $emphasis-color;
 }
 
+.image {
+	opacity: 0;
+	transition: all 0.3s;
+
+	&.loaded {
+		opacity: 1;
+	}
+}
+
 .thumbnail-container {
 	width: 64px;
 	height: 64px;
