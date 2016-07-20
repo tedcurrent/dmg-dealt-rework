@@ -7,7 +7,7 @@ import { spy } from "sinon";
 import Highcharts from "../../../src/js/components/Common/Highcharts";
 
 const mockChart = () => {
-	return {
+	const data = {
 		series: [
 			{
 				name: "Mock Series",
@@ -15,19 +15,23 @@ const mockChart = () => {
 			}
 		]
 	};
+
+	return (
+		<Highcharts
+			container={"mockChart"} 
+			options={data}
+		/>
+	);
 };
 
 test("<Highcharts />", (t) => {
 	spy(Highcharts.prototype, "componentDidMount");
-	const wrapper = mount(
-		<Highcharts 
-			container={"chart"} 
-			options={mockChart()}
-		/>
-	);
+	const wrapper = mount(mockChart());
 	t.ok(Highcharts.prototype.componentDidMount.calledOnce, "Should have called 'componentDidMount' once");
-	t.ok(wrapper.contains(<div id="chart" />), "Should have '#chart' container");
+	t.ok(wrapper.contains(<div id="mockChart" />), "Should have a '#mockChart' container");
 	t.equals(wrapper.props().options.series.length, 1, "Should have one (1) series object")
+
+	console.log(wrapper.debug());
 
 	t.end();
 });
