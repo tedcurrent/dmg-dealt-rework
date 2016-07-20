@@ -1,7 +1,7 @@
 "use strict";
 
 import test from "tape";
-import Utils from "../../src/js/util/utils";
+import Utils from "../../../src/js/util/utils";
 
 test("KDA format conversion", (t) => {
 	let parsed = Utils.getKDAFormat(9, 0, 6);
@@ -11,23 +11,23 @@ test("KDA format conversion", (t) => {
 	t.equal(parsed, "9/0/6", "Should have parsed correctly");
 
 	parsed = Utils.getKDAFormat(0, 2);
-	t.equal(parsed, "0/0/0", "Should have parsed correctly");
+	t.equal(parsed, "0/0/0", "Should have returned 0's");
 
 	t.end();
 });
 
 test("Multikill format conversion", (t) => {
 	let parsed = Utils.getMultikillFormat(2);
-	t.equal(parsed, "DOUBLE KILL", "Should have parsed correctly");
+	t.equal(parsed, "DOUBLE KILL", "Should have parsed to 'DOUBLE KILL'");
 
 	parsed = Utils.getMultikillFormat("5");
-	t.equal(parsed, "NONE", "Should have parsed correctly");
+	t.equal(parsed, "NONE", "Should have parsed to 'NONE'");
 
 	parsed = Utils.getMultikillFormat(1);
-	t.equal(parsed, "NONE", "Should have parsed correctly");
+	t.equal(parsed, "NONE", "Should have parsed to 'NONE'");
 
 	parsed = Utils.getMultikillFormat();
-	t.equal(parsed, "NONE", "Should have parsed correctly");
+	t.equal(parsed, "NONE", "Should have parsed to 'NONE'");
 
 	t.end();
 });
@@ -62,16 +62,16 @@ test("Chart damage format conversion", (t) => {
 
 test("Champion name formatting", (t) => {
 	let parsed = Utils.championNameForUrl("Lee Sin");
-	t.equal(parsed, "LeeSin", "Should have parsed correctly");
+	t.equal(parsed, "LeeSin", "Should have removed space");
 
 	parsed = Utils.championNameForUrl("Rek'Sai");
-	t.equal(parsed, "RekSai", "Should have parsed correctly");
+	t.equal(parsed, "RekSai", "Should have removed space and \'");
 
 	parsed = Utils.championNameForUrl("Fiddlesticks");
-	t.equal(parsed, "FiddleSticks", "Should have parsed correctly");
+	t.equal(parsed, "FiddleSticks", "Should have capitalized 'S'");
 
 	parsed = Utils.championNameForUrl("Kha'Zix");
-	t.equal(parsed, "Khazix", "Should have parsed correctly");
+	t.equal(parsed, "Khazix", "Should have removed \' and lowercased 'Z'");
 
 	t.end();
 });

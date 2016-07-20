@@ -1,7 +1,7 @@
 "use strict";
 
 import test from "tape";
-import DateTimeUtils from "../../src/js/util/dateTimeUtils";
+import DateTimeUtils from "../../../src/js/util/dateTimeUtils";
 
 test("Date conversion to string", (t) => {
 	let parsedDate = DateTimeUtils.parseDate(1444670102143);
