@@ -21,7 +21,6 @@ var Image = React.createClass({
 		var imgTag = ReactDOM.findDOMNode(this.refs.img);
 		var imgSrc = imgTag.getAttribute("src");
 		var img = new window.Image();
-		img.onload = this.onImageLoad;
 		img.src = imgSrc;
 	},
 
@@ -29,12 +28,18 @@ var Image = React.createClass({
 		var imgClass = !this.state.loaded ? "image" : "image loaded";
 		var imgSrc = !this.state.errored ? this.props.src : this.props.defaultImage;
 		return (
-			<img onError={this._changeToDefault} ref="img" src={imgSrc} alt={this.props.alt} className={imgClass} />
+			<img 
+				onError={this._changeToDefault} 
+				ref="img" src={imgSrc} 
+				alt={this.props.alt} 
+				className={imgClass} 
+				onLoad={this.onImageLoad}
+			/>
 		);
 	},
 
 	_changeToDefault: function() {
-		this.setState({errored: true, loaded: true});
+		this.setState({errored: true});
 	}
 });
 
