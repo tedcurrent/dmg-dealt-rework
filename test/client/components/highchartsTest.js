@@ -10,8 +10,12 @@ const mockChart = () => {
 	const data = {
 		series: [
 			{
-				name: "Mock Series",
-				data: [1, 2, 3]
+				name: "Mock series",
+				data: [
+					{name: "Mock value1", y: 0},
+					{name: "Mock value2", y: 1},
+					{name: "Mock value3", y: 2}
+				]
 			}
 		]
 	};

@@ -3,7 +3,7 @@
 var React = require("react");
 var ReactDOM = require("react-dom");
 
-// A common component that should be used for every image
+// A common component for images
 var Image = React.createClass({
 	getInitialState: function() {
 		return {
@@ -13,9 +13,8 @@ var Image = React.createClass({
 	},
 
 	onImageLoad: function() {
-		if (this.isMounted()) {
+		if (this.isMounted())
 			this.setState({loaded: true});
-		}
 	},
 
 	componentDidMount: function() {
