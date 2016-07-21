@@ -29,10 +29,10 @@ var Image = React.createClass({
 		var imgSrc = !this.state.errored ? this.props.src : this.props.defaultImage;
 		return (
 			<img 
-				onError={this._changeToDefault} 
-				ref="img" src={imgSrc} 
-				alt={this.props.alt} 
-				className={imgClass} 
+				ref="img" src={imgSrc}
+				alt={this.props.alt}
+				className={imgClass}
+				onError={this._changeToDefault}
 				onLoad={this.onImageLoad}
 			/>
 		);
