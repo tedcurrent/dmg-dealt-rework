@@ -15,6 +15,7 @@
 
 html {
 	font-family: 'Alegreya', serif;
+    text-shadow: -1px 0 $content-color-trans, 0 1px $content-color-trans, 1px 0 $content-color-trans, 0 -1px $content-color-trans;
 	min-height: 100%;
 	position: relative;
 	padding-bottom: 20em;
