@@ -12,7 +12,7 @@ test("<GameBackground />", (t) => {
 
 	const wrapper = shallow(<GameBackground {...props} />);
 
-	t.ok(wrapper.props().style.background.includes(props.champion), "Should have correct background image");
+	t.ok(wrapper.props().style.background.includes("http"), "Should have URL");
 
 	t.end();
 });
