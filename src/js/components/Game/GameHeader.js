@@ -8,7 +8,7 @@ var GameHeaderContainer = require("./GameHeaderContainer");
 var GameHeader = React.createClass({
 	render: function() {
 		return (
-			<div className={this.props.gameClass} onClick={this._clickHandler}>
+			<div className={this.props.gameClass} onClick={this.props.onClick}>
 				{this.props.children}
 				<GameHeaderContainer game={this.props.game} />
 				<GameBackground champion={this.props.game.champion} />
@@ -16,10 +16,6 @@ var GameHeader = React.createClass({
 			</div>
 			
 		);
-	},
-
-	_clickHandler: function() {
-		this.props.onClick();
 	}
 });
 
