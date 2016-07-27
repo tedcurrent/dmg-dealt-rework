@@ -14,7 +14,6 @@ test("<GameHeaderContainer />", (t) => {
 			gameDate: 1444670102143
 		}
 	};
-
 	const wrapper = shallow(<GameHeaderContainer {...props} />);
 	const gameHeaderContainer = wrapper.find(".game-header-container");
 

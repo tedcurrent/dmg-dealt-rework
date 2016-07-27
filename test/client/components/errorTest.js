@@ -11,11 +11,7 @@ test("<Error />", (t) => {
 		errorMessage: "You had an error!",
 		errorDetail: "Please ALT+F4 right now."
 	};
-
-	const wrapper = shallow(
-		<ErrorPage {...props} />
-	);
-
+	const wrapper = shallow(<ErrorPage {...props} />);
 	const textContainer = wrapper.find(".text-container");
 
 	t.ok(textContainer.contains(<h1>{props.errorNumber}</h1>), "Should have error number");

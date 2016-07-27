@@ -12,7 +12,6 @@ test("<SummonerInfo />", (t) => {
 		},
 		info: "extra details"
 	};
-
 	const wrapper = shallow(<SummonerInfo {...props} />);
 	const summonerInfo = wrapper.find(".summoner-info");
 

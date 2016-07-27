@@ -6,11 +6,7 @@ import { shallow } from "enzyme";
 import App from "../../../src/js/components/App/";
 
 test("<App />", (t) => {
-	const wrapper = shallow(
-		<App>
-			<div className="dummyDiv" />
-		</App>
-	);
+	const wrapper = shallow(<App><div className="dummyDiv" /></App>);
 
 	t.ok(wrapper.contains(<div className="dummyDiv" />), "Should have 'dummyDiv' as a child");
 

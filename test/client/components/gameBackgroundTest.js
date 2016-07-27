@@ -9,7 +9,6 @@ test("<GameBackground />", (t) => {
 	const props = {
 		champion: "Lulu"
 	};
-
 	const wrapper = shallow(<GameBackground {...props} />);
 
 	t.ok(wrapper.props().style.background.includes("http"), "Should have URL");

@@ -11,12 +11,7 @@ test("<Game />", (t) => {
 		gameClass: "game",
 		statsOpen: false
 	};
-
-	const wrapper = shallow(
-		<Game {...props}>
-			<div className="dummyDiv" />
-		</Game>
-	);
+	const wrapper = shallow(<Game {...props}><div className="dummyDiv" /></Game>);
 
 	t.ok(wrapper.contains(<div className="dummyDiv" />), "Should have 'dummyDiv' as a child");
 	t.ok(wrapper.find("Collapse").length, "Should contain a <Collapse />");

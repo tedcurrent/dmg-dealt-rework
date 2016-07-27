@@ -15,7 +15,6 @@ test("<GameHeader />", (t) => {
 		statsOpen: false
 	};
 	const mockClick = spy();
-
 	const wrapper = shallow(
 		<GameHeader {...props} onClick={mockClick}>
 			<div className="dummyDiv" />

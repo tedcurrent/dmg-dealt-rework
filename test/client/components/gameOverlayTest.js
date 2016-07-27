@@ -9,7 +9,6 @@ test("<GameOverlay />", (t) => {
 	const props = {
 		statsOpen: false
 	};
-
 	const wrapper = shallow(<GameOverlay {...props} />);
 
 	t.ok(wrapper.find("span").text("Show stats"), "Should render 'Show stats' when stats are hidden");
