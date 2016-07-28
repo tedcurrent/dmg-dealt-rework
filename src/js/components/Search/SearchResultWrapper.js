@@ -27,10 +27,10 @@ var SearchResultWrapper = React.createClass({
 
 	_renderResults: function() {
 		if (this.props.searchResult.errors) {
-			return <div className="search-result">An error occurred. Please try again</div>;
+			return <div className="search-result error">An error occurred. Please try again</div>;
 		}
 		if (!this.props.queryLengthOk) {
-			return <div className="search-result">A summoner name should be at least 2 characters.</div>;
+			return <div className="search-result error">A summoner name should be at least 2 characters.</div>;
 		}
 
 		if (!this.props.searchResult.summoner) {

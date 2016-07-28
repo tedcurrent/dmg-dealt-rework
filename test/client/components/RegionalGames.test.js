@@ -4,7 +4,7 @@ import React from "react";
 import test from "tape";
 import { shallow } from "enzyme";
 import sinon from "sinon";
-import mockApiRegionalResults from "../mockApiRegionalResults";
+import mockApiRegionalResults from "../mocks/mockApiRegionalResults";
 import RegionalGames from "../../../src/js/components/RegionalGames/";
 import RegionContainer from "../../../src/js/components/RegionalGames/RegionContainer";
 import RegionalGame from "../../../src/js/components/RegionalGames/RegionalGame";
@@ -32,8 +32,6 @@ test("<RegionContainer />", (t) => {
 	const wrapper = shallow(<RegionContainer results={results}/>);
 
 	t.equal(wrapper.find("RegionalGame").length, results.games.length, "Should have rendered all games in the list");
-
-	console.log(wrapper.debug());
 
 	t.end();
 });

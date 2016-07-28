@@ -4,7 +4,7 @@ import React from "react";
 import test from "tape";
 import { shallow } from "enzyme";
 import sinon from "sinon";
-import mockApiPersonalResults from "../mockApiPersonalResults";
+import mockApiPersonalResults from "../mocks/mockApiPersonalResults";
 import PersonalGames from "../../../src/js/components/PersonalGames/";
 import GameList from "../../../src/js/components/PersonalGames/GameList";
 import GameListItem from "../../../src/js/components/PersonalGames/GameListItem";
@@ -13,7 +13,7 @@ import TopGame from "../../../src/js/components/PersonalGames/TopGame";
 import ApiRequestActions from "../../../src/js/actions/ApiRequestActions";
 
 test("<PersonalGames />", (t) => {
-	let getPersonalGames = sinon.stub(ApiRequestActions, "getPersonalGames");
+	const getPersonalGames = sinon.stub(ApiRequestActions, "getPersonalGames");
 	const wrapper = shallow(<PersonalGames params={{id: 51520537, region: "euw"}} />);
 
 	t.ok(!wrapper.find("div").children().length, "Should render empty <div /> initially");
