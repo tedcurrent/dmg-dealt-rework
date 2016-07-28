@@ -4,7 +4,7 @@ import React from "react";
 import test from "tape";
 import { shallow } from "enzyme";
 import sinon from "sinon";
-import mockApiResults from "../mockApiResults";
+import mockApiPersonalResults from "../mockApiPersonalResults";
 import PersonalGames from "../../../src/js/components/PersonalGames/";
 import GameList from "../../../src/js/components/PersonalGames/GameList";
 import GameListItem from "../../../src/js/components/PersonalGames/GameListItem";
@@ -19,10 +19,10 @@ test("<PersonalGames />", (t) => {
 	t.ok(!wrapper.find("div").children().length, "Should render empty <div /> initially");
 	t.ok(getPersonalGames.calledWith({id: 51520537, region: "euw"}), "Should call API with correct parameters");
 
-	wrapper.setState({gameResults: mockApiResults()});
+	wrapper.setState({gameResults: mockApiPersonalResults()});
 	t.ok(wrapper.find("PersonalContainer").length, "Should render <PersonalContainer /> if results");
 
-	wrapper.setState({gameResults: mockApiResults({errors: 1})});
+	wrapper.setState({gameResults: mockApiPersonalResults({errors: 1})});
 	t.ok(wrapper.find("ErrorPage").length, "Should render <ErrorPage /> if errors length > 0");
 
 	getPersonalGames.restore();
@@ -30,7 +30,7 @@ test("<PersonalGames />", (t) => {
 });
 
 test("<GameList />", (t) => {
-	const games = mockApiResults().games;
+	const games = mockApiPersonalResults().games;
 	const wrapper = shallow(<GameList games={games} />);
 
 	t.equal(wrapper.find("GameListItem").length, games.length, "Should have rendered all games in the list");
@@ -48,7 +48,7 @@ test("<GameListItem />", (t) => {
 });
 
 test("<PersonalContainer />", (t) => {
-	const wrapper = shallow(<PersonalContainer results={mockApiResults()}/>);
+	const wrapper = shallow(<PersonalContainer results={mockApiPersonalResults()}/>);
 
 	t.ok(wrapper.find("GamesContainer").length, "Should render a <GamesContainer /> component");
 	t.ok(wrapper.find("TopGame").length, "Should render a <TopGame /> component");
@@ -58,7 +58,7 @@ test("<PersonalContainer />", (t) => {
 });
 
 test("<TopGame />", (t) => {
-	const results = mockApiResults({newHighScore: false});
+	const results = mockApiPersonalResults({newHighScore: false});
 	const wrapper = shallow(
 		<TopGame 
 			summoner={results.summoner} 

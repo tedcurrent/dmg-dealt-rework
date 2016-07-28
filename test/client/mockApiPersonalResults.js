@@ -1,6 +1,6 @@
 "use strict";
 
-export default function mockApiResults(overrides) {
+export default function mockApiPersonalResults(overrides) {
 	let results = {
 		summoner: {
 			id: 51520537,
