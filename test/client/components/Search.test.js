@@ -71,11 +71,11 @@ test("<SearchResult />", (t) => {
 
 	t.ok(!wrapper.find(".search-result").hasClass("selected"), "Should not be selected");
 
-	wrapper.find(".search-result").simulate("click");
-	t.ok(mockClick.calledOnce, "Should have registered a single click");
-
 	wrapper.setProps({resultSelected: true});
 	t.ok(wrapper.find(".search-result").hasClass("selected"), "Should be selected after prop change");
+	
+	wrapper.find(".search-result").simulate("click");
+	t.ok(mockClick.calledOnce, "Should have registered a single click");
 
 	t.end();
 });
