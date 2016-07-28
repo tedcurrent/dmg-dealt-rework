@@ -113,9 +113,7 @@ test("POST /saveHighScore", (t) => {
 		});
 });
 
-test.onFinish(() => _cleanUp());
-
-const _cleanUp = () => {
+test.onFinish(() => {
 	mongoose.connect(process.env.MONGODB_CONNECTION, (err) => {
 		if (err)
 			throw new Error("Connection to MongoDB failed");
@@ -126,4 +124,4 @@ const _cleanUp = () => {
 			throw new Error("Clean up failed, please try again");
 		mongoose.connection.close();
 	});
-};
+});
