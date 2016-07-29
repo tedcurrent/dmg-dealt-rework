@@ -16,6 +16,7 @@ var ApiRequestActions = {
 		AppDispatcher.dispatch({
 			actionType: AppConstants.API_REQUEST
 		});
+		this.cleanUpGames();
 		APIRequests.getPersonalGames(query);
 	},
 
