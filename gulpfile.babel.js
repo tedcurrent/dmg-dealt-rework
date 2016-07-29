@@ -103,4 +103,10 @@ gulp.task("watch", () => {
 	gulp.watch(config.paths.styles, ["styles"]);
 });
 
+// Apply production environment
+gulp.task("apply-production", () => {
+	return process.env.NODE_ENV = "production";
+});
+
 gulp.task("default", ["static", "styles", "assets", "js", "lint", "dev", "watch"]);
+gulp.task("production", ["apply-production", "static", "styles", "assets", "js"]);
