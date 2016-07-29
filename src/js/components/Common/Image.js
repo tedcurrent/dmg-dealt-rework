@@ -3,7 +3,7 @@
 var React = require("react");
 var ReactDOM = require("react-dom");
 
-// A common component that should be used for every image
+// A common component for images
 var Image = React.createClass({
 	getInitialState: function() {
 		return {
@@ -13,16 +13,14 @@ var Image = React.createClass({
 	},
 
 	onImageLoad: function() {
-		if (this.isMounted()) {
+		if (this.isMounted())
 			this.setState({loaded: true});
-		}
 	},
 
 	componentDidMount: function() {
 		var imgTag = ReactDOM.findDOMNode(this.refs.img);
 		var imgSrc = imgTag.getAttribute("src");
 		var img = new window.Image();
-		img.onload = this.onImageLoad;
 		img.src = imgSrc;
 	},
 
@@ -30,7 +28,13 @@ var Image = React.createClass({
 		var imgClass = !this.state.loaded ? "image" : "image loaded";
 		var imgSrc = !this.state.errored ? this.props.src : this.props.defaultImage;
 		return (
-			<img onError={this._changeToDefault} ref="img" src={imgSrc} alt={this.props.alt} className={imgClass} />
+			<img 
+				ref="img" src={imgSrc}
+				alt={this.props.alt}
+				className={imgClass}
+				onError={this._changeToDefault}
+				onLoad={this.onImageLoad}
+			/>
 		);
 	},
 
