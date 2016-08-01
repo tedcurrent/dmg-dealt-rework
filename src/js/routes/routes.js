@@ -8,7 +8,7 @@ var App = require("../components/App/");
 var Splash = require("../components/Splash/");
 var Personal = require("../components/PersonalGames/");
 var Regions = require("../components/RegionalGames/");
-var NotFound = require("../components/404/");
+import NotFound from "../components/404/";
 
 // All possible routes listed here
 var routes = (
