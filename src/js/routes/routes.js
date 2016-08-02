@@ -1,17 +1,15 @@
 "use strict";
 
-var React = require("react");
-var ReactRouter = require("react-router");
-var IndexRoute = ReactRouter.IndexRoute;
-var Route = ReactRouter.Route;
-var App = require("../components/App/");
-var Splash = require("../components/Splash/");
-var Personal = require("../components/PersonalGames/");
-var Regions = require("../components/RegionalGames/");
+import React from "react";
+import { Route, IndexRoute } from "react-router";
+import App from "../components/App/";
+import Splash from "../components/Splash/";
+import Personal from "../components/PersonalGames/";
+import Regions from "../components/RegionalGames/";
 import NotFound from "../components/404/";
 
 // All possible routes listed here
-var routes = (
+const routes = (
 	<Route path="/" component={App}>
 		<IndexRoute component={Splash} />
 		<Route path="/:id/:region" component={Personal} />
@@ -20,4 +18,4 @@ var routes = (
 	</Route>
 );
 
-module.exports = routes;
+export default routes;
