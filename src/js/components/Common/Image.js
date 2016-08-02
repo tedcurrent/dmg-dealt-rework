@@ -13,8 +13,7 @@ var Image = React.createClass({
 	},
 
 	onImageLoad: function() {
-		if (this.isMounted())
-			this.setState({loaded: true});
+		this.setState({loaded: true});
 	},
 
 	componentDidMount: function() {
