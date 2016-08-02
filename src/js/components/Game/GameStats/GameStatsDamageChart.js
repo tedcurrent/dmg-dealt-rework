@@ -24,7 +24,7 @@ var GameStatsDamageChart = React.createClass({
 				{React.createElement(Chart, { 
 					container: this.props.chartName, 
 					options: ChartOptions.DAMAGE_DONUT_OPTIONS, 
-					ref: this.props.chartName 
+					ref: this.chartRef
 				})}
 			</div>
 		);
