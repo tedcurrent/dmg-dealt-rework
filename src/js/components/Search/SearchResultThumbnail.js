@@ -1,7 +1,7 @@
 "use strict";
 
 var React = require("react");
-var Image = require("../Common/Image");
+import Image from "../Common/Image";
 var Util = require("../../util/utils");
 var AppConstants = require("../../constants/AppConstants");
 

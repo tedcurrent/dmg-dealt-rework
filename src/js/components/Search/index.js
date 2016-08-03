@@ -19,7 +19,7 @@ var Search = React.createClass({
 
 	getInitialState: function() {
 		return {
-			searchResults: SummonerSearchStore.getAll(),
+			searchResult: SummonerSearchStore.getAll(),
 			regionSelected: "euw",
 			queryValue: "",
 			queryLengthOk: true,
@@ -49,7 +49,7 @@ var Search = React.createClass({
 					dropDownChange={this._dropDownChange}
 				/>
 				<SearchResultWrapper 
-					searchResult={this.state.searchResults}
+					searchResult={this.state.searchResult}
 					queryLengthOk={this.state.queryLengthOk}
 					onClick={this._resultSubmitHandler}
 					bodyClick={this._bodyClickHandler}
@@ -60,7 +60,7 @@ var Search = React.createClass({
 	},
 
 	_onChange: function() {
-		this.setState({searchResults: SummonerSearchStore.getAll()});
+		this.setState({searchResult: SummonerSearchStore.getAll()});
 	},
 
 	_dropDownChange: function(value) {
@@ -96,7 +96,7 @@ var Search = React.createClass({
 	},
 
 	_resultSubmitHandler: function() {
-		var summoner = this.state.searchResults.summoner;
+		var summoner = this.state.searchResult.summoner;
 		this.context.router.push("/" + summoner.id + "/" + summoner.region);
 		this._resetResults();
 	},

@@ -1,7 +1,7 @@
 "use strict";
 
 var React = require("react");
-var ErrorPage = require("../Error");
+import ErrorPage from "../Error";
 var RegionContainer = require("./RegionContainer");
 var ApiRequestActions = require("../../actions/ApiRequestActions");
 var RegionalGamesStore = require("../../stores/RegionalGamesStore");

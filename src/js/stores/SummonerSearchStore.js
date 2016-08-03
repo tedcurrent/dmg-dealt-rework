@@ -28,7 +28,6 @@ var SummonerSearchStore = assign({}, EventEmitter.prototype, {
 	getAll: function() {
 		return _results;
 	}
-
 });
 
 AppDispatcher.register(function(action) {

@@ -1,7 +1,7 @@
 "use strict";
 
 var React = require("react");
-var Chart = require("../../Common/Highcharts");
+import Chart from "../../Common/Highcharts";
 var Util = require("../../../util/utils");
 var ChartOptions = require("../../../constants/ChartOptions");
 

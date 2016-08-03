@@ -11,7 +11,7 @@ var GameList = React.createClass({
 		return (
 			<ul>
 				{sortedGames.map(function (game) {
-					return <GameListItem key={game.gameId} game={game} gameClass={"game-header"}/>;
+					return <GameListItem key={game.gameId} game={game} gameClass={"game-header"} />;
 				})}
 			</ul>
 		);

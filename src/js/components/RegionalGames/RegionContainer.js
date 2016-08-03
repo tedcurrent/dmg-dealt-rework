@@ -2,7 +2,7 @@
 
 var React = require("react");
 var RegionalGame = require("./RegionalGame");
-var GamesContainer = require("../Common/GamesContainer");
+import GamesContainer from "../Common/GamesContainer";
 
 var RegionContainer = React.createClass({
 	render: function() {

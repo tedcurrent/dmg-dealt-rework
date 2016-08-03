@@ -1,7 +1,7 @@
 "use strict";
 
 var React = require("react");
-var GamesContainer = require("../Common/GamesContainer");
+import GamesContainer from "../Common/GamesContainer";
 var TopGame = require("./TopGame");
 var GameList = require("./GameList");
 

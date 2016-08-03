@@ -8,7 +8,6 @@ import Personal from "../components/PersonalGames/";
 import Regions from "../components/RegionalGames/";
 import NotFound from "../components/404/";
 
-// All possible routes listed here
 const routes = (
 	<Route path="/" component={App}>
 		<IndexRoute component={Splash} />

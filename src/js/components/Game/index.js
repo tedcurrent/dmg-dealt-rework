@@ -3,7 +3,7 @@
 var React = require("react");
 var GameHeader = require("./GameHeader");
 var GameStats = require("./GameStats/");
-var Collapse = require("../Common/Collapse");
+import Collapse from "../Common/Collapse";
 
 // A wrapper for the game header and the stats view. Also acts as a controller for showing stats
 var GameWrapper = React.createClass({
