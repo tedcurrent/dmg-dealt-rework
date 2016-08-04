@@ -47,6 +47,7 @@ var Search = React.createClass({
 					arrowKeyNavigation={this._arrowKeyNavigation}
 					regionSelected={this.state.regionSelected}
 					dropDownChange={this._dropDownChange}
+					searchResult={this.state.searchResult}
 				/>
 				<SearchResultWrapper 
 					searchResult={this.state.searchResult}

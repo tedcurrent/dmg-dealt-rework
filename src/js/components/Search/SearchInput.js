@@ -1,6 +1,7 @@
 "use strict";
 
 var React = require("react");
+var _ = require("lodash");
 
 // Search input component with mouse and keyboard handlers
 var SearchInput = React.createClass({
@@ -30,14 +31,20 @@ var SearchInput = React.createClass({
 				break;
 			case "ArrowDown":
 				e.preventDefault();
-				this.props.resultSelectedChange(!this.props.resultSelected);
+				if (this._hasSummoner(this.props.summoner))
+					this.props.resultSelectedChange(!this.props.resultSelected);
 				break;
 			case "ArrowUp":
 				e.preventDefault();
-				this.props.resultSelectedChange(!this.props.resultSelected);
+				if (this._hasSummoner(this.props.summoner))
+					this.props.resultSelectedChange(!this.props.resultSelected);
 				break;
 			default:
 		}
+	},
+
+	_hasSummoner: function(result) {
+		return result && !_.isEmpty(result);
 	}
 });
 

@@ -16,6 +16,7 @@ var SearchInputContainer = React.createClass({
 					onChange={this.props.queryStringChange}
 					onEnter={this.props.resultSubmitHandler}
 					resultSelectedChange={this.props.arrowKeyNavigation}
+					summoner={this.props.searchResult.summoner}
 				/>
 				<SearchDropDown
 					options={AppConstants.SEARCH_REGION_OPTIONS} 
