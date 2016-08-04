@@ -1,23 +1,26 @@
 "use strict";
 
-var React = require("react");
+import React from "react";
 import Chart from "../../Common/Highcharts";
-var Util = require("../../../util/utils");
-var ChartOptions = require("../../../constants/ChartOptions");
+import Util from "../../../util/utils";
+import ChartOptions from "../../../constants/ChartOptions";
 
 // Damage stat pie chart rendered within every stats container
-var GameStatsDamageChart = React.createClass({
-	chartRef: undefined,
+export default class GameStatsDamageChart extends React.Component {
+	constructor(props) {
+		super(props);
+		this._updateChartData = this._updateChartData.bind(this);
+	}
 
-	componentDidMount: function() {
+	componentDidMount() {
 		this._updateChartData(this.props.stats);
-	},
+	}
 
-	componentWillReceiveProps: function(nextProps) {
+	componentWillReceiveProps(nextProps) {
 		this._updateChartData(nextProps.stats);
-	},
+	}
 
-	render: function() {
+	render() {
 		this.chartRef = this.props.chartName;
 		return (
 			<div className="damage-chart">
@@ -28,14 +31,12 @@ var GameStatsDamageChart = React.createClass({
 				})}
 			</div>
 		);
-	},
+	}
 
-	_updateChartData: function(stats) {
+	_updateChartData(stats) {
 		this.refs[this.chartRef]
 			.chart
 			.series[0]
 			.setData(Util.getChartDamages(stats));
 	}
-});
-
-module.exports = GameStatsDamageChart;
+}

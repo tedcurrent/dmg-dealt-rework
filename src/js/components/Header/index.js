@@ -1,31 +1,27 @@
 "use strict";
 
-var React = require("react");
-var Search = require("../Search/index");
-var Link = require("react-router").Link;
-var ApiRequestActions = require("../../actions/ApiRequestActions");
+import React from "react";
+import Search from "../Search/index";
+import { Link } from "react-router";
+import ApiRequestActions from "../../actions/ApiRequestActions";
 
 // A wrapper for navigation items and search
-var Header = React.createClass({
-	render: function() {
-		return (
-			<header>
-				<span className="logo">
-					<a href="/">DMGDealt</a>
-				</span>
-				<Search />
+export default function Header(props) {
+	return (
+		<header>
+			<span className="logo">
+				<a href="/">DMGDealt</a>
+			</span>
+			<Search />
 
-				<ul>
-					<li>
-						<Link to="/regions">
-							<i className="fa fa-globe" aria-hidden="true"></i>
-							<span> TOP</span>
-						</Link>
-					</li>
-				</ul>
-			</header>
-		);
-	}
-});
-
-module.exports = Header;
+			<ul>
+				<li>
+					<Link to="/regions">
+						<i className="fa fa-globe" aria-hidden="true"></i>
+						<span> TOP</span>
+					</Link>
+				</li>
+			</ul>
+		</header>
+	);
+}

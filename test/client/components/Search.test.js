@@ -36,7 +36,7 @@ test("<Search />", (t) => {
 	}), "Should call API with params if ok input");
 
 	wrapper.find("#search-input").simulate("keydown", {key: "ArrowDown"});
-	t.ok(wrapper.state().resultSelected, "Should have selected state on ArrowDown");
+	t.ok(!wrapper.state().resultSelected, "Should not select on ArrowDown without results");
 
 	wrapper.find("select").simulate("change", {target: {value: "eune"}});
 	t.ok(getSummoner.calledWith({

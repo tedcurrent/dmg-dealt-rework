@@ -1,22 +1,18 @@
 "use strict";
 
-var React = require("react");
+import React from "react";
 import Image from "../Common/Image";
-var Util = require("../../util/utils");
-var AppConstants = require("../../constants/AppConstants");
+import Util from "../../util/utils";
+import AppConstants from "../../constants/AppConstants";
 
-var SearchResultThumbnail = React.createClass({
-	render: function() {
-		return (
-			<div className="thumbnail-container">
-				<Image 
-					src={Util.buildProfileIconUrl(this.props.icon)} 
-					defaultImage={AppConstants.DEFAULT_SUMMONER_ICON_PATH}
-					alt={"summoner icon"} 
-				/>
-			</div>
-		);
-	}
-});
-
-module.exports = SearchResultThumbnail;
+export default function SearchResultThumbnail({icon}) {
+	return (
+		<div className="thumbnail-container">
+			<Image 
+				src={Util.buildProfileIconUrl(icon)} 
+				defaultImage={AppConstants.DEFAULT_SUMMONER_ICON_PATH}
+				alt={"summoner icon"} 
+			/>
+		</div>
+	);
+}

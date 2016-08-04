@@ -1,55 +1,53 @@
 "use strict";
 
-var React = require("react");
+import React from "react";
 import ErrorPage from "../Error";
-var PersonalContainer = require("./PersonalContainer");
-var ApiRequestActions = require("../../actions/ApiRequestActions");
-var PersonalGamesStore = require("../../stores/PersonalGamesStore");
-var _ = require("lodash");
+import PersonalContainer from "./PersonalContainer";
+import ApiRequestActions from "../../actions/ApiRequestActions";
+import PersonalGamesStore from "../../stores/PersonalGamesStore";
+import _ from "lodash";
 
 // Controller for the PersonalGames page
-var PersonalGamesController = React.createClass({
-	getInitialState: function() {
-		return {
+export default class PersonalGamesController extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
 			gameResults: PersonalGamesStore.getAll()
 		};
-	},
+		this._onChange = this._onChange.bind(this);
+	}
 
-	componentWillMount: function() {
+	componentWillMount(){
 		this._refreshGames(this.props);
 		PersonalGamesStore.addChangeListener(this._onChange);
-	},
+	}
 
-	componentWillUnmount: function() {
+	componentWillUnmount() {
 		PersonalGamesStore.removeChangeListener(this._onChange);
-	},
+	}
 
-	componentWillReceiveProps: function(nextProps) {
+	componentWillReceiveProps(nextProps) {
 		this._refreshGames(nextProps);
-	},
-
-	render: function() {
-		return this._renderComponents();
-	},
+	}
 
 	// Renders a list of games OR an error OR nothing
-	_renderComponents: function() {
-		var results = this.state.gameResults;
+	render() {
+		const results = this.state.gameResults;
 
 		if (results.errors === 0 && !_.isEmpty(results.summoner)) {
-			return this._renderGames();
+			return this._renderGames(this.state.gameResults);
 		} else if (results.errors) {
 			return this._renderError();
 		} else {
 			return this._renderNothing();
 		}
-	},
+	}
 
-	_renderGames: function(results) {
-		return <PersonalContainer results={this.state.gameResults} />;
-	},
+	_renderGames(results) {
+		return <PersonalContainer results={results} />;
+	}
 
-	_renderError: function() {
+	_renderError() {
 		return (
 			<ErrorPage
 				errorNumber={404}
@@ -57,24 +55,18 @@ var PersonalGamesController = React.createClass({
 				errorDetail={"Please try something else."}
 			/>
 		);
-	},
+	}
 
-	_renderNothing: function() {
+	_renderNothing() {
 		return <div></div>;
-	},
+	}
 
-	_onChange: function() {
+	_onChange() {
 		this.setState({gameResults: PersonalGamesStore.getAll()});
-	},
+	}
 
-	_refreshGames: function(props) {
-		var query = {
-			id: props.params.id,
-			region: props.params.region
-		};
-
+	_refreshGames({params: {id, region}}) {
+		const query = {id, region};
 		ApiRequestActions.getPersonalGames(query);
 	}
-});
-
-module.exports = PersonalGamesController;
+}

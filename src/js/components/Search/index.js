@@ -1,42 +1,49 @@
 "use strict";
 
-var React = require("react");
-var ReactDOM = require("react-dom");
-var Router = require("react-router").Router;
-var SearchInputContainer = require("./SearchInputContainer");
-var SearchResultWrapper = require("./SearchResultWrapper");
-var ApiRequestActions = require("../../actions/ApiRequestActions");
-var ApiResponseActions = require("../../actions/ApiResponseActions");
-var SummonerSearchStore = require("../../stores/SummonerSearchStore");
-var Util = require("../../util/utils");
-var _ = require("lodash");
+import React from "react";
+import ReactDOM from "react-dom";
+import { Router } from "react-router";
+import SearchInputContainer from "./SearchInputContainer";
+import SearchResultWrapper from "./SearchResultWrapper";
+import ApiRequestActions from "../../actions/ApiRequestActions";
+import ApiResponseActions from "../../actions/ApiResponseActions";
+import SummonerSearchStore from "../../stores/SummonerSearchStore";
+import Util from "../../util/utils";
+import _ from "lodash";
 
 // Search controller
-var Search = React.createClass({
-	contextTypes: {
-		router: React.PropTypes.object.isRequired
-	},
-
-	getInitialState: function() {
-		return {
+export default class Search extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
 			searchResult: SummonerSearchStore.getAll(),
 			regionSelected: "euw",
 			queryValue: "",
 			queryLengthOk: true,
 			resultSelected: false
 		};
-	},
+		this._onChange = this._onChange.bind(this);
+		this._dropDownChange = this._dropDownChange.bind(this);
+		this._queryStringChange = this._queryStringChange.bind(this);
+		this._anyInputChange = this._anyInputChange.bind(this);
+		this._querySubmit = this._querySubmit.bind(this);
+		this._resetResults = this._resetResults.bind(this);
+		this._resultSubmitHandler = this._resultSubmitHandler.bind(this);
+		this._bodyClickHandler = this._bodyClickHandler.bind(this);
+		this._arrowKeyNavigation = this._arrowKeyNavigation.bind(this);
+		this._validateQueryLength = this._validateQueryLength.bind(this);
+	}
 
-	componentWillMount: function() {
+	componentWillMount() {
 		SummonerSearchStore.addChangeListener(this._onChange);
 		this._anyInputChange = _.debounce(this._anyInputChange, 400);
-	},
+	}
 
-	componentWillUnmount: function() {
+	componentWillUnmount() {
 		SummonerSearchStore.removeChangeListener(this._onChange);
-	},
+	}
 
-	render: function() {
+	render() {
 		return (
 			<div className="search">
 				<SearchInputContainer
@@ -58,62 +65,61 @@ var Search = React.createClass({
 				/>
 			</div>
 		);
-	},
+	}
 
-	_onChange: function() {
+	_onChange() {
 		this.setState({searchResult: SummonerSearchStore.getAll()});
-	},
+	}
 
-	_dropDownChange: function(value) {
+	_dropDownChange(value) {
 		this.setState({regionSelected: value}, this._anyInputChange);
-	},
+	}
 
-	_queryStringChange: function(value) {
+	_queryStringChange(value) {
 		this.setState({queryValue: value}, this._anyInputChange);
-	},
+	}
 
 	// Calls to this are debounced (see lifecycle) to avoid server call overload
-	_anyInputChange: function() {
+	_anyInputChange() {
 		this._resetResults();
-		this._validateQueryLength(this.state.queryValue, function() {
+		this._validateQueryLength(this.state.queryValue, () => {
 			if (this.state.queryLengthOk)
-				this._querySubmit();
-		}.bind(this));
-	},
+				this._querySubmit(this.state.queryValue, this.state.regionSelected);
+		});
+	}
 
-	_querySubmit: function() {
-		var query = {
-			summonerName: this.state.queryValue,
-			summonerRegion: this.state.regionSelected
-		};
+	_querySubmit(summonerName, summonerRegion) {
+		const query = {summonerName, summonerRegion};
 		ApiRequestActions.getSummoner(query);
 		this.setState({querySent: true});
-	},
+	}
 
-	_resetResults: function() {
+	_resetResults() {
 		ApiResponseActions.updateSummonerSearchResult({});
 		this._arrowKeyNavigation(false);
 		this.setState({queryLengthOk: true});
-	},
+	}
 
-	_resultSubmitHandler: function() {
-		var summoner = this.state.searchResult.summoner;
+	_resultSubmitHandler() {
+		const summoner = this.state.searchResult.summoner;
 		this.context.router.push("/" + summoner.id + "/" + summoner.region);
 		this._resetResults();
-	},
+	}
 
-	_bodyClickHandler: function(e) {
+	_bodyClickHandler(e) {
 		if (!ReactDOM.findDOMNode(this).contains(e.target))
 			this._resetResults();
-	},
+	}
 
-	_arrowKeyNavigation: function(selected) {
+	_arrowKeyNavigation(selected) {
 		this.setState({resultSelected: selected});
-	},
+	}
 
-	_validateQueryLength: function(queryValue, callback) {
+	_validateQueryLength(queryValue, callback) {
 		this.setState({queryLengthOk: Util.isQueryLengthOk(queryValue)}, callback);
 	}
-});
+}
 
-module.exports = Search;
+Search.contextTypes = {
+	router: React.PropTypes.object.isRequired
+};

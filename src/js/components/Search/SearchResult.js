@@ -1,28 +1,15 @@
 "use strict";
 
-var React = require("react");
-var SearchResultThumbnail = require("./SearchResultThumbnail");
-var _ = require("lodash");
+import React from "react";
+import SearchResultThumbnail from "./SearchResultThumbnail";
+import _ from "lodash";
 
-var SearchResult = React.createClass({
-	render: function() {
-		return (
-			<div>
-				{_.isEmpty(this.props.summoner) ? this._emptyResult() : this._renderResult()}
-			</div>
-		);
-	},
-
-	_emptyResult: function() {
-		return;
-	},
-
-	_renderResult: function() {
-		var summoner = this.props.summoner;
+export default function SearchResult({summoner, onClick, resultSelected}) {
+	const _renderResult = () => {
 		return (
 			<div 
-				onClick={this.props.onClick} 
-				className={this.props.resultSelected ? "search-result selected" : "search-result"}
+				onClick={onClick} 
+				className={resultSelected ? "search-result selected" : "search-result"}
 			>
 				<SearchResultThumbnail icon={summoner.profileIconId} />
 				<span className="name">{summoner.name}</span>
@@ -31,7 +18,11 @@ var SearchResult = React.createClass({
 				</span>
 			</div>
 		);
-	}
-});
+	};
 
-module.exports = SearchResult;
+	return (
+		<div>
+			{_.isEmpty(summoner) ? "" : _renderResult()}
+		</div>
+	);
+}

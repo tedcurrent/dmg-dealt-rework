@@ -1,20 +1,16 @@
 "use strict";
 
-var React = require("react");
-var AppConstants = require("../../constants/AppConstants");
-var Util = require("../../util/utils");
+import React from "react";
+import AppConstants from "../../constants/AppConstants";
+import Util from "../../util/utils";
 
-var GameBackground = React.createClass({
-	render: function() {
-		var splashUrl = Util.championSplashUrl(this.props.champion);
-		var gameBackgroundStyle = {
-			background: "url(" + splashUrl + ")"
-		};
-		
-		return (
-			<div className="game-header-background" style={gameBackgroundStyle}></div>
-		);
-	}
-});
-
-module.exports = GameBackground;
+export default function GameBackground({champion}) {
+	const splashUrl = Util.championSplashUrl(champion);
+	const gameBackgroundStyle = {
+		background: "url(" + splashUrl + ")"
+	};
+	
+	return (
+		<div className="game-header-background" style={gameBackgroundStyle}></div>
+	);
+}

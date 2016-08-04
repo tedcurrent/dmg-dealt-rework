@@ -1,35 +1,33 @@
 "use strict";
 
-var React = require("react");
+import React from "react";
 import ErrorPage from "../Error";
-var RegionContainer = require("./RegionContainer");
-var ApiRequestActions = require("../../actions/ApiRequestActions");
-var RegionalGamesStore = require("../../stores/RegionalGamesStore");
+import RegionContainer from "./RegionContainer";
+import ApiRequestActions from "../../actions/ApiRequestActions";
+import RegionalGamesStore from "../../stores/RegionalGamesStore";
 
 // A wrapper for regional top scores page
-var RegionalGamesController = React.createClass({
-	getInitialState: function() {
-		return {
+export default class RegionalGamesController extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
 			regionalResults: RegionalGamesStore.getAll()
 		};
-	},
+		this._onChange = this._onChange.bind(this);
+	}
 
-	componentWillMount: function() {
+	componentWillMount() {
 		this._refreshRegionals();
 		RegionalGamesStore.addChangeListener(this._onChange);
-	},
+	}
 
-	componentWillUnmount: function() {
+	componentWillUnmount() {
 		RegionalGamesStore.removeChangeListener(this._onChange);
-	},
-
-	render: function() {
-		return this._renderComponents();
-	},
+	}
 
 	// Renders a list of games OR an error OR nothing
-	_renderComponents: function() {
-		var results = this.state.regionalResults;
+	render() {
+		const results = this.state.regionalResults;
 
 		if (results.errors === 0 && results.games.length) {
 			return this._renderGames(results);
@@ -38,13 +36,13 @@ var RegionalGamesController = React.createClass({
 		} else {
 			return this._renderNothing();
 		}
-	},
+	}
 
-	_renderGames: function(results) {
+	_renderGames(results) {
 		return <RegionContainer results={results} />;
-	},
+	}
 
-	_renderError: function() {
+	_renderError() {
 		return (
 			<ErrorPage
 				errorNumber={"500"}
@@ -52,19 +50,17 @@ var RegionalGamesController = React.createClass({
 				errorDetail={"Please try again later."}
 			/>
 		);
-	},
+	}
 
-	_renderNothing: function() {
+	_renderNothing() {
 		return <div></div>;
-	},
+	}
 
-	_onChange: function() {
+	_onChange() {
 		this.setState({regionalResults: RegionalGamesStore.getAll()});
-	},
+	}
 
-	_refreshRegionals: function() {
+	_refreshRegionals() {
 		ApiRequestActions.getRegionalGames();
 	}
-});
-
-module.exports = RegionalGamesController;
+}

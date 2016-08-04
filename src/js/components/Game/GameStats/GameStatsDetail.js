@@ -1,16 +1,12 @@
 "use strict";
 
-var React = require("react");
+import React from "react";
 
-var GameStatsDetail = React.createClass({
-	render: function() {
-		return (
-			<div className="game-stats-detail">
-				<div className="description">{this.props.description}</div>
-				<div className="detail">{this.props.detail}</div>
-			</div>
-		);
-	}
-});
-
-module.exports = GameStatsDetail;
+export default function GameStatsDetail({description, detail}) {
+	return (
+		<div className="game-stats-detail">
+			<div className="description">{description}</div>
+			<div className="detail">{detail}</div>
+		</div>
+	);
+}
