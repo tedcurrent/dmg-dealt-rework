@@ -7,7 +7,8 @@ import SearchInputContainer from "./SearchInputContainer";
 import SearchResultWrapper from "./SearchResultWrapper";
 import ApiRequestActions from "../../actions/ApiRequestActions";
 import ApiResponseActions from "../../actions/ApiResponseActions";
-import SummonerSearchStore from "../../stores/SummonerSearchStore";
+import SearchActions from "../../actions/SearchActions";
+import SearchStore from "../../stores/SearchStore";
 import Util from "../../util/utils";
 import _ from "lodash";
 
@@ -15,93 +16,76 @@ import _ from "lodash";
 export default class Search extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			searchResult: SummonerSearchStore.getAll(),
-			regionSelected: "euw",
-			queryValue: "",
-			queryLengthOk: true,
-			resultSelected: false
-		};
+		this.state = SearchStore.getAll();
+
 		this._onChange = this._onChange.bind(this);
 		this._dropDownChange = this._dropDownChange.bind(this);
 		this._queryStringChange = this._queryStringChange.bind(this);
 		this._anyInputChange = this._anyInputChange.bind(this);
-		this._querySubmit = this._querySubmit.bind(this);
-		this._resetResults = this._resetResults.bind(this);
 		this._resultSubmitHandler = this._resultSubmitHandler.bind(this);
 		this._bodyClickHandler = this._bodyClickHandler.bind(this);
-		this._arrowKeyNavigation = this._arrowKeyNavigation.bind(this);
-		this._validateQueryLength = this._validateQueryLength.bind(this);
 	}
 
 	componentWillMount() {
-		SummonerSearchStore.addChangeListener(this._onChange);
+		SearchStore.addChangeListener(this._onChange);
 		this._anyInputChange = _.debounce(this._anyInputChange, 400);
 	}
 
 	componentWillUnmount() {
-		SummonerSearchStore.removeChangeListener(this._onChange);
+		SearchStore.removeChangeListener(this._onChange);
 	}
 
 	render() {
 		return (
 			<div className="search">
 				<SearchInputContainer
-					queryValue={this.state.queryValue}
+					queryValue={this.state.input.summoner}
+					regionSelected={this.state.input.region}
 					resultSelected={this.state.resultSelected}
+					searchResult={this.state.results}
 					queryStringChange={this._queryStringChange}
 					resultSubmitHandler={this._resultSubmitHandler}
 					arrowKeyNavigation={this._arrowKeyNavigation}
-					regionSelected={this.state.regionSelected}
 					dropDownChange={this._dropDownChange}
-					searchResult={this.state.searchResult}
 				/>
 				<SearchResultWrapper 
-					searchResult={this.state.searchResult}
+					searchResult={this.state.results}
 					queryLengthOk={this.state.queryLengthOk}
+					resultSelected={this.state.resultSelected}
 					onClick={this._resultSubmitHandler}
 					bodyClick={this._bodyClickHandler}
-					resultSelected={this.state.resultSelected}
 				/>
 			</div>
 		);
 	}
 
 	_onChange() {
-		this.setState({searchResult: SummonerSearchStore.getAll()});
+		this.setState(SearchStore.getAll());
 	}
 
 	_dropDownChange(value) {
-		this.setState({regionSelected: value}, this._anyInputChange);
+		SearchActions.changeRegion(value);
+		this._anyInputChange(this.state.input.summoner, value);
 	}
 
 	_queryStringChange(value) {
-		this.setState({queryValue: value}, this._anyInputChange);
+		SearchActions.changeSummoner(value);
+		this._anyInputChange(value, this.state.input.region);
 	}
 
 	// Calls to this are debounced (see lifecycle) to avoid server call overload
-	_anyInputChange() {
+	_anyInputChange(summoner, region) {
 		this._resetResults();
-		this._validateQueryLength(this.state.queryValue, () => {
-			if (this.state.queryLengthOk)
-				this._querySubmit(this.state.queryValue, this.state.regionSelected);
-		});
-	}
-
-	_querySubmit(summonerName, summonerRegion) {
-		const query = {summonerName, summonerRegion};
-		ApiRequestActions.getSummoner(query);
-		this.setState({querySent: true});
-	}
-
-	_resetResults() {
-		ApiResponseActions.updateSummonerSearchResult({});
-		this._arrowKeyNavigation(false);
-		this.setState({queryLengthOk: true});
+		if (Util.isQueryLengthOk(summoner)) {
+			SearchActions.changeQueryLength(true);
+			ApiRequestActions.getSummoner({summoner, region});
+		} else {
+			SearchActions.changeQueryLength(false);
+		}
 	}
 
 	_resultSubmitHandler() {
-		const summoner = this.state.searchResult.summoner;
+		const summoner = this.state.results.summoner;
 		this.context.router.push("/" + summoner.id + "/" + summoner.region);
 		this._resetResults();
 	}
@@ -112,11 +96,11 @@ export default class Search extends React.Component {
 	}
 
 	_arrowKeyNavigation(selected) {
-		this.setState({resultSelected: selected});
+		SearchActions.changeArrowNavigation(selected);
 	}
 
-	_validateQueryLength(queryValue, callback) {
-		this.setState({queryLengthOk: Util.isQueryLengthOk(queryValue)}, callback);
+	_resetResults() {
+		SearchActions.resetResults();
 	}
 }
 

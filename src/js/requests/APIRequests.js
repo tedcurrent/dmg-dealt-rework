@@ -9,13 +9,13 @@ var Util = require("../util/utils");
 // Requests towards the server
 var APIRequests = {
 	getSummoner: function(query) {
-		if (query.summonerName === "" || query.summonerRegion === "") {
+		if (query.summoner === "" || query.region === "") {
 			return;
 		}
 
 		NProgress.start();
 		request
-			.get("/api/getSummoner/" + query.summonerName + "/" + query.summonerRegion)
+			.get("/api/getSummoner/" + query.summoner + "/" + query.region)
 			.end(function(err, result) {
 				if (err) {
 					ApiResponseActions.summonerSearchError(err);
