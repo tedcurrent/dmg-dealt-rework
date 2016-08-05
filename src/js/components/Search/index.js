@@ -2,7 +2,6 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import { Router } from "react-router";
 import SearchInputContainer from "./SearchInputContainer";
 import SearchResultWrapper from "./SearchResultWrapper";
 import ApiRequestActions from "../../actions/ApiRequestActions";
@@ -18,10 +17,10 @@ export default class Search extends React.Component {
 		this.state = SearchStore.getAll();
 
 		this._onChange = this._onChange.bind(this);
-		this._dropDownChange = this._dropDownChange.bind(this);
-		this._queryStringChange = this._queryStringChange.bind(this);
+		this._changeRegion = this._changeRegion.bind(this);
+		this._changeSummoner = this._changeSummoner.bind(this);
 		this._search = this._search.bind(this);
-		this._resultSubmitHandler = this._resultSubmitHandler.bind(this);
+		this._submitResult = this._submitResult.bind(this);
 		this._bodyClickHandler = this._bodyClickHandler.bind(this);
 	}
 
@@ -42,16 +41,16 @@ export default class Search extends React.Component {
 					regionSelected={this.state.input.region}
 					resultSelected={this.state.resultSelected}
 					searchResult={this.state.results}
-					queryStringChange={this._queryStringChange}
-					resultSubmitHandler={this._resultSubmitHandler}
+					queryStringChange={this._changeSummoner}
+					resultSubmitHandler={this._submitResult}
 					arrowKeyNavigation={this._arrowKeyNavigation}
-					dropDownChange={this._dropDownChange}
+					dropDownChange={this._changeRegion}
 				/>
 				<SearchResultWrapper 
 					searchResult={this.state.results}
 					queryLengthOk={this.state.queryLengthOk}
 					resultSelected={this.state.resultSelected}
-					onClick={this._resultSubmitHandler}
+					onClick={this._submitResult}
 					bodyClick={this._bodyClickHandler}
 				/>
 			</div>
@@ -62,12 +61,12 @@ export default class Search extends React.Component {
 		this.setState(SearchStore.getAll());
 	}
 
-	_dropDownChange(value) {
+	_changeRegion(value) {
 		SearchActions.changeRegion(value);
 		this._search(this.state.input.summoner, value);
 	}
 
-	_queryStringChange(value) {
+	_changeSummoner(value) {
 		SearchActions.changeSummoner(value);
 		this._search(value, this.state.input.region);
 	}
@@ -83,7 +82,7 @@ export default class Search extends React.Component {
 		}
 	}
 
-	_resultSubmitHandler() {
+	_submitResult() {
 		const summoner = this.state.results.summoner;
 		this.context.router.push("/" + summoner.id + "/" + summoner.region);
 		this._resetResults();

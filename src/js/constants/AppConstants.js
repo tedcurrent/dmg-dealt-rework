@@ -1,6 +1,6 @@
 module.exports = {
 	LOL_STATIC_BASE_URL: "http://ddragon.leagueoflegends.com/cdn",
-	LOL_API_VERSION:"6.7.1",
+	LOL_API_VERSION: "6.16.1",
 	DOUBLE_KILL: "DOUBLE KILL",
 	TRIPLE_KILL: "TRIPLE KILL",
 	QUADRA_KILL: "QUADRA KILL",
