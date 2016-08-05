@@ -6,7 +6,6 @@ import { Router } from "react-router";
 import SearchInputContainer from "./SearchInputContainer";
 import SearchResultWrapper from "./SearchResultWrapper";
 import ApiRequestActions from "../../actions/ApiRequestActions";
-import ApiResponseActions from "../../actions/ApiResponseActions";
 import SearchActions from "../../actions/SearchActions";
 import SearchStore from "../../stores/SearchStore";
 import Util from "../../util/utils";
@@ -21,14 +20,14 @@ export default class Search extends React.Component {
 		this._onChange = this._onChange.bind(this);
 		this._dropDownChange = this._dropDownChange.bind(this);
 		this._queryStringChange = this._queryStringChange.bind(this);
-		this._anyInputChange = this._anyInputChange.bind(this);
+		this._search = this._search.bind(this);
 		this._resultSubmitHandler = this._resultSubmitHandler.bind(this);
 		this._bodyClickHandler = this._bodyClickHandler.bind(this);
 	}
 
 	componentWillMount() {
 		SearchStore.addChangeListener(this._onChange);
-		this._anyInputChange = _.debounce(this._anyInputChange, 400);
+		this._search = _.debounce(this._search, 400);
 	}
 
 	componentWillUnmount() {
@@ -65,16 +64,16 @@ export default class Search extends React.Component {
 
 	_dropDownChange(value) {
 		SearchActions.changeRegion(value);
-		this._anyInputChange(this.state.input.summoner, value);
+		this._search(this.state.input.summoner, value);
 	}
 
 	_queryStringChange(value) {
 		SearchActions.changeSummoner(value);
-		this._anyInputChange(value, this.state.input.region);
+		this._search(value, this.state.input.region);
 	}
 
 	// Calls to this are debounced (see lifecycle) to avoid server call overload
-	_anyInputChange(summoner, region) {
+	_search(summoner, region) {
 		this._resetResults();
 		if (Util.isQueryLengthOk(summoner)) {
 			SearchActions.changeQueryLength(true);

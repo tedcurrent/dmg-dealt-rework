@@ -1,7 +1,7 @@
 "use strict";
 
 var AppDispatcher = require("../dispatcher/AppDispatcher");
-var AppConstants = require("../constants/AppConstants");
+import { searchActionConstants } from "../constants/ActionConstants";
 var EventEmitter = require("events").EventEmitter;
 var assign = require("object-assign");
 
@@ -20,7 +20,7 @@ var _store = {
 };
 
 // Store for all summoner search related items
-var SummonerSearchStore = assign({}, EventEmitter.prototype, {
+var SearchStore = assign({}, EventEmitter.prototype, {
 	emitChange: function() {
 		this.emit(CHANGE_EVENT);
 	},
@@ -40,41 +40,41 @@ var SummonerSearchStore = assign({}, EventEmitter.prototype, {
 
 AppDispatcher.register(function(action) {
 	switch(action.actionType) {
-		case AppConstants.SUMMONER_FOUND:
+		case searchActionConstants.SUMMONER_FOUND:
 			_store.results.summoner = action.data;
 			_store.results.errors = 0;
-			SummonerSearchStore.emitChange();
+			SearchStore.emitChange();
 			break;
-		case AppConstants.SUMMONER_SEARCH_ERROR:
+		case searchActionConstants.ERROR:
 			_store.results.summoner = {};
 			++_store.results.errors;
-			SummonerSearchStore.emitChange();
+			SearchStore.emitChange();
 			break;
-		case AppConstants.SUMMONER_CHANGE_REGION:
+		case searchActionConstants.CHANGE_REGION:
 			_store.input.region = action.data;
-			SummonerSearchStore.emitChange();
+			SearchStore.emitChange();
 			break;
-		case AppConstants.SUMMONER_CHANGE_SUMMONER:
+		case searchActionConstants.CHANGE_SUMMONER:
 			_store.input.summoner = action.data;
-			SummonerSearchStore.emitChange();
+			SearchStore.emitChange();
 			break;
-		case AppConstants.SUMMONER_CHANGE_QRYLEN:
+		case searchActionConstants.CHANGE_QRYLEN:
 			_store.queryLengthOk = action.data;
-			SummonerSearchStore.emitChange();
+			SearchStore.emitChange();
 			break;
-		case AppConstants.SUMMONER_CHANGE_ARROWNAV:
+		case searchActionConstants.CHANGE_ARROWNAV:
 			_store.resultSelected = action.data;
-			SummonerSearchStore.emitChange();
+			SearchStore.emitChange();
 			break;
-		case AppConstants.SUMMONER_RESET:
+		case searchActionConstants.RESET:
 			_store.results.summoner = {};
 			_store.results.errors = 0;
 			_store.resultSelected = false;
 			_store.queryLengthOk = true;
-			SummonerSearchStore.emitChange();
+			SearchStore.emitChange();
 			break;
 		default:
 	}
 });
 
-module.exports = SummonerSearchStore;
+module.exports = SearchStore;

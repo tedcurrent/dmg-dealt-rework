@@ -1,20 +1,20 @@
 "use strict";
 
 var AppDispatcher = require("../dispatcher/AppDispatcher");
-var AppConstants = require("../constants/AppConstants");
 var APIRequests = require("../requests/APIRequests");
+import { apiActionConstants } from "../constants/ActionConstants";
 
 var ApiRequestActions = {
 	getSummoner: function(query) {
 		AppDispatcher.dispatch({
-			actionType: AppConstants.API_REQUEST
+			actionType: apiActionConstants.API_REQUEST
 		});
 		APIRequests.getSummoner(query);
 	},
 
 	getPersonalGames: function(query) {
 		AppDispatcher.dispatch({
-			actionType: AppConstants.API_REQUEST
+			actionType: apiActionConstants.API_REQUEST
 		});
 		this.cleanUpGames();
 		APIRequests.getPersonalGames(query);
@@ -22,7 +22,7 @@ var ApiRequestActions = {
 
 	getRegionalGames: function() {
 		AppDispatcher.dispatch({
-			actionType: AppConstants.API_REQUEST
+			actionType: apiActionConstants.API_REQUEST
 		});
 		this.cleanUpGames();
 		APIRequests.getRegionalGames();
@@ -30,7 +30,7 @@ var ApiRequestActions = {
 
 	cleanUpGames: function() {
 		AppDispatcher.dispatch({
-			actionType: AppConstants.GAMES_CLEAN_UP
+			actionType: apiActionConstants.GAMES_CLEAN_UP
 		});
 	}
 };

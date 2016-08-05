@@ -1,7 +1,7 @@
 "use strict";
 
 var AppDispatcher = require("../dispatcher/AppDispatcher");
-var AppConstants = require("../constants/AppConstants");
+import { apiActionConstants } from "../constants/ActionConstants";
 var EventEmitter = require("events").EventEmitter;
 var assign = require("object-assign");
 
@@ -37,7 +37,7 @@ var PersonalScoresStore = assign({}, EventEmitter.prototype, {
 
 AppDispatcher.register(function(action) {
 	switch(action.actionType) {
-		case AppConstants.GAMES_FOUND:
+		case apiActionConstants.GAMES_FOUND:
 			_results.summoner = action.data.hs.highScore.summoner;
 			_results.games = action.data.games;
 			_results.highScore = action.data.hs.highScore.game;
@@ -45,7 +45,7 @@ AppDispatcher.register(function(action) {
 			_results.errors = 0;
 			PersonalScoresStore.emitChange();
 			break;
-		case AppConstants.GAMES_SEARCH_ERROR:
+		case apiActionConstants.GAMES_SEARCH_ERROR:
 			_results.summoner = {};
 			_results.games = [];
 			_results.highScore = {};
@@ -53,7 +53,7 @@ AppDispatcher.register(function(action) {
 			++_results.errors;
 			PersonalScoresStore.emitChange();
 			break;
-		case AppConstants.GAMES_CLEAN_UP:
+		case apiActionConstants.GAMES_CLEAN_UP:
 			_results.summoner = {};
 			_results.games = [];
 			_results.highScore = {};

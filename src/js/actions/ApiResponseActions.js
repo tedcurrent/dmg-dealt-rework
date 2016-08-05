@@ -1,47 +1,47 @@
 "use strict";
 
 var AppDispatcher = require("../dispatcher/AppDispatcher");
-var AppConstants = require("../constants/AppConstants");
+import { searchActionConstants, apiActionConstants } from "../constants/ActionConstants";
 
 var ApiResponseActions = {
 	updateSummonerSearchResult: function(result) {
 		AppDispatcher.dispatch({
-			actionType: AppConstants.SUMMONER_FOUND,
+			actionType: searchActionConstants.SUMMONER_FOUND,
 			data: result
 		});
 	},
 
 	summonerSearchError: function(result) {
 		AppDispatcher.dispatch({
-			actionType: AppConstants.SUMMONER_SEARCH_ERROR,
+			actionType: searchActionConstants.ERROR,
 			data: result
 		});
 	},
 
 	updatePersonalGames: function(result) {
 		AppDispatcher.dispatch({
-			actionType: AppConstants.GAMES_FOUND,
+			actionType: apiActionConstants.GAMES_FOUND,
 			data: result
 		});
 	},
 
 	gameSearchError: function(result) {
 		AppDispatcher.dispatch({
-			actionType: AppConstants.GAMES_SEARCH_ERROR,
+			actionType: apiActionConstants.GAMES_SEARCH_ERROR,
 			data: result
 		});
 	},
 
 	updateRegionals: function(result) {
 		AppDispatcher.dispatch({
-			actionType: AppConstants.REGIONALS_FOUND,
+			actionType: apiActionConstants.REGIONALS_FOUND,
 			data: result
 		});
 	},
 
 	regionalSearchError: function(result) {
 		AppDispatcher.dispatch({
-			actionType: AppConstants.REGIONALS_ERROR,
+			actionType: apiActionConstants.REGIONALS_ERROR,
 			data: result
 		});
 	}

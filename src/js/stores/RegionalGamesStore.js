@@ -1,7 +1,7 @@
 "use strict";
 
 var AppDispatcher = require("../dispatcher/AppDispatcher");
-var AppConstants = require("../constants/AppConstants");
+import { apiActionConstants } from "../constants/ActionConstants";
 var EventEmitter = require("events").EventEmitter;
 var assign = require("object-assign");
 
@@ -34,12 +34,12 @@ var RegionalScoresStore = assign({}, EventEmitter.prototype, {
 
 AppDispatcher.register(function(action) {
 	switch(action.actionType) {
-		case AppConstants.REGIONALS_FOUND:
+		case apiActionConstants.REGIONALS_FOUND:
 			_results.games = action.data;
 			_results.errors = 0;
 			RegionalScoresStore.emitChange();
 			break;
-		case AppConstants.REGIONALS_ERROR:
+		case apiActionConstants.REGIONALS_ERROR:
 			_results.games = [];
 			++_results.errors;
 			RegionalScoresStore.emitChange();
