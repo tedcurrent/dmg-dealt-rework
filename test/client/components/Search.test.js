@@ -29,6 +29,12 @@ test("<Search />", (t) => {
 	wrapper.setState({results: {summoner: mockSummoner}});
 	t.ok(!wrapper.state().resultSelected, "Should de-select result on ArrowDown");
 
+	wrapper.setState({input: {summoner: "eskaroo", region: "euw"}});
+	t.equal(wrapper.find("#search-input").props().value, "eskaroo", "Should have simulated input value");
+
+	wrapper.setState({input: {summoner: "eskaroo", region: "eune"}});
+	t.equal(wrapper.find("select").props().value, "eune", "Should have simulated input value");
+
 	wrapper.setState({results: {summoner: false}});
 	t.ok(wrapper.find(".search-result").text("No summoner found."), "Should have text when no result");
 
