@@ -1,17 +1,17 @@
 "use strict";
 
-var AppConstants = require("../constants/AppConstants");
-var _ = require("lodash");
+import AppConstants from "../constants/AppConstants";
+import _ from "lodash";
 
 // A string capitalizer extension
 String.prototype.capitalize = function() {
-	return this.replace(/(^|\s)([a-z])/g, function(m, p1, p2) { 
+	return this.replace(/(^|\s)([a-z])/g, (m, p1, p2) => { 
 		return p1+p2.toUpperCase();
 	});
 };
 
 // A static collection of utility methods
-module.exports = {
+export default {
 	getKDAFormat: function(kills, deaths, assists) {
 		if (kills === undefined || deaths === undefined || assists === undefined)
 			return "0/0/0";
@@ -42,13 +42,13 @@ module.exports = {
 	},
 
 	cleanEmptyDamages: function(gameArray) {
-		return _.remove(gameArray, function(game) {
+		return _.remove(gameArray, (game) => {
 			return game.dmgDealt;
 		});
 	},
 
 	getHighestDamageGame: function(games) {
-		return _.maxBy(games, function(game) {
+		return _.maxBy(games, (game) => {
 			return game.dmgDealt;
 		});
 	},
@@ -82,9 +82,9 @@ module.exports = {
 	},
 
 	championSplashUrl: function(championName) {
-		var fullUrl = AppConstants.LOL_STATIC_BASE_URL + "/img/champion/splash/";
-		var championNameUrlified = this.championNameForUrl(championName);
-		var skinSelection = "_0.jpg";
+		const fullUrl = AppConstants.LOL_STATIC_BASE_URL + "/img/champion/splash/";
+		const championNameUrlified = this.championNameForUrl(championName);
+		const skinSelection = "_0.jpg";
 		return fullUrl + championNameUrlified + skinSelection;
 	},
 

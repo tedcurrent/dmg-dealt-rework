@@ -4,7 +4,7 @@ var ApiResponseActions = require("../actions/ApiResponseActions");
 var request = require("superagent");
 var NProgress = require("nprogress");
 var _ = require("lodash");
-var Util = require("../util/utils");
+import Util from "../util/utils";
 
 // Requests towards the server
 var APIRequests = {
