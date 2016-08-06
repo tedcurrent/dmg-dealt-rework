@@ -3,7 +3,7 @@
 var ApiResponseActions = require("../actions/ApiResponseActions");
 var request = require("superagent");
 var NProgress = require("nprogress");
-var _ = require("lodash");
+import isEmpty from "lodash/isempty";
 import Util from "../util/utils";
 
 // Requests towards the server
@@ -21,7 +21,7 @@ var APIRequests = {
 					ApiResponseActions.summonerSearchError(err);
 				} else {
 					var parsedResults = JSON.parse(result.text);
-					parsedResults = !_.isEmpty(parsedResults) ? parsedResults : false;
+					parsedResults = !isEmpty(parsedResults) ? parsedResults : false;
 					ApiResponseActions.updateSummonerSearchResult(parsedResults);
 				}
 				NProgress.done();
@@ -29,7 +29,7 @@ var APIRequests = {
 	},
 
 	getPersonalGames: function(query) {
-		if (_.isEmpty(query)) {
+		if (isEmpty(query)) {
 			return;
 		}
 

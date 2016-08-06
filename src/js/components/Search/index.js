@@ -8,7 +8,7 @@ import ApiRequestActions from "../../actions/ApiRequestActions";
 import SearchActions from "../../actions/SearchActions";
 import SearchStore from "../../stores/SearchStore";
 import Util from "../../util/utils";
-import _ from "lodash";
+import debounce from "lodash/debounce";
 
 // Search controller
 export default class Search extends React.Component {
@@ -19,7 +19,7 @@ export default class Search extends React.Component {
 		this._onChange = this._onChange.bind(this);
 		this._changeRegion = this._changeRegion.bind(this);
 		this._changeSummoner = this._changeSummoner.bind(this);
-		this._search = _.debounce(this._search.bind(this), 400);
+		this._search = debounce(this._search.bind(this), 400);
 		this._submitResult = this._submitResult.bind(this);
 		this._bodyClickHandler = this._bodyClickHandler.bind(this);
 	}

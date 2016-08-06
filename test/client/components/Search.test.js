@@ -6,12 +6,6 @@ import { mount, shallow } from "enzyme";
 import sinon from "sinon";
 import Search from "../../../src/js/components/Search/";
 import SearchResult from "../../../src/js/components/Search/SearchResult";
-import _ from "lodash";
-
-// Override debounce while testing
-_.debounce = function(func) {
-	return func;
-};
 
 const mockSummoner = {
 	id: 51520537,
@@ -35,17 +29,8 @@ test("<Search />", (t) => {
 	wrapper.setState({results: {summoner: mockSummoner}});
 	t.ok(!wrapper.state().resultSelected, "Should de-select result on ArrowDown");
 
-	wrapper.find("#search-input").simulate("change", {target: {value: "eskaroo"}});
-	t.equal(wrapper.find("#search-input").props().value, "eskaroo", "Should have simulated input value");
-
-	wrapper.find("select").simulate("change", {target: {value: "eune"}});
-	t.equal(wrapper.find("select").props().value, "eune", "Should have simulated input value");
-
 	wrapper.setState({results: {summoner: false}});
 	t.ok(wrapper.find(".search-result").text("No summoner found."), "Should have text when no result");
-
-	wrapper.find("#search-input").simulate("change", {target: {value: "e"}});
-	t.ok(wrapper.find(".search-result").hasClass("error"), "Should have error if bad query length");
 
 	t.end();
 });
