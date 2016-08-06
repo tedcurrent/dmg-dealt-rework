@@ -5,7 +5,7 @@ import ErrorPage from "../Error";
 import PersonalContainer from "./PersonalContainer";
 import ApiRequestActions from "../../actions/ApiRequestActions";
 import PersonalGamesStore from "../../stores/PersonalGamesStore";
-import _ from "lodash";
+import isEmpty from "lodash/isempty";
 
 // Controller for the PersonalGames page
 export default class PersonalGamesController extends React.Component {
@@ -34,7 +34,7 @@ export default class PersonalGamesController extends React.Component {
 	render() {
 		const results = this.state.gameResults;
 
-		if (results.errors === 0 && !_.isEmpty(results.summoner)) {
+		if (results.errors === 0 && !isEmpty(results.summoner)) {
 			return this._renderGames(this.state.gameResults);
 		} else if (results.errors) {
 			return this._renderError();

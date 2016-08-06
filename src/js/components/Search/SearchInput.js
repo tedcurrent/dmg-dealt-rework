@@ -1,7 +1,7 @@
 "use strict";
 
 import React from "react";
-import _ from "lodash";
+import isEmpty from "lodash/isempty";
 
 // Search input component with mouse and keyboard handlers
 export default function SearchInput(props) {
@@ -30,7 +30,7 @@ export default function SearchInput(props) {
 	};
 
 	const _hasSummoner = (result) => {
-		return result && !_.isEmpty(result);
+		return result && !isEmpty(result);
 	};
 
 	return (

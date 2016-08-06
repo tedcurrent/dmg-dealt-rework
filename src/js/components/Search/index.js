@@ -19,14 +19,13 @@ export default class Search extends React.Component {
 		this._onChange = this._onChange.bind(this);
 		this._changeRegion = this._changeRegion.bind(this);
 		this._changeSummoner = this._changeSummoner.bind(this);
-		this._search = this._search.bind(this);
+		this._search = _.debounce(this._search.bind(this), 400);
 		this._submitResult = this._submitResult.bind(this);
 		this._bodyClickHandler = this._bodyClickHandler.bind(this);
 	}
 
 	componentWillMount() {
 		SearchStore.addChangeListener(this._onChange);
-		this._search = _.debounce(this._search, 400);
 	}
 
 	componentWillUnmount() {

@@ -2,7 +2,7 @@
 
 import React from "react";
 import SearchResultThumbnail from "./SearchResultThumbnail";
-import _ from "lodash";
+import isEmpty from "lodash/isempty";
 
 export default function SearchResult({summoner, onClick, resultSelected}) {
 	const _renderResult = () => {
@@ -22,7 +22,7 @@ export default function SearchResult({summoner, onClick, resultSelected}) {
 
 	return (
 		<div>
-			{_.isEmpty(summoner) ? "" : _renderResult()}
+			{isEmpty(summoner) ? "" : _renderResult()}
 		</div>
 	);
 }

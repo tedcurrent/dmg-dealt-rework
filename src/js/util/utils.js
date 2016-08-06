@@ -1,7 +1,9 @@
 "use strict";
 
 import AppConstants from "../constants/AppConstants";
-import _ from "lodash";
+import remove from "lodash/remove";
+import maxBy from "lodash/maxBy";
+import orderBy from "lodash/orderBy";
 
 // A string capitalizer extension
 String.prototype.capitalize = function() {
@@ -42,19 +44,19 @@ export default {
 	},
 
 	cleanEmptyDamages: function(gameArray) {
-		return _.remove(gameArray, (game) => {
+		return remove(gameArray, (game) => {
 			return game.dmgDealt;
 		});
 	},
 
 	getHighestDamageGame: function(games) {
-		return _.maxBy(games, (game) => {
+		return maxBy(games, (game) => {
 			return game.dmgDealt;
 		});
 	},
 
 	sortGamesByDmg: function(games) {
-		return _.orderBy(games, ["dmgDealt"], ["desc"]);
+		return orderBy(games, ["dmgDealt"], ["desc"]);
 	},
 
 	buildProfileIconUrl: function(iconId) {
