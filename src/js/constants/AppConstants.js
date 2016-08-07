@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 	LOL_STATIC_BASE_URL: "http://ddragon.leagueoflegends.com/cdn",
 	LOL_API_VERSION: "6.16.1",
 	DOUBLE_KILL: "DOUBLE KILL",

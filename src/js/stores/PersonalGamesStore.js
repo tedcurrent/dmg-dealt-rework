@@ -1,13 +1,12 @@
 "use strict";
 
-var AppDispatcher = require("../dispatcher/AppDispatcher");
+import AppDispatcher from "../dispatcher/AppDispatcher";
 import { apiActionConstants } from "../constants/ActionConstants";
-var EventEmitter = require("events").EventEmitter;
-var assign = require("object-assign");
+import { EventEmitter } from "events";
 
-var CHANGE_EVENT = "change";
+const CHANGE_EVENT = "change";
 
-var _results = {
+let _results = {
 	summoner: {},
 	games: [],
 	highScore: {},
@@ -16,26 +15,28 @@ var _results = {
 };
 
 // Store for all individual score related items
-var PersonalScoresStore = assign({}, EventEmitter.prototype, {
-	emitChange: function() {
+class PersonalScoresStore extends EventEmitter {
+	emitChange() {
 		this.emit(CHANGE_EVENT);
-	},
+	}
 
-	addChangeListener: function(callback) {
+	addChangeListener(callback) {
 		this.on(CHANGE_EVENT, callback);
-	},
+	}
 
-	removeChangeListener: function(callback) {
+	removeChangeListener(callback) {
 		this.removeListener(CHANGE_EVENT, callback);
-	},
+	}
 
-	getAll: function() {
+	getAll() {
 		return _results;
 	}
 
-});
+}
 
-AppDispatcher.register(function(action) {
+const personalScoresStore = new PersonalScoresStore();
+
+AppDispatcher.register((action) => {
 	switch(action.actionType) {
 		case apiActionConstants.GAMES_FOUND:
 			_results.summoner = action.data.hs.highScore.summoner;
@@ -43,7 +44,7 @@ AppDispatcher.register(function(action) {
 			_results.highScore = action.data.hs.highScore.game;
 			_results.newHighScore = action.data.hs.newHighScore;
 			_results.errors = 0;
-			PersonalScoresStore.emitChange();
+			personalScoresStore.emitChange();
 			break;
 		case apiActionConstants.GAMES_SEARCH_ERROR:
 			_results.summoner = {};
@@ -51,7 +52,7 @@ AppDispatcher.register(function(action) {
 			_results.highScore = {};
 			_results.newHighScore = false;
 			++_results.errors;
-			PersonalScoresStore.emitChange();
+			personalScoresStore.emitChange();
 			break;
 		case apiActionConstants.GAMES_CLEAN_UP:
 			_results.summoner = {};
@@ -64,4 +65,4 @@ AppDispatcher.register(function(action) {
 	}
 });
 
-module.exports = PersonalScoresStore;
+export default personalScoresStore;

@@ -1,12 +1,11 @@
 "use strict";
 
-var AppDispatcher = require("../dispatcher/AppDispatcher");
+import AppDispatcher from "../dispatcher/AppDispatcher";
 import { searchActionConstants } from "../constants/ActionConstants";
-var EventEmitter = require("events").EventEmitter;
-var assign = require("object-assign");
+import { EventEmitter } from "events";
 
-var CHANGE_EVENT = "change";
-var _store = {
+const CHANGE_EVENT = "change";
+let _store = {
 	results: {
 		summoner: {},
 		errors: 0
@@ -20,61 +19,63 @@ var _store = {
 };
 
 // Store for all summoner search related items
-var SearchStore = assign({}, EventEmitter.prototype, {
-	emitChange: function() {
+class SearchStore extends EventEmitter {
+	emitChange() {
 		this.emit(CHANGE_EVENT);
-	},
+	}
 
-	addChangeListener: function(callback) {
+	addChangeListener(callback) {
 		this.on(CHANGE_EVENT, callback);
-	},
+	}
 
-	removeChangeListener: function(callback) {
+	removeChangeListener(callback) {
 		this.removeListener(CHANGE_EVENT, callback);
-	},
+	}
 
-	getAll: function() {
+	getAll() {
 		return _store;
 	}
-});
+}
 
-AppDispatcher.register(function(action) {
+const searchStore = new SearchStore();
+
+AppDispatcher.register((action) => {
 	switch(action.actionType) {
 		case searchActionConstants.SUMMONER_FOUND:
 			_store.results.summoner = action.data;
 			_store.results.errors = 0;
-			SearchStore.emitChange();
+			searchStore.emitChange();
 			break;
 		case searchActionConstants.ERROR:
 			_store.results.summoner = {};
 			++_store.results.errors;
-			SearchStore.emitChange();
+			searchStore.emitChange();
 			break;
 		case searchActionConstants.CHANGE_REGION:
 			_store.input.region = action.data;
-			SearchStore.emitChange();
+			searchStore.emitChange();
 			break;
 		case searchActionConstants.CHANGE_SUMMONER:
 			_store.input.summoner = action.data;
-			SearchStore.emitChange();
+			searchStore.emitChange();
 			break;
 		case searchActionConstants.CHANGE_QRYLEN:
 			_store.queryLengthOk = action.data;
-			SearchStore.emitChange();
+			searchStore.emitChange();
 			break;
 		case searchActionConstants.CHANGE_ARROWNAV:
 			_store.resultSelected = action.data;
-			SearchStore.emitChange();
+			searchStore.emitChange();
 			break;
 		case searchActionConstants.RESET:
 			_store.results.summoner = {};
 			_store.results.errors = 0;
 			_store.resultSelected = false;
 			_store.queryLengthOk = true;
-			SearchStore.emitChange();
+			searchStore.emitChange();
 			break;
 		default:
 	}
 });
 
-module.exports = SearchStore;
+export default searchStore;

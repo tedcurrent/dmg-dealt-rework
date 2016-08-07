@@ -13,14 +13,14 @@ String.prototype.capitalize = function() {
 };
 
 // A static collection of utility methods
-export default {
-	getKDAFormat: function(kills, deaths, assists) {
+class Utils {
+	getKDAFormat(kills, deaths, assists) {
 		if (kills === undefined || deaths === undefined || assists === undefined)
 			return "0/0/0";
 		return kills + "/" + deaths + "/" + assists;
-	},
+	}
 
-	getMultikillFormat: function(multiKillNumber) {
+	getMultikillFormat(multiKillNumber) {
 		switch (multiKillNumber) {
 			case 2:
 				return AppConstants.DOUBLE_KILL;
@@ -33,37 +33,37 @@ export default {
 			default:
 				return AppConstants.SINGLE_KILL;
 		}
-	},
+	}
 
-	getChartDamages: function(stats) {
+	getChartDamages(stats) {
 		return [
 			{name: AppConstants.DAMAGE_PHYSICAL, y: stats.physicalDamage || 0},
 			{name: AppConstants.DAMAGE_MAGIC, y: stats.magicDamage || 0},
 			{name: AppConstants.DAMAGE_TRUE, y: stats.trueDamage || 0}
 		];
-	},
+	}
 
-	cleanEmptyDamages: function(gameArray) {
+	cleanEmptyDamages(gameArray) {
 		return remove(gameArray, (game) => {
 			return game.dmgDealt;
 		});
-	},
+	}
 
-	getHighestDamageGame: function(games) {
+	getHighestDamageGame(games) {
 		return maxBy(games, (game) => {
 			return game.dmgDealt;
 		});
-	},
+	}
 
-	sortGamesByDmg: function(games) {
+	sortGamesByDmg(games) {
 		return orderBy(games, ["dmgDealt"], ["desc"]);
-	},
+	}
 
-	buildProfileIconUrl: function(iconId) {
+	buildProfileIconUrl(iconId) {
 		return AppConstants.LOL_STATIC_BASE_URL + "/" + AppConstants.LOL_API_VERSION + "/img/profileicon/" + iconId + ".png";
-	},
+	}
 
-	championNameForUrl: function(championName) {
+	championNameForUrl(championName) {
 		switch (championName) {
 			case "Kog'Maw":
 				return "KogMaw";
@@ -81,16 +81,18 @@ export default {
 					.capitalize()
 					.replace(" ", "");
 		}
-	},
+	}
 
-	championSplashUrl: function(championName) {
+	championSplashUrl(championName) {
 		const fullUrl = AppConstants.LOL_STATIC_BASE_URL + "/img/champion/splash/";
 		const championNameUrlified = this.championNameForUrl(championName);
 		const skinSelection = "_0.jpg";
 		return fullUrl + championNameUrlified + skinSelection;
-	},
+	}
 
-	isQueryLengthOk: function(query) {
+	isQueryLengthOk(query) {
 		return !(query.length < AppConstants.QUERY_MIN_LENGTH && query.length !== 0);
 	}
-};
+}
+
+export default new Utils();
