@@ -1,18 +1,14 @@
 "use strict";
 
-var React = require("react");
-var GameStatsChartArea = require("./GameStatsChartArea");
-var GameStatsDetailArea = require("./GameStatsDetailArea");
+import React from "react";
+import GameStatsChartArea from "./GameStatsChartArea";
+import GameStatsDetailArea from "./GameStatsDetailArea";
 
-var GameStatsAreas = React.createClass({
-	render: function() {
-		return (
-			<div className="game-stats-areas">
-				<GameStatsChartArea game={this.props.game} />
-				<GameStatsDetailArea stats={this.props.game.stats} />
-			</div>
-		);
-	}
-});
-
-module.exports = GameStatsAreas;
+export default function GameStatsAreas({game}) {
+	return (
+		<div className="game-stats-areas">
+			<GameStatsChartArea game={game} />
+			<GameStatsDetailArea stats={game.stats} />
+		</div>
+	);
+}

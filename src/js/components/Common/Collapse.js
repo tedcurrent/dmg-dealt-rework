@@ -1,23 +1,19 @@
 "use strict";
 
-var React = require("react");
-var ReactCSSTransitionGroup = require("react-addons-css-transition-group");
-var shortid = require("shortid");
+import React from "react";
+import ReactCSSTransitionGroup from "react-addons-css-transition-group";
+import shortid from "shortid";
 
-var Collapse = React.createClass({
-	render: function() {
-		return (
-			<ReactCSSTransitionGroup 
-				transitionName="animate-collapse"
-				transitionEnterTimeout={250}
-				transitionLeaveTimeout={250}
-			>
-				<div className="collapse" key={shortid.generate()}>
-					{this.props.children}
-				</div>
-			</ReactCSSTransitionGroup>
-		);
-	}
-});
-
-module.exports = Collapse;
+export default function Collapse(props) {
+	return (
+		<ReactCSSTransitionGroup 
+			transitionName="animate-collapse"
+			transitionEnterTimeout={250}
+			transitionLeaveTimeout={250}
+		>
+			<div className="collapse" key={shortid.generate()}>
+				{props.children}
+			</div>
+		</ReactCSSTransitionGroup>
+	);
+}

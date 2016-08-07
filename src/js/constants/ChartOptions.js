@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 	GLOBAL_OPTIONS: {
 		chart: {
 			style: {

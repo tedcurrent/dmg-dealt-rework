@@ -1,38 +1,38 @@
 "use strict";
 
-var AppDispatcher = require("../dispatcher/AppDispatcher");
-var AppConstants = require("../constants/AppConstants");
-var APIRequests = require("../requests/APIRequests");
+import AppDispatcher from "../dispatcher/AppDispatcher";
+import APIRequests from "../requests/APIRequests";
+import { apiActionConstants } from "../constants/ActionConstants";
 
-var ApiRequestActions = {
-	getSummoner: function(query) {
+class ApiRequestActions {
+	getSummoner(query) {
 		AppDispatcher.dispatch({
-			actionType: AppConstants.API_REQUEST
+			actionType: apiActionConstants.API_REQUEST
 		});
 		APIRequests.getSummoner(query);
-	},
+	}
 
-	getPersonalGames: function(query) {
+	getPersonalGames(query) {
 		AppDispatcher.dispatch({
-			actionType: AppConstants.API_REQUEST
+			actionType: apiActionConstants.API_REQUEST
 		});
 		this.cleanUpGames();
 		APIRequests.getPersonalGames(query);
-	},
+	}
 
-	getRegionalGames: function() {
+	getRegionalGames() {
 		AppDispatcher.dispatch({
-			actionType: AppConstants.API_REQUEST
+			actionType: apiActionConstants.API_REQUEST
 		});
 		this.cleanUpGames();
 		APIRequests.getRegionalGames();
-	},
+	}
 
-	cleanUpGames: function() {
+	cleanUpGames() {
 		AppDispatcher.dispatch({
-			actionType: AppConstants.GAMES_CLEAN_UP
+			actionType: apiActionConstants.GAMES_CLEAN_UP
 		});
 	}
-};
+}
 
-module.exports = ApiRequestActions;
+export default new ApiRequestActions();

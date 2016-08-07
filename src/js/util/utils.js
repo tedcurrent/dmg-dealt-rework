@@ -1,24 +1,26 @@
 "use strict";
 
-var AppConstants = require("../constants/AppConstants");
-var _ = require("lodash");
+import AppConstants from "../constants/AppConstants";
+import remove from "lodash/remove";
+import maxBy from "lodash/maxBy";
+import orderBy from "lodash/orderBy";
 
 // A string capitalizer extension
 String.prototype.capitalize = function() {
-	return this.replace(/(^|\s)([a-z])/g, function(m, p1, p2) { 
+	return this.replace(/(^|\s)([a-z])/g, (m, p1, p2) => { 
 		return p1+p2.toUpperCase();
 	});
 };
 
 // A static collection of utility methods
-module.exports = {
-	getKDAFormat: function(kills, deaths, assists) {
+class Utils {
+	getKDAFormat(kills, deaths, assists) {
 		if (kills === undefined || deaths === undefined || assists === undefined)
 			return "0/0/0";
 		return kills + "/" + deaths + "/" + assists;
-	},
+	}
 
-	getMultikillFormat: function(multiKillNumber) {
+	getMultikillFormat(multiKillNumber) {
 		switch (multiKillNumber) {
 			case 2:
 				return AppConstants.DOUBLE_KILL;
@@ -31,37 +33,37 @@ module.exports = {
 			default:
 				return AppConstants.SINGLE_KILL;
 		}
-	},
+	}
 
-	getChartDamages: function(stats) {
+	getChartDamages(stats) {
 		return [
 			{name: AppConstants.DAMAGE_PHYSICAL, y: stats.physicalDamage || 0},
 			{name: AppConstants.DAMAGE_MAGIC, y: stats.magicDamage || 0},
 			{name: AppConstants.DAMAGE_TRUE, y: stats.trueDamage || 0}
 		];
-	},
+	}
 
-	cleanEmptyDamages: function(gameArray) {
-		return _.remove(gameArray, function(game) {
+	cleanEmptyDamages(gameArray) {
+		return remove(gameArray, (game) => {
 			return game.dmgDealt;
 		});
-	},
+	}
 
-	getHighestDamageGame: function(games) {
-		return _.maxBy(games, function(game) {
+	getHighestDamageGame(games) {
+		return maxBy(games, (game) => {
 			return game.dmgDealt;
 		});
-	},
+	}
 
-	sortGamesByDmg: function(games) {
-		return _.orderBy(games, ["dmgDealt"], ["desc"]);
-	},
+	sortGamesByDmg(games) {
+		return orderBy(games, ["dmgDealt"], ["desc"]);
+	}
 
-	buildProfileIconUrl: function(iconId) {
+	buildProfileIconUrl(iconId) {
 		return AppConstants.LOL_STATIC_BASE_URL + "/" + AppConstants.LOL_API_VERSION + "/img/profileicon/" + iconId + ".png";
-	},
+	}
 
-	championNameForUrl: function(championName) {
+	championNameForUrl(championName) {
 		switch (championName) {
 			case "Kog'Maw":
 				return "KogMaw";
@@ -79,16 +81,18 @@ module.exports = {
 					.capitalize()
 					.replace(" ", "");
 		}
-	},
+	}
 
-	championSplashUrl: function(championName) {
-		var fullUrl = AppConstants.LOL_STATIC_BASE_URL + "/img/champion/splash/";
-		var championNameUrlified = this.championNameForUrl(championName);
-		var skinSelection = "_0.jpg";
+	championSplashUrl(championName) {
+		const fullUrl = AppConstants.LOL_STATIC_BASE_URL + "/img/champion/splash/";
+		const championNameUrlified = this.championNameForUrl(championName);
+		const skinSelection = "_0.jpg";
 		return fullUrl + championNameUrlified + skinSelection;
-	},
+	}
 
-	isQueryLengthOk: function(query) {
+	isQueryLengthOk(query) {
 		return !(query.length < AppConstants.QUERY_MIN_LENGTH && query.length !== 0);
 	}
-};
+}
+
+export default new Utils();

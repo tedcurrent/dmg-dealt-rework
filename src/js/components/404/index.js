@@ -1,18 +1,8 @@
 "use strict";
 
-var React = require("react");
-var ErrorPage = require("../Error");
+import React from "react";
+import ErrorPage from "../Error";
 
-// NotFoundPage controller
-var NotFoundPage = React.createClass({
-	render: function() {
-		return (
-			<ErrorPage
-				errorNumber={404}
-				errorMessage={"Page Not Found"}
-			/>
-		);
-	}
-});
-
-module.exports = NotFoundPage;
+export default function NotFoundPage(props) {
+	return <ErrorPage errorNumber={404} errorMessage={"Page Not Found"} />;
+}

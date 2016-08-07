@@ -7,30 +7,30 @@ export default function mockApiRegionalResults(overrides) {
 				_id: "global",
 				highScore: {
 					game: {
-						summoner: {
-						id: 51520537,
-						},
 					    gameId: 2337165087,
 					    dmgDealt: 2,
 					    stats: {
 					    	timePlayed: 2312
 					    }
-					}
+					},
+					summoner: {
+						id: 51520537,
+					},
 			  	}
 			},
 			{
 				_id: "euw",
 				highScore: {
 					game: {
-						summoner: {
-							id: 51520537,
-						},
 					    gameId: 2337165087,
 					    dmgDealt: 2,
 					    stats: {
 					    	timePlayed: 2312
 					    }
-					}
+					},
+					summoner: {
+						id: 51520537,
+					},
 			  	},
 			}
 		],

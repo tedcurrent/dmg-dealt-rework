@@ -67,8 +67,10 @@ test("<GameStatsDetailArea />", (t) => {
 
 test("<GameStatsDamageChart />", (t) => {
 	const wrapper = shallow(<GameStatsDamageChart chartName={"chart-dummy"} stats={props.game.stats} />);
+	const chart = wrapper.find("HighChart");
 
-	t.ok(wrapper.find("exports[container='chart-dummy']").length, "Should find container with chart name");
+	t.ok(chart.length, "Should contain a <HighChart /> component");
+	t.equal(chart.props().container, "chart-dummy", "Should find container with chart name");
 
 	t.end();
 });

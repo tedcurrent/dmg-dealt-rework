@@ -1,12 +1,12 @@
 "use strict";
 
-var React = require("react");
-var Highcharts = require("highcharts");
-var ChartOptions = require("../../constants/ChartOptions");
+import React from "react";
+import Highcharts from "highcharts";
+import ChartOptions from "../../constants/ChartOptions";
 
-// A highchart generator that can be used for any chart
-module.exports = React.createClass({
-	componentDidMount: function() {
+// A HC generator that can be used for any chart
+export default class HighChart extends React.Component {
+	componentDidMount() {
 		// Set global options
 		Highcharts.setOptions(ChartOptions.GLOBAL_OPTIONS);
 		
@@ -20,13 +20,13 @@ module.exports = React.createClass({
 			this.props.container,
 			this.props.options
 		);
-	},
+	}
 
-	componentWillUnmount: function() {
+	componentWillUnmount() {
 		this.chart.destroy();
-	},
+	}
 
-	render: function() {
+	render() {
 		return React.createElement("div", { id: this.props.container });
 	}
-});
+}

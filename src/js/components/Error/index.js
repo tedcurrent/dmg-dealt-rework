@@ -1,20 +1,16 @@
 "use strict";
 
-var React = require("react");
+import React from "react";
 
 // Rendered upon errors (eg. 404)
-var ErrorPage = React.createClass({
-	render: function() {
-		return (
-			<div className="splash">
-				<div className="text-container">
-					<h1>{this.props.errorNumber}</h1>
-					<h2>{this.props.errorMessage}</h2>
-					<h2>{this.props.errorDetail}</h2>
-				</div>
+export default function ErrorPage(props) {
+	return (
+		<div className="splash">
+			<div className="text-container">
+				<h1>{props.errorNumber}</h1>
+				<h2>{props.errorMessage}</h2>
+				<h2>{props.errorDetail}</h2>
 			</div>
-		);
-	}
-});
-
-module.exports = ErrorPage;
+		</div>
+	);
+}

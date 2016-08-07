@@ -37,7 +37,8 @@ test("<RegionContainer />", (t) => {
 });
 
 test("<RegionalGame />", (t) => {
-	const wrapper = shallow(<RegionalGame game={mockApiRegionalResults().games[0]}/>);
+	const game = mockApiRegionalResults().games[0];
+	const wrapper = shallow(<RegionalGame highScore={game.highScore} region={game._id} />);
 
 	t.ok(wrapper.find("GameWrapper").length, "Should render <GameWrapper />"); 
 	t.ok(wrapper.find("GameWrapper").length, "Should render <SummonerInfo />"); 
