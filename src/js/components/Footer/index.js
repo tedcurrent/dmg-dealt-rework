@@ -1,21 +1,16 @@
 "use strict";
 
-var React = require("react");
+import React from "react";
 
 // Footer
-var Footer = React.createClass({
-	render: function() {
-		var dateNow = new Date();
-		return (
-			<footer>
-				<span>
-					&copy;
-					<a href="mailto:teemu.virta@pp2.inet.fi" target="_top"> Teemu Virta </a>
-					{dateNow.getFullYear()}
-				</span>
-			</footer>
-		);
-	}
-});
-
-module.exports = Footer;
+export default function Footer(props) {
+	return (
+		<footer>
+			<span>
+				&copy;
+				<a href="mailto:teemu.virta@pp2.inet.fi" target="_top"> Teemu Virta </a>
+				<span className="year">{new Date().getFullYear()}</span>
+			</span>
+		</footer>
+	);
+}

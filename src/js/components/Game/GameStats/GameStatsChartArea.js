@@ -1,20 +1,16 @@
 "use strict";
 
-var React = require("react");
-var GameStatsDamageChart = require("./GameStatsDamageChart");
-var shortid = require("shortid");
+import React from "react";
+import GameStatsDamageChart from "./GameStatsDamageChart";
+import shortid from "shortid";
 
-var GameStatsChartArea = React.createClass({
-	render: function() {
-		return (
-			<div className="game-stats-chart-area">
-				<GameStatsDamageChart 
-					stats={this.props.game.stats} 
-					chartName={"chart-" + shortid.generate()} 
-				/>
-			</div>
-		);
-	}
-});
-
-module.exports = GameStatsChartArea;
+export default function GameStatsChartArea({game: {stats}}) {
+	return (
+		<div className="game-stats-chart-area">
+			<GameStatsDamageChart 
+				stats={stats} 
+				chartName={"chart-" + shortid.generate()} 
+			/>
+		</div>
+	);
+}

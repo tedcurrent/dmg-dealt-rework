@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 	GLOBAL_OPTIONS: {
 		chart: {
 			style: {
@@ -23,6 +23,10 @@ module.exports = {
 
 		title: {
 			text: ""
+		},
+
+		tooltip: {
+			backgroundColor: "rgba(242, 240, 222, 0.85)"
 		}
 	},
 
@@ -33,7 +37,8 @@ module.exports = {
 			spacingTop: 0,
 			spacingBottom: 0,
 			spacingLeft: 0,
-			spacingRight: 0
+			spacingRight: 0,
+			marginLeft: 0
 		},
 
 		colors: ["#965daa", "#493972", "#cd91d6"],

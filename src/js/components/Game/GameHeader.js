@@ -1,26 +1,18 @@
 "use strict";
 
-var React = require("react");
-var GameBackground = require("./GameBackground");
-var GameOverlay = require("./GameOverlay");
-var GameHeaderContainer = require("./GameHeaderContainer");
+import React from "react";
+import GameBackground from "./GameBackground";
+import GameOverlay from "./GameOverlay";
+import GameHeaderContainer from "./GameHeaderContainer";
 
-var GameHeader = React.createClass({
-	render: function() {
-		return (
-			<div className={this.props.gameClass} onClick={this._clickHandler}>
-				{this.props.children}
-				<GameHeaderContainer game={this.props.game} />
-				<GameBackground champion={this.props.game.champion} />
-				<GameOverlay statsOpen={this.props.statsOpen} />
-			</div>
-			
-		);
-	},
-
-	_clickHandler: function() {
-		this.props.onClick();
-	}
-});
-
-module.exports = GameHeader;
+export default function GameHeader(props) {
+	return (
+		<div className={props.gameClass} onClick={props.onClick}>
+			{props.children}
+			<GameHeaderContainer game={props.game} />
+			<GameBackground champion={props.game.champion} />
+			<GameOverlay statsOpen={props.statsOpen} />
+		</div>
+		
+	);
+}

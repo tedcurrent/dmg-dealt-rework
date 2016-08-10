@@ -1,24 +1,27 @@
 "use strict";
 
-var React = require("react");
-var GameHeader = require("./GameHeader");
-var GameStats = require("./GameStats/");
-var Collapse = require("../Common/Collapse");
+import React from "react";
+import GameHeader from "./GameHeader";
+import GameStats from "./GameStats/";
+import Collapse from "../Common/Collapse";
 
-// A wrapper for the game header and the stats view. Also acts as a controller for showing stats
-var GameWrapper = React.createClass({
-	getInitialState: function() {
-		return {
+// A wrapper for the game header and the stats view
+export default class GameWrapper extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
 			statsOpen: false
 		};
-	},
+		this._headerClickHandler = this._headerClickHandler.bind(this);
+		this._showStats = this._showStats.bind(this);
+	}
 
-	componentWillReceiveProps: function(nextProps) {
+	componentWillReceiveProps(nextProps) {
 		if (this.state.statsOpen)
 			this.setState({statsOpen: false});
-	},
+	}
 
-	render: function() {
+	render() {
 		return (
 			<div className="game-wrapper">
 				<GameHeader 
@@ -34,16 +37,14 @@ var GameWrapper = React.createClass({
 				</Collapse>
 			</div>
 		);
-	},
+	}
 
-	_headerClickHandler: function() {
+	_headerClickHandler() {
 		this.setState({statsOpen: !this.state.statsOpen});
-	},
+	}
 
-	_showStats: function() {
+	_showStats() {
 		if (this.state.statsOpen)
 			return <GameStats game={this.props.game} />;
 	}
-});
-
-module.exports = GameWrapper;
+}

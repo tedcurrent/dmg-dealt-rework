@@ -1,51 +1,52 @@
 "use strict";
 
-var AppDispatcher = require("../dispatcher/AppDispatcher");
-var AppConstants = require("../constants/AppConstants");
-var EventEmitter = require("events").EventEmitter;
-var assign = require("object-assign");
+import AppDispatcher from "../dispatcher/AppDispatcher";
+import { apiActionConstants } from "../constants/ActionConstants";
+import { EventEmitter } from "events";
 
-var CHANGE_EVENT = "change";
+const CHANGE_EVENT = "change";
 
-var _results = {
+let _results = {
 	games: [],
 	errors: 0
 };
 
 // Store for all regional score related items
-var RegionalScoresStore = assign({}, EventEmitter.prototype, {
-	emitChange: function() {
+class RegionalScoresStore extends EventEmitter {
+	emitChange() {
 		this.emit(CHANGE_EVENT);
-	},
+	}
 
-	addChangeListener: function(callback) {
+	addChangeListener(callback) {
 		this.on(CHANGE_EVENT, callback);
-	},
+	}
 
-	removeChangeListener: function(callback) {
+	removeChangeListener(callback) {
 		this.removeListener(CHANGE_EVENT, callback);
-	},
+	}
 
-	getAll: function() {
+	getAll() {
 		return _results;
 	}
 
-});
+}
 
-AppDispatcher.register(function(action) {
+const regionalScoresStore = new RegionalScoresStore();
+
+AppDispatcher.register((action) => {
 	switch(action.actionType) {
-		case AppConstants.REGIONALS_FOUND:
+		case apiActionConstants.REGIONALS_FOUND:
 			_results.games = action.data;
 			_results.errors = 0;
-			RegionalScoresStore.emitChange();
+			regionalScoresStore.emitChange();
 			break;
-		case AppConstants.REGIONALS_ERROR:
+		case apiActionConstants.REGIONALS_ERROR:
 			_results.games = [];
 			++_results.errors;
-			RegionalScoresStore.emitChange();
+			regionalScoresStore.emitChange();
 			break;
 		default:
 	}
 });
 
-module.exports = RegionalScoresStore;
+export default regionalScoresStore;

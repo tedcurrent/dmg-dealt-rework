@@ -1,22 +1,18 @@
 "use strict";
 
-var React = require("react");
-var Header = require("../Header/");
-var Footer = require("../Footer/");
+import React from "react";
+import Header from "../Header/";
+import Footer from "../Footer/";
 
 // The application wrapper component
-var App = React.createClass({
-	render: function() {
-		return (
-			<div className="wrapper">
-				<Header />
-				<main>
-					{this.props.children}
-				</main>
-				<Footer />
-			</div>
-		);
-	}
-});
-
-module.exports = App;
+export default function App(props) {
+	return (
+		<div className="wrapper">
+			<Header />
+			<main>
+				{props.children}
+			</main>
+			<Footer />
+		</div>
+	);
+}

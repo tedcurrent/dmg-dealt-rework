@@ -1,16 +1,12 @@
 "use strict";
 
-var React = require("react");
-var GameWrapper = require("../Game");
+import React from "react";
+import GameWrapper from "../Game";
 
-var GameListItem = React.createClass({
-	render: function() {
-		return (
-			<li>
-				<GameWrapper game={this.props.game} gameClass="game-header" />
-			</li>
-		);
-	}
-});
-
-module.exports = GameListItem;
+export default function GameListItem({game}){
+	return (
+		<li>
+			<GameWrapper game={game} gameClass="game-header" />
+		</li>
+	);
+}

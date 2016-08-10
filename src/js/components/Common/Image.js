@@ -1,42 +1,46 @@
 "use strict";
 
-var React = require("react");
-var ReactDOM = require("react-dom");
+import React from "react";
+import ReactDOM from "react-dom";
 
-// A common component that should be used for every image
-var Image = React.createClass({
-	getInitialState: function() {
-		return {
+// A common component for images
+export default class Image extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
 			loaded: false,
 			errored: false
 		};
-	},
+		this._changeToDefault = this._changeToDefault.bind(this);
+		this._onImageLoad = this._onImageLoad.bind(this);
+	}
 
-	onImageLoad: function() {
-		if (this.isMounted()) {
-			this.setState({loaded: true});
-		}
-	},
-
-	componentDidMount: function() {
-		var imgTag = ReactDOM.findDOMNode(this.refs.img);
-		var imgSrc = imgTag.getAttribute("src");
-		var img = new window.Image();
-		img.onload = this.onImageLoad;
+	componentDidMount() {
+		const imgTag = ReactDOM.findDOMNode(this.refs.img);
+		const imgSrc = imgTag.getAttribute("src");
+		const img = new window.Image();
 		img.src = imgSrc;
-	},
+	}
 
-	render: function() {
-		var imgClass = !this.state.loaded ? "image" : "image loaded";
-		var imgSrc = !this.state.errored ? this.props.src : this.props.defaultImage;
+	render() {
+		const imgClass = !this.state.loaded ? "image" : "image loaded";
+		const imgSrc = !this.state.errored ? this.props.src : this.props.defaultImage;
 		return (
-			<img onError={this._changeToDefault} ref="img" src={imgSrc} alt={this.props.alt} className={imgClass} />
+			<img 
+				ref="img" src={imgSrc}
+				alt={this.props.alt}
+				className={imgClass}
+				onError={this._changeToDefault}
+				onLoad={this._onImageLoad}
+			/>
 		);
-	},
+	}
 
-	_changeToDefault: function() {
+	_changeToDefault() {
 		this.setState({errored: true});
 	}
-});
 
-module.exports = Image;
+	_onImageLoad() {
+		this.setState({loaded: true});
+	}
+}

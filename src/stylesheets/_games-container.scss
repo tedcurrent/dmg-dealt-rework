@@ -23,6 +23,7 @@
 
 		.game-header {
 			position: relative;
+			z-index: 7;
 			padding: 1.5em;
 			background-color: $game-background-color-dark;
 			color: $secondary-color;
@@ -182,6 +183,7 @@
 					.damage-chart {
 						width: 100%;
 						height: 100%;
+						text-shadow: none;
 
 						 div:first-of-type {
 							width: 100%;
