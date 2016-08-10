@@ -95,6 +95,7 @@ header {
 			display: flex;
 			align-items: center;
 			padding: $header-padding;
+			box-shadow: 1px 15px 30px -6px $default-color;
 
 			span {
 
@@ -113,9 +114,11 @@ header {
 				}
 			}
 
-			&:hover {
-				background-color: $content-color-super-light;
-				cursor: pointer;
+			&:not(.error) {
+				&:hover {
+					background-color: $content-color-super-light;
+					cursor: pointer;
+				}
 			}
 
 			&.selected {
