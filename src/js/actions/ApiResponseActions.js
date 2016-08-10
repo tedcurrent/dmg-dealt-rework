@@ -4,42 +4,42 @@ import AppDispatcher from "../dispatcher/AppDispatcher";
 import { searchActionConstants, apiActionConstants } from "../constants/ActionConstants";
 
 class ApiResponseActions {
-	updateSummonerSearchResult(result) {
+	static updateSummonerSearchResult(result) {
 		AppDispatcher.dispatch({
 			actionType: searchActionConstants.SUMMONER_FOUND,
 			data: result
 		});
 	}
 
-	summonerSearchError(result) {
+	static summonerSearchError(result) {
 		AppDispatcher.dispatch({
 			actionType: searchActionConstants.ERROR,
 			data: result
 		});
 	}
 
-	updatePersonalGames(result) {
+	static updatePersonalGames(result) {
 		AppDispatcher.dispatch({
 			actionType: apiActionConstants.GAMES_FOUND,
 			data: result
 		});
 	}
 
-	gameSearchError(result) {
+	static gameSearchError(result) {
 		AppDispatcher.dispatch({
 			actionType: apiActionConstants.GAMES_SEARCH_ERROR,
 			data: result
 		});
 	}
 
-	updateRegionals(result) {
+	static updateRegionals(result) {
 		AppDispatcher.dispatch({
 			actionType: apiActionConstants.REGIONALS_FOUND,
 			data: result
 		});
 	}
 
-	regionalSearchError(result) {
+	static regionalSearchError(result) {
 		AppDispatcher.dispatch({
 			actionType: apiActionConstants.REGIONALS_ERROR,
 			data: result
@@ -47,4 +47,4 @@ class ApiResponseActions {
 	}
 }
 
-export default new ApiResponseActions();
+export default ApiResponseActions;

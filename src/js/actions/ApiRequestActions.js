@@ -5,14 +5,14 @@ import APIRequests from "../requests/APIRequests";
 import { apiActionConstants } from "../constants/ActionConstants";
 
 class ApiRequestActions {
-	getSummoner(query) {
+	static getSummoner(query) {
 		AppDispatcher.dispatch({
 			actionType: apiActionConstants.API_REQUEST
 		});
 		APIRequests.getSummoner(query);
 	}
 
-	getPersonalGames(query) {
+	static getPersonalGames(query) {
 		AppDispatcher.dispatch({
 			actionType: apiActionConstants.API_REQUEST
 		});
@@ -20,7 +20,7 @@ class ApiRequestActions {
 		APIRequests.getPersonalGames(query);
 	}
 
-	getRegionalGames() {
+	static getRegionalGames() {
 		AppDispatcher.dispatch({
 			actionType: apiActionConstants.API_REQUEST
 		});
@@ -28,11 +28,11 @@ class ApiRequestActions {
 		APIRequests.getRegionalGames();
 	}
 
-	cleanUpGames() {
+	static cleanUpGames() {
 		AppDispatcher.dispatch({
 			actionType: apiActionConstants.GAMES_CLEAN_UP
 		});
 	}
 }
 
-export default new ApiRequestActions();
+export default ApiRequestActions;

@@ -5,39 +5,39 @@ import { searchActionConstants } from "../constants/ActionConstants";
 import APIRequests from "../requests/APIRequests";
 
 class SearchActions {
-	changeRegion(value) {
+	static changeRegion(value) {
 		AppDispatcher.dispatch({
 			actionType: searchActionConstants.CHANGE_REGION,
 			data: value
 		});
 	}
 
-	changeSummoner(value) {
+	static changeSummoner(value) {
 		AppDispatcher.dispatch({
 			actionType: searchActionConstants.CHANGE_SUMMONER,
 			data: value
 		});
 	}
 
-	changeQueryLength(value) {
+	static changeQueryLength(value) {
 		AppDispatcher.dispatch({
 			actionType: searchActionConstants.CHANGE_QRYLEN,
 			data: value
 		});
 	}
 
-	changeArrowNavigation(value) {
+	static changeArrowNavigation(value) {
 		AppDispatcher.dispatch({
 			actionType: searchActionConstants.CHANGE_ARROWNAV,
 			data: value
 		});
 	}
 
-	resetResults(value) {
+	static resetResults(value) {
 		AppDispatcher.dispatch({
 			actionType: searchActionConstants.RESET
 		});
 	}
 }
 
-export default new SearchActions();
+export default SearchActions;

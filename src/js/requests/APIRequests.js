@@ -8,7 +8,7 @@ import Util from "../util/utils";
 
 // Requests towards the server
 class APIRequests {
-	getSummoner(query) {
+	static getSummoner(query) {
 		if (query.summoner === "" || query.region === "")
 			return;
 
@@ -27,7 +27,7 @@ class APIRequests {
 			});
 	}
 
-	getPersonalGames(query) {
+	static getPersonalGames(query) {
 		if (isEmpty(query))
 			return;
 
@@ -58,7 +58,7 @@ class APIRequests {
 			});
 	}
 
-	saveHighScore(query, callback) {
+	static saveHighScore(query, callback) {
 		request
 			.post("/api/saveHighScore/")
 			.send(query)
@@ -67,7 +67,7 @@ class APIRequests {
 			});
 	}
 
-	getRegionalGames() {
+	static getRegionalGames() {
 		NProgress.start();
 		request
 			.get("/api/getRegionalScores")
@@ -83,4 +83,4 @@ class APIRequests {
 	}
 }
 
-export default new APIRequests();
+export default APIRequests;
