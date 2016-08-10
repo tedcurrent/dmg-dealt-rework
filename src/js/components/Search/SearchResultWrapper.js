@@ -37,7 +37,7 @@ export default class SearchResultWrapper extends React.Component {
 		if (!this.props.queryLengthOk) 
 			return <div className="search-result error">A summoner name should be at least 2 characters.</div>;
 		if (!this.props.searchResult.summoner)
-			return <div className="search-result">No summoner found.</div>;
+			return <div className="search-result error">No summoner found.</div>;
 
 		return (
 			<SearchResult

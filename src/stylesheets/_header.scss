@@ -113,9 +113,11 @@ header {
 				}
 			}
 
-			&:hover {
-				background-color: $content-color-super-light;
-				cursor: pointer;
+			&:not(.error) {
+				&:hover {
+					background-color: $content-color-super-light;
+					cursor: pointer;
+				}
 			}
 
 			&.selected {
