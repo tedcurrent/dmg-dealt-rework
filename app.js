@@ -1,22 +1,22 @@
 "use strict";
 
-var express = require("express");
-var path = require("path");
-var favicon = require("serve-favicon");
-var logger = require("morgan");
-var cookieParser = require("cookie-parser");
-var bodyParser = require("body-parser");
-var rateLimit = require("express-rate-limit");
-var compression = require("compression");
+const express = require("express");
+const path = require("path");
+const favicon = require("serve-favicon");
+const logger = require("morgan");
+const cookieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
+const rateLimit = require("express-rate-limit");
+const compression = require("compression");
 
 // Routes
-var index = require("./server/routes/index");
-var api = require("./server/routes/api");
+const index = require("./server/routes/index");
+const api = require("./server/routes/api");
 
-var app = express();
+const app = express();
 
 // Rate limiter cfg
-var limiter = rateLimit({
+const limiter = rateLimit({
 	windowMs: 30000,
 	max: 100,
 	delayAfter: 50,
@@ -46,7 +46,7 @@ app.use("/", index);
 
 // Development error handler
 if (app.get("env") === "development") {
-	app.use(function(err, req, res, next) {
+	app.use((err, req, res, next) => {
 		res.status(err.status || 500);
 		res.json({
 			message: err.message,
@@ -56,13 +56,12 @@ if (app.get("env") === "development") {
 }
 
 // Production error handler
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
 	res.status(err.status || 500);
 	res.json({
 		message: err.message,
 		error: {}
 	});
 });
-
 
 module.exports = app;

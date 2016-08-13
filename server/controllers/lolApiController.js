@@ -1,22 +1,22 @@
 "use strict";
-var LolApi = require("leagueapi");
-var AppConfig = require("../../appconfig");
-var Util = require("../utils/util");
+
+const LolApi = require("leagueapi");
+const AppConfig = require("../../appconfig");
+const Util = require("../utils/util");
 
 LolApi.init(AppConfig.LOL_API.API_KEY, AppConfig.LOL_API.REGION);
 
 // League of Legends API logic
-var LolApiCtrl = {
-	getSummoner: function(summonerInfoRaw, callback) {
-		var name = summonerInfoRaw.name.replace(/\s+/g, "").toLowerCase();
-		var region = summonerInfoRaw.region.toLowerCase();
+module.exports = class LolApiCtrl {
+	static getSummoner(summonerInfoRaw, callback) {
+		const name = summonerInfoRaw.name.replace(/\s+/g, "").toLowerCase();
+		const region = summonerInfoRaw.region.toLowerCase();
 
-		LolApi.Summoner.getByName(name, region, function(err, result) {
-			if (err || !result || !result[name]) {
+		LolApi.Summoner.getByName(name, region, (err, result) => {
+			if (err || !result || !result[name])
 				return callback(null, {});
-			}
 
-			var summoner = {
+			const summoner = {
 				id: result[name].id,
 				name: result[name].name,
 				profileIconId: result[name].profileIconId,
@@ -26,15 +26,14 @@ var LolApiCtrl = {
 
 			callback(err, summoner);
 		});
-	},
+	}
 
-	getSummonerWithId: function(id, region, callback) {
-		LolApi.Summoner.getByID(id, region, function(err, result) {
-			if (err || !result) {
+	static getSummonerWithId(id, region, callback) {
+		LolApi.Summoner.getByID(id, region, (err, result) => {
+			if (err || !result)
 				return callback(null, {});
-			}
 
-			var summoner = {
+			const summoner = {
 				id: result[id].id,
 				name: result[id].name,
 				profileIconId: result[id].profileIconId,
@@ -44,24 +43,22 @@ var LolApiCtrl = {
 
 			callback(err, summoner);
 		});
-	},
+	}
 
-	getRecentGamesWithSummonerInfo: function(summonerInfo, callback) {
-		LolApi.getRecentGames(summonerInfo.id, summonerInfo.region, function(err, result) {
-			var games = Util.formatLolGames(result);
+	static getRecentGamesWithSummonerInfo(summonerInfo, callback) {
+		LolApi.getRecentGames(summonerInfo.id, summonerInfo.region, (err, result) => {
+			const games = Util.formatLolGames(result);
 
 			callback(err, games);
 		});
-	},
+	}
 
-	getAllChampions: function(callback) {
-		var options = {
+	static getAllChampions(callback) {
+		const options = {
 			champData: 'blurb',
 			locale: 'en_US',
 			dataById: true
 		};
 		LolApi.Static.getChampionList(options, callback);
 	}
-};
-
-module.exports = LolApiCtrl;
+}

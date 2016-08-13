@@ -1,10 +1,10 @@
 "use strict";
 
-var mongoose = require("mongoose");
-var Schema = mongoose.Schema;
-var shortid = require("shortid");
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+const shortid = require("shortid");
 
-var highScoreModel = new Schema({
+const highScoreModel = new Schema({
 	_id: {
 		type: String,
 		unique: true,
