@@ -7,6 +7,7 @@ var logger = require("morgan");
 var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
 var rateLimit = require("express-rate-limit");
+var compression = require("compression");
 
 // Routes
 var index = require("./server/routes/index");
@@ -27,6 +28,7 @@ app.set("views", path.join(__dirname, "/server/views"));
 app.set("view engine", "jade");
 
 // Misc. setup
+app.use(compression());
 app.use(favicon(path.join(__dirname, "dist/icons", "favicon.ico")));
 app.use(logger("dev"));
 app.use(bodyParser.json());
