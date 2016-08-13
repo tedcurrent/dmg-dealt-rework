@@ -1,12 +1,13 @@
 "use strict";
-var _ = require("lodash");
-var fs = require("fs");
-var champDataUtil = require("./champDataUtil");
+
+const _ = require("lodash");
+const fs = require("fs");
+const champDataUtil = require("./champDataUtil");
 
 // A collection of utility functions
-var Util = {
-	formatLolGames: function(games) {
-		return _.map(games, function(game) {
+module.exports = class Util {
+	static formatLolGames(games) {
+		return _.map(games, (game) => {
 			return {
 				gameId: game.gameId,
 				gameMode: game.gameMode,
@@ -25,13 +26,13 @@ var Util = {
 				}
 			};
 		});
-	},
+	}
 
-	formatObjectToString: function(obj) {
+	static formatObjectToString(obj) {
 		return JSON.stringify(obj);
-	},
+	}
 	
-	writeStringToFile: function(path, str) {
+	static writeStringToFile(path, str) {
 		try {
 			fs.writeFileSync(path, str, "utf8");
 		} catch(err) {
@@ -39,6 +40,4 @@ var Util = {
 		}
 		
 	}
-};
-
-module.exports = Util;
+}

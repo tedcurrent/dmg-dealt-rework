@@ -1,15 +1,15 @@
 "use strict";
-var mongoose = require("mongoose");
-var highScoreModel = require("../models/highScoreModel");
+
+const mongoose = require("mongoose");
+const highScoreModel = require("../models/highScoreModel");
 
 // Database logic for managing top damages for summoners
-module.exports = {
-	setDocument: function(newHighScore, oldHighScore) {
-		var highScore = oldHighScore;
+module.exports = class HighScoreController {
+	static setDocument(newHighScore, oldHighScore) {
+		let highScore = oldHighScore;
 
-		if (!highScore) {
+		if (!highScore)
 			highScore = new highScoreModel();
-		}
 
 		highScore.date = Date.now();
 
@@ -39,24 +39,24 @@ module.exports = {
 		};
 
 		return highScore;
-	},
+	}
 
-	saveScore: function(highScore, callback) {
-		highScore.save(function(err, newHighScore) {
+	static saveScore(highScore, callback) {
+		highScore.save((err, newHighScore) => {
 			callback(err, newHighScore);
 		});
-	},
+	}
 
-	findBySummonerIdAndRegion: function(summonerId, summonerRegion, callback) {
+	static findBySummonerIdAndRegion(summonerId, summonerRegion, callback) {
 		highScoreModel.findOne({
 			"summoner.summonerId": summonerId, 
 			"summoner.region": summonerRegion
-		}, function(err, oldHighScore) {
+		}, (err, oldHighScore) => {
 			callback(err, oldHighScore);
 		});
-	},
+	}
 
-	getRegionalTopScores: function(callback) {
+	static getRegionalTopScores(callback) {
 		highScoreModel.aggregate()
 			.sort({"game.dmgDealt": -1})
 			.group({
@@ -70,15 +70,15 @@ module.exports = {
 		        	}
 		    	}
 		    })
-		    .exec(function(err, res) {
+		    .exec((err, res) => {
 		    	callback(err, res);
 		    });
-	},
+	}
 
-	removeScoreByIdAndRegion: function(summonerId, summonerRegion, callback) {
+	static removeScoreByIdAndRegion(summonerId, summonerRegion, callback) {
 		highScoreModel.remove({
 			"summoner.summonerId": summonerId,
 			"summoner.region": summonerRegion
 		}, callback);
 	}
-};
+}
