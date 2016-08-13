@@ -18,7 +18,6 @@ router.get("/getSummoner/:name/:region", (req, res, next) => {
 	LolApiController.getSummoner(summonerInfo, (err, result) => {
 		if (err)
 			return next(err);
-
 		res.json(result);
 	});
 });
@@ -28,7 +27,6 @@ router.get("/getSummonerWithId/:id/:region", (req, res, next) => {
 	LolApiController.getSummonerWithId(req.params.id, req.params.region, (err, result) => {
 		if (err)
 			return next(err);
-
 		res.json(result);
 	});
 });
@@ -43,7 +41,6 @@ router.get("/getGames/:summonerId/:region", (req, res, next) => {
 	LolApiController.getRecentGamesWithSummonerInfo(summonerInfo, (err, result) => {
 		if (err)
 			return next(err);
-
 		res.json(result);
 	});
 });
@@ -65,7 +62,6 @@ router.post("/saveHighScore", (req, res, next) => {
 	ScoreController.trySaveNewHighScore(potentialHighScore, (err, result) => {
 		if (err)
 			return next(err);
-
 		res.json(result);
 	});
 });
