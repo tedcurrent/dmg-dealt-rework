@@ -37,13 +37,16 @@ function _saveNewHighscore(potentialHighScore, oldHs, callback) {
 
 		potentialHighScore.summoner = summoner;
 
-		const newHighScore = HighScoreController.setDocument(potentialHighScore, oldHs);
+		try {
+			const newHighScore = HighScoreController.setDocument(potentialHighScore, oldHs);
+			HighScoreController.saveScore(newHighScore, (err, newHs) => {
+				if (err)
+					return callback(err);
 
-		HighScoreController.saveScore(newHighScore, (err, newHs) => {
-			if (err)
-				return callback(err);
-
-			callback(err, {highScore: newHs, newHighScore: true});
-		});
+				callback(err, {highScore: newHs, newHighScore: true});
+			});
+		} catch (e) {
+			return callback(err);
+		}
 	});
 }
