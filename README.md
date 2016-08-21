@@ -1,7 +1,9 @@
-# dmg-dealt-reloaded
+# dmg-dealt-rework
 ####Visit: http://dmgdealt.herokuapp.com
 
 A tool for League of Legends players to track their hero damage dealt in games.
+
+Based on an old project I did back in 2012 with Angular1. The whole site was rewritten in React + vanilla Flux during the spring of 2016.
 
 ####Usage: 
 
