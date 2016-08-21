@@ -7,18 +7,18 @@ Number.prototype.doubleDigitalize = function() {
 };
 
 class DateTimeUtils {
-	parseDate(unformattedDate) {
+	static parseDate(unformattedDate) {
 		const months = ["January", "February", "March", "April", "May", "June", 
 		"July", "August", "September", "October", "November", "December"];
 		const date = new Date(unformattedDate);
 		return date.getDate().doubleDigitalize() + " " + months[date.getMonth()] + ", " + date.getFullYear();
 	}
 
-	parseDuration(fullSeconds) {
+	static parseDuration(fullSeconds) {
 		const minutes = Math.floor(fullSeconds / 60).doubleDigitalize();
 		const seconds = Math.floor(fullSeconds % 60).doubleDigitalize();
 		return fullSeconds ? minutes + ":" + seconds : "00:00";
 	}
 }
 
-export default new DateTimeUtils;
+export default DateTimeUtils;

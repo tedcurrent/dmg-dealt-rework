@@ -14,13 +14,13 @@ String.prototype.capitalize = function() {
 
 // A static collection of utility methods
 class Utils {
-	getKDAFormat(kills, deaths, assists) {
+	static getKDAFormat(kills, deaths, assists) {
 		if (kills === undefined || deaths === undefined || assists === undefined)
 			return "0/0/0";
 		return kills + "/" + deaths + "/" + assists;
 	}
 
-	getMultikillFormat(multiKillNumber) {
+	static getMultikillFormat(multiKillNumber) {
 		switch (multiKillNumber) {
 			case 2:
 				return AppConstants.DOUBLE_KILL;
@@ -35,7 +35,7 @@ class Utils {
 		}
 	}
 
-	getChartDamages(stats) {
+	static getChartDamages(stats) {
 		return [
 			{name: AppConstants.DAMAGE_PHYSICAL, y: stats.physicalDamage || 0},
 			{name: AppConstants.DAMAGE_MAGIC, y: stats.magicDamage || 0},
@@ -43,27 +43,27 @@ class Utils {
 		];
 	}
 
-	cleanEmptyDamages(gameArray) {
+	static cleanEmptyDamages(gameArray) {
 		return remove(gameArray, (game) => {
 			return game.dmgDealt;
 		});
 	}
 
-	getHighestDamageGame(games) {
+	static getHighestDamageGame(games) {
 		return maxBy(games, (game) => {
 			return game.dmgDealt;
 		});
 	}
 
-	sortGamesByDmg(games) {
+	static sortGamesByDmg(games) {
 		return orderBy(games, ["dmgDealt"], ["desc"]);
 	}
 
-	buildProfileIconUrl(iconId) {
+	static buildProfileIconUrl(iconId) {
 		return AppConstants.LOL_STATIC_BASE_URL + "/" + AppConstants.LOL_API_VERSION + "/img/profileicon/" + iconId + ".png";
 	}
 
-	championNameForUrl(championName) {
+	static championNameForUrl(championName) {
 		switch (championName) {
 			case "Kog'Maw":
 				return "KogMaw";
@@ -83,16 +83,16 @@ class Utils {
 		}
 	}
 
-	championSplashUrl(championName) {
+	static championSplashUrl(championName) {
 		const fullUrl = AppConstants.LOL_STATIC_BASE_URL + "/img/champion/splash/";
 		const championNameUrlified = this.championNameForUrl(championName);
 		const skinSelection = "_0.jpg";
 		return fullUrl + championNameUrlified + skinSelection;
 	}
 
-	isQueryLengthOk(query) {
+	static isQueryLengthOk(query) {
 		return !(query.length < AppConstants.QUERY_MIN_LENGTH && query.length !== 0);
 	}
 }
 
-export default new Utils();
+export default Utils;
