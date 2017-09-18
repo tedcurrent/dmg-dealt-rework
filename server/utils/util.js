@@ -6,23 +6,33 @@ const champDataUtil = require("./champDataUtil");
 
 // A collection of utility functions
 module.exports = class Util {
-	static formatLolGames(games) {
-		return _.map(games, (game) => {
+	static formatLolGames(games, summonerId) {
+		return _.map(games, game => {
+			const participantIdentity = _.find(game.participantIdentities, identity => {
+				if (identity.player.accountId == summonerId) return identity;
+			});
+			
+			const participant = _.find(game.participants, part => {
+				if (part.participantId == participantIdentity.participantId) return part;
+			});
+			
+			const stats = participant.stats;
+
 			return {
 				gameId: game.gameId,
 				gameMode: game.gameMode,
-				champion: champDataUtil.championIdToChampionName(game.championId),
-				gameDate: game.createDate,
-				dmgDealt: game.stats.totalDamageDealtToChampions,
+				champion: champDataUtil.championIdToChampionName(participant.championId),
+				gameDate: game.gameCreation,
+				dmgDealt: stats.totalDamageDealtToChampions,
 				stats: {
-					timePlayed: game.stats.timePlayed,
-					kills: game.stats.championsKilled,
-					deaths: game.stats.numDeaths,
-					assists: game.stats.assists,
-					largestMultiKill: game.stats.largestMultiKill,
-					physicalDamage: game.stats.physicalDamageDealtToChampions,
-					magicDamage: game.stats.magicDamageDealtToChampions,
-					trueDamage: game.stats.trueDamageDealtToChampions
+					timePlayed: game.gameDuration,
+					kills: stats.kills,
+					deaths: stats.deaths,
+					assists: stats.assists,
+					largestMultiKill: stats.largestMultiKill,
+					physicalDamage: stats.physicalDamageDealtToChampions,
+					magicDamage: stats.magicDamageDealtToChampions,
+					trueDamage: stats.trueDamageDealtToChampions
 				}
 			};
 		});
@@ -31,13 +41,13 @@ module.exports = class Util {
 	static formatObjectToString(obj) {
 		return JSON.stringify(obj);
 	}
-	
+
 	static writeStringToFile(path, str) {
 		try {
 			fs.writeFileSync(path, str, "utf8");
-		} catch(err) {
+		} catch (err) {
 			console.log(err.message);
 		}
-		
+
 	}
 }

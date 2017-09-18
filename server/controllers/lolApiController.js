@@ -1,10 +1,8 @@
 "use strict";
 
-const LolApi = require("leagueapi");
+const fetch = require("node-fetch");
 const AppConfig = require("../../appconfig");
 const Util = require("../utils/util");
-
-LolApi.init(AppConfig.LOL_API.API_KEY, AppConfig.LOL_API.REGION);
 
 // League of Legends API logic
 module.exports = class LolApiCtrl {
@@ -12,16 +10,16 @@ module.exports = class LolApiCtrl {
 		const name = summonerInfoRaw.name.replace(/\s+/g, "").toLowerCase();
 		const region = summonerInfoRaw.region.toLowerCase();
 
-		LolApi.Summoner.getByName(name, region, (err, result) => {
-			if (err || !result || !result[name])
+		getLeagueDataCallback(`summoner/v3/summoners/by-name/${name}`, region, false, (err, result) => {
+			if (err || !result || result.status && result.status.status_code == 404)
 				return callback(null, {});
 
 			const summoner = {
-				id: result[name].id,
-				name: result[name].name,
-				profileIconId: result[name].profileIconId,
+				id: result.accountId,
+				name: result.name,
+				profileIconId: result.profileIconId,
 				region: region,
-				level: result[name].summonerLevel
+				level: result.summonerLevel
 			};
 
 			callback(err, summoner);
@@ -29,16 +27,16 @@ module.exports = class LolApiCtrl {
 	}
 
 	static getSummonerWithId(id, region, callback) {
-		LolApi.Summoner.getByID(id, region, (err, result) => {
+		getLeagueDataCallback(`summoner/v3/summoners/by-account/${id}`, region, false, (err, result) => {
 			if (err || !result)
 				return callback(null, {});
 
 			const summoner = {
-				id: result[id].id,
-				name: result[id].name,
-				profileIconId: result[id].profileIconId,
+				id: result.accountId,
+				name: result.name,
+				profileIconId: result.profileIconId,
 				region: region,
-				level: result[id].summonerLevel
+				level: result.summonerLevel
 			};
 
 			callback(err, summoner);
@@ -46,19 +44,51 @@ module.exports = class LolApiCtrl {
 	}
 
 	static getRecentGamesWithSummonerInfo(summonerInfo, callback) {
-		LolApi.getRecentGames(summonerInfo.id, summonerInfo.region, (err, result) => {
-			const games = Util.formatLolGames(result);
+		getLeagueDataCallback(`match/v3/matchlists/by-account/${summonerInfo.id}/recent`, summonerInfo.region, false, (err, result) => {
+			if (err || !result)
+				return callback(err, []);
 
-			callback(err, games);
+			Promise.all(result.matches.map(match => this.getMatchPromise(match.gameId, summonerInfo.region)))
+				.then(matches => {
+					const games = Util.formatLolGames(matches, summonerInfo.id);
+					callback(err, games);
+				})
+				.catch(err => {
+					callback(err, [])
+				});
 		});
 	}
 
-	static getAllChampions(callback) {
-		const options = {
-			champData: 'blurb',
-			locale: 'en_US',
-			dataById: true
-		};
-		LolApi.Static.getChampionList(options, callback);
+	static getMatchPromise(matchId, region) {
+		return getLeagueDataPromise(`match/v3/matches/${matchId}`, region, false).then(json => json);
 	}
+
+	static getAllChampions(callback) {
+		getLeagueDataCallback("static-data/v3/champions?locale=en_US&tags=blurb&dataById=true", "euw", true, callback);
+	}
+}
+
+function getLeagueDataCallback(details, region, weird, callback) {
+	fetch(constructUrl(details, region, weird))
+		.then(res => res.json())
+		.then(json => callback(null, json))
+		.catch(err => callback(err, null));
+}
+
+function getLeagueDataPromise(details, region, weird) {
+	return fetch(constructUrl(details, region, weird)).then(res => res.json());
+}
+
+function formatRegion(region) {
+	let formattedRegion = region;
+
+	if (formattedRegion != "kr" && formattedRegion != "ru") {
+		formattedRegion += "1";
+	}
+
+	return formattedRegion;
+}
+
+function constructUrl(details, region, weird) {
+	return `https://${formatRegion(region)}.api.riotgames.com/lol/${details}${weird ? "&" : "?"}api_key=${AppConfig.LOL_API.API_KEY}`;
 }
