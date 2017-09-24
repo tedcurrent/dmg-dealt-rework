@@ -1,7 +1,7 @@
 "use strict";
 
 const LolApiController = require("./lolApiController");
-const HighScoreController = require("./highScoreController");
+const HighScoreAdapter = require("../data/adapters/highScoreAdapter");
 const _ = require("lodash");
 
 // Top game/score handling logic for saving, updating and pulling data in and out of database
@@ -11,7 +11,7 @@ module.exports = class ScoreController {
       if (err)
         return callback(err);
 
-      if (_isNewHighScoreBetter(potentialHighScore.topGame, oldHs)) {
+      if (_isNewHighScore(potentialHighScore.topGame, oldHs)) {
         _saveNewHighscore(potentialHighScore, oldHs, callback);
       } else {
         callback(err, { highScore: oldHs, newHighScore: false });
@@ -21,25 +21,24 @@ module.exports = class ScoreController {
 };
 
 function _getOldHighScore(summonerId, summonerRegion, callback) {
-  HighScoreController.findBySummonerIdAndRegion(summonerId, summonerRegion, callback);
+  HighScoreAdapter.findScore(summonerId, summonerRegion, callback);
 }
 
-function _isNewHighScoreBetter(newHs, oldHs) {
+function _isNewHighScore(newHs, oldHs) {
   return !oldHs || newHs.dmgDealt > oldHs.game.dmgDealt;
 }
 
-function _saveNewHighscore(potentialHighScore, oldHs, callback) {
+function _saveNewHighscore(newHighScore, oldHighScore, callback) {
   // Summoner has to be searched for again, as the function is initiated with a summoner id and region only.
   // Other details (like profileIconId and name) are found here.
-  LolApiController.getSummonerWithId(potentialHighScore.id, potentialHighScore.region, (err, summoner) => {
+  LolApiController.getSummonerWithId(newHighScore.id, newHighScore.region, (err, summoner) => {
     if (err)
       return callback(err);
 
-    potentialHighScore.summoner = summoner;
+    newHighScore.summoner = summoner;
 
     try {
-      const newHighScore = HighScoreController.setDocument(potentialHighScore, oldHs);
-      HighScoreController.saveScore(newHighScore, (err, newHs) => {
+      HighScoreAdapter.saveScore(newHighScore, oldHighScore, (err, newHs) => {
         if (err)
           return callback(err);
 

@@ -3,7 +3,7 @@
 import test from "tape";
 import request from "supertest";
 import mongoose from "mongoose";
-import HighScoreController from "../../server/controllers/highScoreController";
+import HighScoreAdapter from "../../server/data/adapters/highScoreAdapter";
 
 const _config = {
   testSummoner: {
@@ -119,7 +119,7 @@ test.onFinish(() => {
       throw new Error("Connection to MongoDB failed");
   });
 
-  HighScoreController.removeScoreByIdAndRegion(_config.testSummoner.id, _config.testSummoner.region, (err) => {
+  HighScoreAdapter.removeScore(_config.testSummoner.id, _config.testSummoner.region, (err) => {
     if (err)
       throw new Error("Clean up failed, please try again");
     mongoose.connection.close();

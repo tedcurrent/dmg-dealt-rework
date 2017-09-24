@@ -43,7 +43,7 @@ module.exports = class LolApiController {
     });
   }
 
-  static getRecentGamesWithSummonerInfo(summonerInfo, callback) {
+  static getRecentGames(summonerInfo, callback) {
     _getLeagueDataCallback(`match/v3/matchlists/by-account/${summonerInfo.id}/recent`, summonerInfo.region, false, (err, result) => {
       if (err || !result)
         return callback(err, []);

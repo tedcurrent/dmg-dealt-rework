@@ -1,13 +1,13 @@
 "use strict";
 
 const LolApiController = require("./lolApiController");
-const HighScoreController = require("./highScoreController");
+const HighScoreAdapter = require("../data/adapters/highScoreAdapter");
 const _ = require("lodash");
 
 // Get the top players and their games from each region
 module.exports = class RegionalController {
   static getRegionalScores(callback) {
-    HighScoreController.getRegionalTopScores((err, results) => {
+    HighScoreAdapter.getRegionalTopScores((err, results) => {
       if (err || !results.length)
         return callback(err, {});
 

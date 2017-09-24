@@ -3,7 +3,7 @@
 const Util = require("./util");
 const LolApiController = require("../controllers/lolApiController");
 const _ = require("lodash");
-const championData = require("../static/championData");
+const championData = require("../data/static/championData");
 
 // A wrapper for several champion related functions
 module.exports = class ChampDataUtil {

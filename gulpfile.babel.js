@@ -25,7 +25,7 @@ const config = {
     styles: ["./src/stylesheets/**/*.css", "./src/stylesheets/**/*.scss"],
     images: "./src/assets/images/*",
     icons: "./src/assets/icons/*",
-    static: "./server/static",
+    static: "./server/data/static",
     test: ["./test/client/**/*.js", "./test/server/**/*.js"],
     testItgr: "./test/data/**/*.js",
     dist: "./dist"

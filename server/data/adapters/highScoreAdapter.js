@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const highScoreModel = require("../models/highScoreModel");
 
 // Database logic for managing top damages for summoners
-module.exports = class HighScoreController {
+module.exports = class HighScoreAdapter {
   static setDocument(newHighScore, oldHighScore) {
     let highScore = oldHighScore;
 
@@ -41,13 +41,13 @@ module.exports = class HighScoreController {
     return highScore;
   }
 
-  static saveScore(highScore, callback) {
-    highScore.save((err, newHighScore) => {
-      callback(err, newHighScore);
+  static saveScore(newHighScore, oldHighScore, callback) {
+    this.setDocument(newHighScore, oldHighScore).save((err, result) => {
+      callback(err, result);
     });
   }
 
-  static findBySummonerIdAndRegion(summonerId, summonerRegion, callback) {
+  static findScore(summonerId, summonerRegion, callback) {
     highScoreModel.findOne({
       "summoner.summonerId": summonerId,
       "summoner.region": summonerRegion
@@ -75,7 +75,7 @@ module.exports = class HighScoreController {
       });
   }
 
-  static removeScoreByIdAndRegion(summonerId, summonerRegion, callback) {
+  static removeScore(summonerId, summonerRegion, callback) {
     highScoreModel.remove({
       "summoner.summonerId": summonerId,
       "summoner.region": summonerRegion

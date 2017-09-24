@@ -3,7 +3,6 @@
 const express = require("express");
 const router = express.Router();
 const LolApiController = require("../controllers/lolApiController");
-const HighScoreController = require("../controllers/highScoreController");
 const ScoreController = require("../controllers/scoreController");
 const RegionalController = require("../controllers/regionalController");
 const Util = require("../utils/util");
@@ -38,7 +37,7 @@ router.get("/getGames/:summonerId/:region", (req, res, next) => {
     region: req.params.region
   };
 
-  LolApiController.getRecentGamesWithSummonerInfo(summonerInfo, (err, result) => {
+  LolApiController.getRecentGames(summonerInfo, (err, result) => {
     if (err)
       return next(err);
     res.json(result);
