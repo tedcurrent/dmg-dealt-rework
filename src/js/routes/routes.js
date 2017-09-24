@@ -9,12 +9,12 @@ import Regions from "../components/RegionalGames/";
 import NotFound from "../components/404/";
 
 const routes = (
-	<Route path="/" component={App}>
-		<IndexRoute component={Splash} />
-		<Route path="/:id/:region" component={Personal} />
-		<Route path="/regions" component={Regions} />
-		<Route path="*" component={NotFound} />
-	</Route>
+  <Route path="/" component={App}>
+    <IndexRoute component={Splash} />
+    <Route path="/:id/:region" component={Personal} />
+    <Route path="/regions" component={Regions} />
+    <Route path="*" component={NotFound} />
+  </Route>
 );
 
 export default routes;

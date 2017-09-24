@@ -6,13 +6,13 @@ import Footer from "../Footer/";
 
 // The application wrapper component
 export default function App(props) {
-	return (
-		<div className="wrapper">
-			<Header />
-			<main>
-				{props.children}
-			</main>
-			<Footer />
-		</div>
-	);
+  return (
+    <div className="wrapper">
+      <Header />
+      <main>
+        {props.children}
+      </main>
+      <Footer />
+    </div>
+  );
 }

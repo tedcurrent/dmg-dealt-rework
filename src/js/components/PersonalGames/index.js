@@ -9,64 +9,64 @@ import isEmpty from "lodash/isempty";
 
 // Controller for the PersonalGames page
 export default class PersonalGamesController extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			gameResults: PersonalGamesStore.getAll()
-		};
-		this._onChange = this._onChange.bind(this);
-	}
+  constructor(props) {
+    super(props);
+    this.state = {
+      gameResults: PersonalGamesStore.getAll()
+    };
+    this._onChange = this._onChange.bind(this);
+  }
 
-	componentWillMount(){
-		this._refreshGames(this.props);
-		PersonalGamesStore.addChangeListener(this._onChange);
-	}
+  componentWillMount() {
+    this._refreshGames(this.props);
+    PersonalGamesStore.addChangeListener(this._onChange);
+  }
 
-	componentWillUnmount() {
-		PersonalGamesStore.removeChangeListener(this._onChange);
-	}
+  componentWillUnmount() {
+    PersonalGamesStore.removeChangeListener(this._onChange);
+  }
 
-	componentWillReceiveProps(nextProps) {
-		this._refreshGames(nextProps);
-	}
+  componentWillReceiveProps(nextProps) {
+    this._refreshGames(nextProps);
+  }
 
-	// Renders a list of games OR an error OR nothing
-	render() {
-		const results = this.state.gameResults;
+  // Renders a list of games OR an error OR nothing
+  render() {
+    const results = this.state.gameResults;
 
-		if (results.errors === 0 && !isEmpty(results.summoner)) {
-			return this._renderGames(this.state.gameResults);
-		} else if (results.errors) {
-			return this._renderError();
-		} else {
-			return this._renderNothing();
-		}
-	}
+    if (results.errors === 0 && !isEmpty(results.summoner)) {
+      return this._renderGames(this.state.gameResults);
+    } else if (results.errors) {
+      return this._renderError();
+    } else {
+      return this._renderNothing();
+    }
+  }
 
-	_renderGames(results) {
-		return <PersonalContainer results={results} />;
-	}
+  _renderGames(results) {
+    return <PersonalContainer results={results} />;
+  }
 
-	_renderError() {
-		return (
-			<ErrorPage
-				errorNumber={404}
-				errorMessage={"No games found with the name and region combination."}
-				errorDetail={"Please try something else."}
-			/>
-		);
-	}
+  _renderError() {
+    return (
+      <ErrorPage
+        errorNumber={404}
+        errorMessage={"No games found with the name and region combination."}
+        errorDetail={"Please try something else."}
+      />
+    );
+  }
 
-	_renderNothing() {
-		return <div></div>;
-	}
+  _renderNothing() {
+    return <div></div>;
+  }
 
-	_onChange() {
-		this.setState({gameResults: PersonalGamesStore.getAll()});
-	}
+  _onChange() {
+    this.setState({ gameResults: PersonalGamesStore.getAll() });
+  }
 
-	_refreshGames({params: {id, region}}) {
-		const query = {id, region};
-		ApiRequestActions.getPersonalGames(query);
-	}
+  _refreshGames({ params: { id, region } }) {
+    const query = { id, region };
+    ApiRequestActions.getPersonalGames(query);
+  }
 }
