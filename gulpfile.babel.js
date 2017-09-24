@@ -117,5 +117,10 @@ gulp.task("apply-production", () => {
 	return process.env.NODE_ENV = "production";
 });
 
-gulp.task("default", ["static", "styles", "assets", "js", "lint", "dev", "watch"]);
+// Apply development environment
+gulp.task("apply-development", () => {
+	return process.env.NODE_ENV = "development";
+});
+
+gulp.task("default", ["apply-development", "static", "styles", "assets", "js", "lint", "dev", "watch"]);
 gulp.task("production", ["apply-production", "static", "styles", "assets", "js"]);
