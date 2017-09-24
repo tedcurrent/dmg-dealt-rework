@@ -1,85 +1,80 @@
 @media only screen and (max-width: 650px) {
+  body {
+    font-size: 0.9em;
+  }
 
-	body {
-		font-size: 0.9em;
-	}
+  h1 {
+    font-size: 4em;
+    letter-spacing: -3px;
+  }
 
-	h1 {
-		font-size: 4em;
-		letter-spacing: -3px;
-	}
+  h3 {
+    font-size: 1.3em;
+  }
 
-	h3 {
-		font-size: 1.3em;
-	}
+  header {
+    padding: 0.5em;
 
-	header {
-		padding: 0.5em;
+    .logo {
+      width: 110px;
+    }
 
-		.logo {
-			width: 110px;
-		}
+    ul {
+      width: 110px;
 
-		ul {
-			width: 110px;
+      li {
+        a {
+          span {
+            display: none;
+          }
+        }
+      }
+    }
+  }
 
-			li {
+  .splash {
+    top: 140px;
+  }
 
-				a {
-					span {
-						display: none;
-					}
-				}
-			}
-		}
-	}
+  .games-container {
+    font-size: 1.1em;
 
-	.splash {
-		top: 140px;
-	}
+    .game-wrapper {
+      .game-header {
+        .game-header-overlay {
+          font-size: 0.8em;
+          justify-content: flex-end;
+          background-color: transparent;
+          opacity: 1;
 
-	.games-container {
-		font-size: 1.1em;
-		
-		.game-wrapper { 
+          span {
+            display: none;
+          }
+        }
+      }
 
-			.game-header {
+      .game-stats {
+        h3 {
+          line-height: 3em;
+        }
 
-				.game-header-overlay {
-					font-size: 0.8em;
-					justify-content: flex-end;
-					background-color: transparent;
-					opacity: 1;
+        .game-stats-areas {
+          flex-direction: column;
 
-					span {
-						display: none;
-					}
-				}	
-			}
+          .game-stats-chart-area {
+            width: 75%;
+            height: 125px;
+          }
 
-			.game-stats {
-			
-				h3 {
-					line-height: 3em;
-				}
-
-				.game-stats-areas {
-					flex-direction: column;
-
-					.game-stats-chart-area {
-						width: 75%;
-						height: 125px;
-					}
-
-					.game-stats-detail-area {
-						width: 100%;
-						text-align: center;
-						display: flex;
-						flex-direction: row;
-						justify-content: space-between;
-					}
-				}
-			}
-		}	
-	}
+          .game-stats-detail-area {
+            width: 100%;
+            text-align: center;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+          }
+        }
+      }
+    }
+  }
 }

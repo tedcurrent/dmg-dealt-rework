@@ -1,99 +1,99 @@
 // !GENERAL
 
 @-ms-viewport {
-	width: device-width;
+  width: device-width;
 }
 
 * {
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
-	-webkit-font-smoothing: antialiased;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
 }
 
 html {
-	font-family: 'Alegreya', serif;
-    text-shadow: -1px 0 $content-color-trans, 0 1px $content-color-trans, 1px 0 $content-color-trans, 0 -1px $content-color-trans;
-	min-height: 100%;
-	position: relative;
-	padding-bottom: 20em;
-	height: 100%;
+  font-family: 'Alegreya', serif;
+  text-shadow: -1px 0 $content-color-trans, 0 1px $content-color-trans, 1px 0 $content-color-trans, 0 -1px $content-color-trans;
+  min-height: 100%;
+  position: relative;
+  padding-bottom: 20em;
+  height: 100%;
 }
 
 body {
-	background-color: $default-color;
-	height: 100%;
+  background-color: $default-color;
+  height: 100%;
 }
 
 h1 {
-	font-size: 5em;
-	letter-spacing: -6px;
-	margin: 0;
+  font-size: 5em;
+  letter-spacing: -6px;
+  margin: 0;
 }
 
 h2 {
-	font-size: 2.4em;
-	margin: 0;
+  font-size: 2.4em;
+  margin: 0;
 }
 
 h3 {
-	font-size: 1.5em;
-	margin: 0;
+  font-size: 1.5em;
+  margin: 0;
 }
 
 ul {
-	list-style: none;
+  list-style: none;
 }
 
 a {
-	text-decoration: none;
-	color: $emphasis-color;
-	transition: all 0.3s;
+  text-decoration: none;
+  color: $emphasis-color;
+  transition: all 0.3s;
 
-	&:hover {
-		text-decoration: underline;
-	}
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 input[type="text"] {
-	display: block;
-	margin: 0;
-	appearance: none;
-	box-shadow: none;
-	border-radius: none;
+  display: block;
+  margin: 0;
+  appearance: none;
+  box-shadow: none;
+  border-radius: none;
 
-	&:focus {
-		outline: none;
-	}
+  &:focus {
+    outline: none;
+  }
 }
 
 .emphasis {
-	color: $emphasis-color;
+  color: $emphasis-color;
 }
 
 .image {
-	opacity: 0;
-	transition: all 0.3s;
+  opacity: 0;
+  transition: all 0.3s;
 
-	&.loaded {
-		opacity: 1;
-	}
+  &.loaded {
+    opacity: 1;
+  }
 }
 
 .thumbnail-container {
-	width: 64px;
-	height: 64px;
-	vertical-align: center;
-	margin-right: 5px;
+  width: 64px;
+  height: 64px;
+  vertical-align: center;
+  margin-right: 5px;
 
-	img {
-		width: 100%;
-		border-radius: 3px;
-	}
+  img {
+    width: 100%;
+    border-radius: 3px;
+  }
 }
 
 .collapse {
-	position: relative;
+  position: relative;
 }
