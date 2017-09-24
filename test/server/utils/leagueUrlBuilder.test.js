@@ -12,6 +12,7 @@ test("Region proxy formatting", (t) => {
 
 test("Url constructing", (t) => {
   AppConfig.LOL_API.API_KEY = "a-b-c-d";
+  
   let url = LeagueUrlBuilder.constructUrl("details", "br", false);
   let expected = "https://br1.api.riotgames.com/lol/details?api_key=a-b-c-d";
   t.equal(url, expected, "Should parse correctly");
