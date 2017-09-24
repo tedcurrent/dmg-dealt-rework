@@ -17,10 +17,10 @@ const app = express();
 
 // Rate limiter cfg
 const limiter = rateLimit({
-	windowMs: 30000,
-	max: 100,
-	delayAfter: 50,
-	delayMs: 1000
+  windowMs: 30000,
+  max: 100,
+  delayAfter: 50,
+  delayMs: 1000
 });
 
 // View engine setup
@@ -35,7 +35,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static("files"));
-app.use(express.static(path.join(__dirname, "dist"), {maxAge: "1d"}));
+app.use(express.static(path.join(__dirname, "dist"), { maxAge: "1d" }));
 
 // Limiters
 app.use("/api/", limiter);
@@ -47,22 +47,22 @@ app.use("/", index);
 
 // Development error handler
 if (app.get("env") === "development") {
-	app.use((err, req, res, next) => {
-		res.status(err.status || 500);
-		res.json({
-			message: err.message,
-			error: err
-		});
-	});
+  app.use((err, req, res, next) => {
+    res.status(err.status || 500);
+    res.json({
+      message: err.message,
+      error: err
+    });
+  });
 }
 
 // Production error handler
 app.use((err, req, res, next) => {
-	res.status(err.status || 500);
-	res.json({
-		message: err.message,
-		error: {}
-	});
+  res.status(err.status || 500);
+  res.json({
+    message: err.message,
+    error: {}
+  });
 });
 
 module.exports = app;
