@@ -18,11 +18,11 @@ const regionProxies = {
 };
 
 module.exports = class LeagueUrlBuilder {
-  static formatRegion(region) {
+  static getRegionProxy(region) {
     return regionProxies[region.toLowerCase()];
   }
 
   static constructUrl(details, region, weird) {
-    return `https://${this.formatRegion(region)}.api.riotgames.com/lol/${details}${weird ? "&" : "?"}api_key=${AppConfig.LOL_API.API_KEY}`;
+    return `https://${this.getRegionProxy(region)}.api.riotgames.com/lol/${details}${weird ? "&" : "?"}api_key=${AppConfig.LOL_API.API_KEY}`;
   }
 };
