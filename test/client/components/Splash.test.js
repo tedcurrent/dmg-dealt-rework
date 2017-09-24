@@ -6,10 +6,10 @@ import { shallow } from "enzyme";
 import Splash from "../../../src/js/components/Splash/";
 
 test("<Splash />", (t) => {
-	const wrapper = shallow(<Splash />);
+  const wrapper = shallow(<Splash />);
 
-	t.ok(wrapper.find(".splash").length, "Should render splash page");
-	t.ok(wrapper.find(".text-container").length, "Should render a text container");
+  t.ok(wrapper.find(".splash").length, "Should render splash page");
+  t.ok(wrapper.find(".text-container").length, "Should render a text container");
 
-	t.end();
+  t.end();
 });

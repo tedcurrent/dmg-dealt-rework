@@ -7,9 +7,9 @@ import NotFoundPage from "../../../src/js/components/404/";
 import ErrorPage from "../../../src/js/components/Error/";
 
 test("<NotFoundPage />", (t) => {
-	const wrapper = shallow(<NotFoundPage />);
-	
-	t.ok(wrapper.find(ErrorPage).length, "Should have <ErrorPage />");
+  const wrapper = shallow(<NotFoundPage />);
 
-	t.end();
+  t.ok(wrapper.find(ErrorPage).length, "Should have <ErrorPage />");
+
+  t.end();
 });

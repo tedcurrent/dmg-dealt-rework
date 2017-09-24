@@ -6,12 +6,12 @@ global.document = jsdom("<!doctype html><html><body></body></html>");
 global.window = document.defaultView;
 
 Object.keys(document.defaultView).forEach((prop) => {
-	if (!global.hasOwnProperty(prop)) {
-		exposedProperties.push(prop);
-		global[prop] = document.defaultView[prop];
-	}
+  if (!global.hasOwnProperty(prop)) {
+    exposedProperties.push(prop);
+    global[prop] = document.defaultView[prop];
+  }
 });
 
 global.navigator = {
-	userAgent: "node.js"
+  userAgent: "node.js"
 };
