@@ -9,7 +9,7 @@ module.exports = class Util {
   static formatLolGames(games, summonerId) {
     return _.map(games, game => {
       const participantIdentity = _.find(game.participantIdentities, identity => {
-        if (identity.player.accountId == summonerId) return identity;
+        if (identity.player.currentAccountId == summonerId) return identity;
       });
 
       const participant = _.find(game.participants, part => {
