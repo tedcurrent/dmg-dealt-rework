@@ -28,7 +28,7 @@ module.exports = class LolApiController {
 
   static getSummonerWithId(id, region, callback) {
     _getLeagueDataCallback(`summoner/v3/summoners/by-account/${id}`, region, false, (err, result) => {
-      if (err || !result)
+      if (err || !result || result.status && result.status.status_code == 404)
         return callback(null, {});
 
       const summoner = {
@@ -45,7 +45,7 @@ module.exports = class LolApiController {
 
   static getRecentGames(summonerInfo, callback) {
     _getLeagueDataCallback(`match/v3/matchlists/by-account/${summonerInfo.id}/recent`, summonerInfo.region, false, (err, result) => {
-      if (err || !result)
+      if (err || !result || result.status && result.status.status_code == 404)
         return callback(err, []);
 
       Promise.all(result.matches.map(match => this.getMatchPromise(match.gameId, summonerInfo.region)))

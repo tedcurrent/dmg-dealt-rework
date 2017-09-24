@@ -30,7 +30,7 @@ class APIRequests {
     fetch("/api/getGames/" + query.id + "/" + query.region)
       .then(_checkStatus)
       .then(result => result.json())
-      .then((json) => {
+      .then(json => {
         parsedGames = Util.cleanEmptyDamages(json);
         query.topGame = Util.getHighestDamageGame(parsedGames);
         return _saveHighScore(query);
