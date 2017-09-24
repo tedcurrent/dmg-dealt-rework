@@ -18,21 +18,11 @@ module.exports = class ChampDataUtil {
       if (err)
         return console.log(err.message);
 
-      const champions = this.formatChampData(result.data);
-      const strChampions = Util.formatObjectToString(champions);
-      callback(strChampions);
-    });
-  }
-
-  static formatChampData(champions) {
-    return _.map(champions, (champion) => {
-      return { id: champion.id, name: champion.name };
+      return callback(JSON.stringify(result.data));
     });
   }
 
   static championIdToChampionName(championId) {
-    return _.find(championData, (champion) => {
-      return champion.id == championId;
-    }).name;
+    return championData[championId].name;
   }
 }

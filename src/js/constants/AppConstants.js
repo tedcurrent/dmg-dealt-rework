@@ -12,28 +12,48 @@ export default {
   DEFAULT_SUMMONER_ICON_PATH: "/images/default_profile_icon.png",
   SEARCH_REGION_OPTIONS: [
     {
-      description: "EUW",
-      short: "euw"
+      description: "BR",
+      short: "br"
     },
     {
       description: "EUNE",
       short: "eune"
     },
     {
-      description: "NA",
-      short: "na"
+      description: "EUW",
+      short: "euw"
+    },
+    {
+      description: "JP",
+      short: "jp"
     },
     {
       description: "KR",
       short: "kr"
     },
     {
-      description: "CN",
-      short: "cn"
-    },
-    {
       description: "LAN",
       short: "lan"
+    },
+    {
+      description: "LAS",
+      short: "las"
+    },
+    {
+      description: "NA",
+      short: "na"
+    },
+    {
+      description: "OCE",
+      short: "oce"
+    },
+    {
+      description: "TR",
+      short: "tr"
+    },
+    {
+      description: "RU",
+      short: "ru"
     }
   ],
   QUERY_MIN_LENGTH: 2

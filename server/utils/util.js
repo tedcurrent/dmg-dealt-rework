@@ -38,10 +38,6 @@ module.exports = class Util {
     });
   }
 
-  static formatObjectToString(obj) {
-    return JSON.stringify(obj);
-  }
-
   static writeStringToFile(path, str) {
     try {
       fs.writeFileSync(path, str, "utf8");
