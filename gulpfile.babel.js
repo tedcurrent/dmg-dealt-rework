@@ -26,7 +26,8 @@ const config = {
 		images: "./src/assets/images/*",
 		icons: "./src/assets/icons/*",
 		static: "./server/static",
-		test: "./test/**/*.js",
+		test: ["./test/client/**/*.js", "./test/server/**/*.js"],
+		testItgr: "./test/data/**/*.js",
 		dist: "./dist"
 	}
 };
@@ -92,6 +93,14 @@ gulp.task("static", () => {
 // Test
 gulp.task("test", () => {
 	return gulp.src(config.paths.test)
+		.pipe(tape({
+			reporter: tapDiff()
+		}));
+});
+
+// Integration tests
+gulp.task("test-integration", () => {
+	return gulp.src(config.paths.testItgr)
 		.pipe(tape({
 			reporter: tapDiff()
 		}));

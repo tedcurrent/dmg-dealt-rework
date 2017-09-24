@@ -7,7 +7,7 @@ import HighScoreController from "../../server/controllers/highScoreController";
 
 const _config = {
 	testSummoner: {
-		id: 51520537,
+		id: 206757011,
 		name: "tetsii",
 		profileIconId: 28,
 		region: "euw",
@@ -74,7 +74,7 @@ test("GET /getGames/:summonerId/:region", (t) => {
 		.end((err, res) => {
 			t.error(err);
 			let result = JSON.parse(res.text);
-			t.equal(result.length, 10, "Should return 10 games");
+			t.ok(result.length != 0, "Should return some games");
 			t.end(); 
 		});
 });
