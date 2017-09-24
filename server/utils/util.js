@@ -1,21 +1,14 @@
 "use strict";
 
 const _ = require("lodash");
-const fs = require("fs");
 const champDataUtil = require("./champDataUtil");
 
 // A collection of utility functions
 module.exports = class Util {
   static formatLolGames(games, summonerId) {
-    return _.map(games, game => {
-      const participantIdentity = _.find(game.participantIdentities, identity => {
-        if (identity.player.currentAccountId == summonerId) return identity;
-      });
-
-      const participant = _.find(game.participants, part => {
-        if (part.participantId == participantIdentity.participantId) return part;
-      });
-
+    return games.map(game => {
+      const participantIdentity = this.findParticipantIdentity(summonerId, game.participantIdentities);
+      const participant = this.findParticipant(participantIdentity.participantId, game.participants);
       const stats = participant.stats;
 
       return {
@@ -38,12 +31,15 @@ module.exports = class Util {
     });
   }
 
-  static writeStringToFile(path, str) {
-    try {
-      fs.writeFileSync(path, str, "utf8");
-    } catch (err) {
-      console.log(err.message);
-    }
+  static findParticipantIdentity(accountId, participantIdentities) {
+    return _.find(participantIdentities, identity => {
+      if (identity.player.currentAccountId == accountId) return identity;
+    });
+  }
 
+  static findParticipant(participantId, participants) {
+    return _.find(participants, part => {
+      if (part.participantId == participantId) return part;
+    });
   }
 }

@@ -1,15 +1,14 @@
 "use strict";
 
-const Util = require("./util");
 const LolApiController = require("../controllers/lolApiController");
-const _ = require("lodash");
 const championData = require("../data/static/championData");
+const fs = require("fs");
 
 // A wrapper for several champion related functions
 module.exports = class ChampDataUtil {
   static writeChampsToPath(writePath) {
     this.readChampsFromApi((str) => {
-      Util.writeStringToFile(writePath, str);
+      this.writeStringToFile(writePath, str);
     });
   }
 
@@ -24,5 +23,13 @@ module.exports = class ChampDataUtil {
 
   static championIdToChampionName(championId) {
     return championData[championId].name;
+  }
+
+  static writeStringToFile(path, str) {
+    try {
+      fs.writeFileSync(path, str, "utf8");
+    } catch (err) {
+      console.log(err.message);
+    }
   }
 }
