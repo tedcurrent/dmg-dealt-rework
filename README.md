@@ -14,6 +14,6 @@ Based on an old project I did back in 2014 with Angular 1. The whole site was re
 
 #### Example: 
 
-1. FNC Rekkless 
+1. tetsii
 2. EUW 
 3. Click
