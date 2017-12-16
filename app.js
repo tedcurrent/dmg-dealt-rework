@@ -8,6 +8,7 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const rateLimit = require("express-rate-limit");
 const compression = require("compression");
+const hsts = require("hsts");
 
 // Routes
 const index = require("./server/routes/index");
@@ -23,14 +24,22 @@ const limiter = rateLimit({
   delayMs: 1000
 });
 
+// HTTPS setup
 if (process.env.NODE_ENV === "production") {
+  app.enable("trust proxy");
   app.use((req, res, next) => {
-    if (req.headers["x-forwarded-proto"] !== "https") {
-      res.redirect("https://" + req.hostname + req.originalUrl);
+    if (req.secure) {
+      res.redirect(301, "https://" + req.hostname + req.originalUrl);
     } else {
       next();
     }
   });
+
+  app.use(hsts({
+    maxAge: 31536000,
+    includeSubDomains: true,
+    preload: true
+  }));
 }
 
 // View engine setup
