@@ -28,7 +28,7 @@ const limiter = rateLimit({
 if (process.env.NODE_ENV === "production") {
   app.enable("trust proxy");
   app.use((req, res, next) => {
-    if (req.secure) {
+    if (!req.secure) {
       res.redirect(301, "https://" + req.hostname + req.originalUrl);
     } else {
       next();
