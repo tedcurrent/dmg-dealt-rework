@@ -1,5 +1,5 @@
 export default {
-  LOL_STATIC_BASE_URL: "http://ddragon.leagueoflegends.com/cdn",
+  LOL_STATIC_BASE_URL: "https://ddragon.leagueoflegends.com/cdn",
   LOL_API_VERSION: "6.16.1",
   DOUBLE_KILL: "DOUBLE KILL",
   TRIPLE_KILL: "TRIPLE KILL",

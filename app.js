@@ -23,6 +23,16 @@ const limiter = rateLimit({
   delayMs: 1000
 });
 
+if (process.env.NODE_ENV === "production") {
+  app.use((req, res, next) => {
+    if (req.headers["x-forwarded-proto"] !== "https") {
+      res.redirect("https://" + req.hostname + req.originalUrl);
+    } else {
+      next();
+    }
+  });
+}
+
 // View engine setup
 app.set("views", path.join(__dirname, "/server/views"));
 app.set("view engine", "jade");
